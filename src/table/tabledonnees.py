@@ -54,6 +54,9 @@ class TableDonnees:
             for row in synopreader:
                 self.donnees.append(row)
 
+
+        # TODO coder un truc pour essayer de trouver le type de donnees de chaque variable
+
         print("------------------------------------------------------")
         print("Fichier chargé")
         print("   nombre de lignes    : " + str(len(self.donnees) - 1))

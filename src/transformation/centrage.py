@@ -1,24 +1,33 @@
 '''
-Module transformation
+Module centrage
 Auteurs : Deneuville Ludovic, Trotta Jean-Philippe et Villacampa Laurene
 Date    : 05/05/2022
 Licence : Domaine public
 Version : 1.0
 '''
+
 import doctest
 from estimateur.moyenne import Moyenne
 
 
-class Centrage:
-    '''Centrage d'une variable
-
-    Cette classe ne contient qu'une seule méthode statique
-    Il n'y a pas de constructeur car il n'est pas nécessaire d'instancier une objet de cette classe
+class Centrage():
+    '''Centrage d'une ou plusieurs variables
     '''
 
-    @staticmethod
-    def appliquer(table, numero_colonne):
-        '''Appliquer le centrage à une colonne de la table
+    def __init__(self, colonnes_application):
+        '''Constructeur de l'objet
+
+        Attributes
+        ----------
+        colonnes_application : list[int]
+            colonnes auquelles appliquer la transformation
+            TODO au lieu de l'index de la colonne, modifier pour mettre le nom
+        '''
+        # super().__init__(colonnes_application)
+        self.colonnes_application = colonnes_application
+
+    def appliquer_variable(self, table, numero_colonne):
+        '''Appliquer le centrage à une variable de la table
 
         Cette méthode est statique, elle peut être utilisée sans 
 
@@ -26,9 +35,6 @@ class Centrage:
         ----------
         table : TableDonnees
             table de données
-        numero_colonne : int
-            index de la colonne à centrer
-            TODO éventuellement remplacer par une liste
 
         Examples
         --------
@@ -49,6 +55,12 @@ class Centrage:
                 table.donnees[i][numero_colonne] = new_value
 
         return table
+
+    def appliquer(self, table):
+        '''Appliquer la transformation à plusieurs variables de la table
+        '''
+        for col in self.colonnes_application:
+            self.appliquer_variable(table, col)
 
     def __str__(self):
         '''Conversion de l'objet en chaîne de caractères
