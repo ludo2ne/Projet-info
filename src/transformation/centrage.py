@@ -7,10 +7,11 @@ Version : 1.0
 '''
 
 import doctest
+from transformation.transformation import Transformation
 from estimateur.moyenne import Moyenne
 
 
-class Centrage():
+class Centrage(Transformation):
     '''Centrage d'une ou plusieurs variables
     '''
 
@@ -23,8 +24,7 @@ class Centrage():
             colonnes auquelles appliquer la transformation
             TODO au lieu de l'index de la colonne, modifier pour mettre le nom
         '''
-        # super().__init__(colonnes_application)
-        self.colonnes_application = colonnes_application
+        super().__init__(colonnes_application)
 
     def appliquer_variable(self, table, numero_colonne):
         '''Appliquer le centrage à une variable de la table
