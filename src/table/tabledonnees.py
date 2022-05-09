@@ -8,6 +8,7 @@ Version : 1.0
 import doctest
 import gzip
 import csv
+import numpy as np
 from tabulate import tabulate
 
 
@@ -36,9 +37,9 @@ class TableDonnees:
         ----------
         nom : str
             nom de la table
-        donnees : list[list[str]]
+        donnees : numpy array
             données rangées dans une liste de listes
-        variables : list[str]
+        variables : numpy array
             liste des variables
         chemin_complet : str
             Chemin complet du fichier à charger
@@ -46,25 +47,27 @@ class TableDonnees:
             delimiteur utilisé dans le fichier, point virgule par défaut
         '''
         self.nom = nom
-        self.donnees = []
         self.chemin_complet = chemin_complet
         self.delimiteur = delimiteur
 
         # Chargement du fichier dans l'objet data
+        donnees_csv = []
         with gzip.open(self.chemin_complet, mode='rt') as gzfile:
             synopreader = csv.reader(gzfile, delimiter=self.delimiteur)
             for row in synopreader:
-                self.donnees.append(row)
+                donnees_csv.append(row)
 
-        self.variables = self.donnees[0]
-        self.donnees.pop(0)
+        self.variables = np.array(donnees_csv[0], dtype=object)
+
+        donnees_csv.pop(0)
+        self.donnees = np.array(donnees_csv, dtype=object)
 
         # TODO coder un truc pour essayer de trouver le type de donnees de chaque variable
 
         print("------------------------------------------------------")
         print("Fichier chargé")
-        print("   nombre de lignes    : " + str(len(self.donnees) - 1))
-        print("   nombre de variables : " + str(len(self.donnees[0])))
+        print("   nombre de lignes    : " + str(self.donnees.shape[0]))
+        print("   nombre de variables : " + str(len(self.variables)))
         print("------------------------------------------------------")
 
     def afficher(self, nb_lignes=-1, nb_colonnes=-1):
@@ -84,17 +87,20 @@ class TableDonnees:
         None
         '''
 
+        # Pour eviter de tout refaire je reconverti le numpy array en liste de liste
+        listes_donnees = self.donnees.tolist()
+
         # Gestion des valeurs par defaut des parametres
         if nb_lignes == -1:
-            nb_lignes = len(self.donnees) - 1
+            nb_lignes = len(listes_donnees) - 1
         if nb_colonnes == -1:
-            nb_colonnes = len(self.donnees[0])
+            nb_colonnes = len(listes_donnees[0])
 
         # Creation d une sous liste
         reduced_list = []
         reduced_list.append(self.variables[: nb_colonnes+1])
         for i in range(1, nb_lignes + 1):
-            list_row = self.donnees[i][: nb_colonnes+1]
+            list_row = listes_donnees[i][: nb_colonnes+1]
             reduced_list.append(list_row)
 
         # Affichage

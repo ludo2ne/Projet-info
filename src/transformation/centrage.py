@@ -58,10 +58,15 @@ class Centrage(Transformation):
 
     def appliquer(self, table):
         '''Appliquer la transformation à plusieurs variables de la table
+
+        Parameters
+        ----------
+        table : TableDonnees
+            table de données
         '''
         for col in self.liste_colonnes:
             try:
-                num_col = table.variables.index(col)
+                num_col = table.variables.tolist().index(col)
                 self.appliquer_variable(table, num_col)
             except:
                 warnings.warn("Variable " + col +

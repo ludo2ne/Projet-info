@@ -8,11 +8,12 @@ Version : 1.0
 
 import warnings
 import doctest
+
+from sqlalchemy import desc
 from transformation.transformation import Transformation
-from estimateur.moyenne import Moyenne
 
 
-class SelctionVariables(Transformation):
+class SelectionVariables(Transformation):
     '''Sélection d'une ou plusieurs variables
     '''
 
@@ -35,17 +36,21 @@ class SelctionVariables(Transformation):
             table de données
         '''
 
+        print("------------------------------------------------------")
+        print("Sélection des variables : " + str(self.liste_colonnes))
+
         index_conserves = []
 
         # On parcourt la liste des colonnes de SelectionVariables
         for col in self.liste_colonnes:
             try:
-                index_conserves.append(table.variables.index(col))
+                index_conserves.append(table.variables.tolist().index(col))
             except:
                 warnings.warn("Variable " + col +
                               " non trouvée dans la table " + table.nom)
 
-        # TODO supprimer toutes les colonnes qui ne sont pas dans index_conserves
+        table.variables = table.variables[index_conserves]
+        table.donnees = table.donnees[:, index_conserves]
 
     def __str__(self):
         '''Conversion de l'objet en chaîne de caractères
