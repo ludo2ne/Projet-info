@@ -23,7 +23,7 @@ class TableDonnees:
     chemin_complet : str
         Chemin complet du fichier à charger
 
-    TODO    
+    TODO
     liste_var : list[str]
         Liste contenant les noms des variables
         et ainsi supprimer la premiere ligne de donnees ?
@@ -38,6 +38,8 @@ class TableDonnees:
             nom de la table
         donnees : list[list[str]]
             données rangées dans une liste de listes
+        variables : list[str]
+            liste des variables
         chemin_complet : str
             Chemin complet du fichier à charger
         delimiteur : str
@@ -54,6 +56,8 @@ class TableDonnees:
             for row in synopreader:
                 self.donnees.append(row)
 
+        self.variables = self.donnees[0]
+        self.donnees.pop(0)
 
         # TODO coder un truc pour essayer de trouver le type de donnees de chaque variable
 
@@ -88,8 +92,9 @@ class TableDonnees:
 
         # Creation d une sous liste
         reduced_list = []
-        for i in range(0, nb_lignes + 1):
-            list_row = self.donnees[i][:nb_colonnes+1]
+        reduced_list.append(self.variables[: nb_colonnes+1])
+        for i in range(1, nb_lignes + 1):
+            list_row = self.donnees[i][: nb_colonnes+1]
             reduced_list.append(list_row)
 
         # Affichage

@@ -35,10 +35,6 @@ class Moyenne:
 
         '''
 
-        print("------------------------------------------------------")
-        print("Calcul de la moyenne de la variable " +
-              table.donnees[0][numero_colonne])
-
         somme = 0
         nb = 0
         nb_na = 0
@@ -52,7 +48,9 @@ class Moyenne:
 
         moyenne = round(somme / nb, 2)
 
-        print("  Moyenne : " + str(round(moyenne, 2)) +
+        print("------------------------------------------------------")
+        print("Calcul de la moyenne de la variable " +
+              table.variables[numero_colonne] + " : " + str(round(moyenne, 2)) +
               " (sur " + str(nb) + " valeurs renseignées et " + str(nb_na) + " valeurs manquantes)")
 
         return moyenne

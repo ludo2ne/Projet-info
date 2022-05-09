@@ -6,6 +6,7 @@ Licence : Domaine public
 Version : 1.0
 '''
 
+import warnings
 import doctest
 from transformation.transformation import Transformation
 from estimateur.moyenne import Moyenne
@@ -15,26 +16,25 @@ class Centrage(Transformation):
     '''Centrage d'une ou plusieurs variables
     '''
 
-    def __init__(self, colonnes_application):
+    def __init__(self, liste_colonnes):
         '''Constructeur de l'objet
 
         Attributes
         ----------
-        colonnes_application : list[int]
-            colonnes auquelles appliquer la transformation
-            TODO au lieu de l'index de la colonne, modifier pour mettre le nom
+        liste_colonnes : list[str]
+            liste des noms des colonnes auquelles appliquer la transformation
         '''
-        super().__init__(colonnes_application)
+        self.liste_colonnes = liste_colonnes
 
     def appliquer_variable(self, table, numero_colonne):
         '''Appliquer le centrage à une variable de la table
-
-        Cette méthode est statique, elle peut être utilisée sans 
 
         Parameters
         ----------
         table : TableDonnees
             table de données
+        numero_colonne : int
+            numéro de la colonne sur laquelle appliquer
 
         Examples
         --------
@@ -42,13 +42,13 @@ class Centrage(Transformation):
         '''
 
         print("------------------------------------------------------")
-        print("Centrage de la variable " + table.donnees[0][numero_colonne])
+        print("Centrage de la variable " + table.variables[numero_colonne])
 
         # Calcul de la moyenne
         moyenne = Moyenne.appliquer(table, numero_colonne)
 
         # Centrage de toutes les valeurs
-        for i in range(1, len(table.donnees)):
+        for i in range(0, len(table.donnees)):
             if table.donnees[i][numero_colonne] != "mq":
                 old_value = float(table.donnees[i][numero_colonne])
                 new_value = str(old_value - moyenne)
@@ -59,8 +59,13 @@ class Centrage(Transformation):
     def appliquer(self, table):
         '''Appliquer la transformation à plusieurs variables de la table
         '''
-        for col in self.colonnes_application:
-            self.appliquer_variable(table, col)
+        for col in self.liste_colonnes:
+            try:
+                num_col = table.variables.index(col)
+                self.appliquer_variable(table, num_col)
+            except:
+                warnings.warn("Variable " + col +
+                              " non trouvée dans la table " + table.nom)
 
     def __str__(self):
         '''Conversion de l'objet en chaîne de caractères

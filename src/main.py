@@ -19,7 +19,7 @@ ma_table.afficher(nb_lignes=5,
                   nb_colonnes=15)
 
 
-mon_centrage = Centrage([6, 7])
+mon_centrage = Centrage(['ff', 't', 'xxxxx'])
 
 mon_premier_pipeline = Pipeline(nom="pipo",
                                 liste_transformations=[mon_centrage])
