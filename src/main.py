@@ -14,15 +14,17 @@ from transformation.selectionvariables import SelectionVariables
 # tests des fonctionnalités
 
 ma_table = TableDonnees(nom="table_test",
-                        chemin_complet="P:/projet-info-sources/Projet-info/donnees/synop.201301.csv.gz")
+                        chemin_complet="P:/projet-info-sources/Projet-info/src/tests/donnees/synop.201301.csv.gz")
 
 ma_table.afficher(nb_lignes=5,
                   nb_colonnes=15)
 
-# Creation du pipeline
+
+mon_centrage = Centrage(['ff', 't', 'xxxxx'])
+ma_selection = SelectionVariables(['numer_sta', 'ff'])
+
 mon_premier_pipeline = Pipeline(nom="pipo",
-                                liste_transformations=[Centrage(['ff', 't', 'xxxxx']),
-                                                       SelectionVariables(['numer_sta', 'ff'])])
+                                liste_transformations=[mon_centrage, ma_selection])
 mon_premier_pipeline.lancer(ma_table)
 
 ma_table.afficher(nb_lignes=5,
