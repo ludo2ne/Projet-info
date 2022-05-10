@@ -14,7 +14,7 @@ from transformation.selectionvariables import SelectionVariables
 # tests des fonctionnalités
 
 ma_table = TableDonnees(nom="table_test",
-                        chemin_complet="P:/projet-info-sources/Projet-info/src/tests/donnees/synop.201301.csv.gz")
+                        chemin_complet="P:/projet-info-sources/Projet-info/donnees/synop.201301.csv.gz")
 
 ma_table.afficher(nb_lignes=5,
                   nb_colonnes=15)

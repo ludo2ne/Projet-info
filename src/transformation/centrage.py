@@ -67,10 +67,11 @@ class Centrage(Transformation):
         for col in self.liste_colonnes:
             try:
                 num_col = table.variables.tolist().index(col)
-                self.appliquer_variable(table, num_col)
             except:
                 warnings.warn("Variable " + col +
                               " non trouvée dans la table " + table.nom)
+            else:
+                self.appliquer_variable(table, num_col)
 
     def __str__(self):
         '''Conversion de l'objet en chaîne de caractères
