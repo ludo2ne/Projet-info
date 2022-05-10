@@ -6,11 +6,25 @@
 Sujet : Pipeline de traitement de données
 Tutrice : Natacha NJONGWA YEPNGA (natachayepnga@gmail.com)
 Code source : [GitHub](https://github.com/ludo2ne/Projet-info)
+Git : [User guide](https://hackmd.io/jbRPalI8RpybDdzxFRQ20g?view)
 :::
+
+
+# :left_speech_bubble: Discussions
+
+> [color=blue][name=JP] Désolé, j'écris au début parce que je me perds dans les nombreuses parties et je ne sais pas si quelqu'un va lire jusqu'en bas sinon. J'ai fait des propositions de mise à jour du diagramme UML (cf. plus bas) et j'ai noté mes questions (si on a le temps d'en parler demain matin/midi...)
+> Autre chose: @e5fKIqUeShq9fFaPuAh7Cg Ludo, sur la VM je ne trouve pas les programmes que tu as commencé. Si on est sûr de notre numéro de groupe ( 10 ?), on peut demande à la DSI d'avoir un accès de groupe au dossier du projet éco... j'avais fait ça en projet stat pour SAS.
+
+> [color=green][name=Ludo]Pour le code, il est sur GitHub, tu peux le télécharger via [ce lien](https://github.com/ludo2ne/Projet-info/archive/refs/heads/main.zip). Je vous explique mercredi comment utiliser git, ainsi on aura tous accès et on pourra bosser dessus en parallèle
+
+
+---
 
 # :dart: Échéances
 
+:::warning
 * Diagramme de classes :clock1: <iframe src="https://free.timeanddate.com/countdown/i83zdl7u/n1264/cf11/cm0/cu2/ct4/cs0/ca0/co0/cr0/ss0/cac009/cpcf00/pcfff/tcfff/fs100/szw256/szh108/iso2022-05-10T23:59:00" allowtransparency="true" frameborder="0" width="105" height="16"></iframe>
+:::
 
 ```mermaid
 gantt
@@ -43,6 +57,22 @@ gantt
     Diag classes                 :active,    2022-04-27, 12d
 ```
 
+---
+
+
+# Diagramme de classes
+![](https://i.imgur.com/IbynSXK.png)
+> [name=JP]version 2 (le fichier est sur la VM en png, pdf et uxf)
+![](https://i.imgur.com/TxnIFEu.png)
+
+
+> [color=blue][name=JP]questions de comparaison
+> - faut-il un constructeur aux classes Moyenne et EcartType ? Si oui, je ne vois pas ce qu'il aurait dedans[name=Ludo] Non pas besoin
+> - si la classe TableDonnees a une méthode export() il ne faut pas une classe ExportCSV dans les transformations (au choix)
+> - l'attribut nom est-il utile pour les classes Pipeline et TableDonnees ? pour moi, c'est le nom de la variable qui en sera une instance et pas un attribut de la classe
+> - Dans la classe TableDonnees , je ne vois pas ce que fait la méthode charger() et la nuance avec le constructeur
+> - Dans les UML du prof (TP noté...), il n'y a jamais de + devant les constructeurs ... mystère
+> - Au fait, pourquoi on a nommé la classe EstimateurFinal alors que la moyenne doit être calculée avant de faire la transformation Centrage etc...
 
 
 ---
@@ -57,22 +87,15 @@ gantt
 
 ### :question: Questions à Giraud 
 
-* Quel est la demande utilisateur ?
-    * mettre des fichiers en entrée
-    * choisir des transfo
-    * lancer le pipeline
-    * et récupérer les données propres ?
 * Comment l'utilisateur peut-il utiliser l'application ?
     * interface graphique
     * menu de choix dans la console
     * il code du python pour utiliser les classes créées
 * Est-ce qu'il faut absolument répondre aux questions du sujet ou c'est simplement une direction à prendre ?
 
-
 ---
 
-# Classes et méthodes
-![](https://i.imgur.com/IbynSXK.png)
+# :construction: UML 
 
 ### :large_blue_diamond:  Table
 
@@ -393,6 +416,10 @@ GitHub est le site qui permet d'héberger le dépôt distant du code
 
 ### 4. Cloner le code
 
+:::spoiler
+Si le projet n'est pas déjà créé dans GitHub, aller sur son profil > Repositories > New
+:::
+
 * Créer le dossier suivant **P:\projet-info-sources**
 * Dans Git Bash, taper
 ```bash=
@@ -401,7 +428,7 @@ git clone git@github.com:ludo2ne/Projet-info.git
 ```
 
 * Are you sure... :arrow_right: taper **yes**
-* Et voila le code du projet est importé dans le dossier **P:\projet-info-sources**
+* Et voila le code du projet est importé dans le dossier **P:\projet-info-sources** qui est votre dépôt local
 
 ---
 
@@ -480,7 +507,7 @@ git commit -am "message" # Creer un point de sauvegarde
 
 ---
 
-### Packages python
+# Packages python
 
 * :heavy_check_mark: [numpy](https://courspython.com/apprendre-numpy.html)
 * :heavy_check_mark: matplotlib
