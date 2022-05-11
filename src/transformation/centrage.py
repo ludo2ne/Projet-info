@@ -47,7 +47,7 @@ class Centrage(Transformation):
         # print(type(colx))
 
         # Calcul de la moyenne
-        moyenne = Moyenne.appliquer(table, numero_colonne)
+        moyenne = Moyenne.estim1var(table, numero_colonne)
 
         # Centrage de toutes les valeurs qui ne sont pas NaN
         for i in range(0, len(table.donnees)):

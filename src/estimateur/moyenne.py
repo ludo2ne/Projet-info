@@ -5,19 +5,26 @@ Date    : 05/05/2022
 Licence : Domaine public
 Version : 1.0
 '''
+
 import numpy as np
-import doctest
+from table.tabledonnees import TableDonnees
+from estimateur.abstract_estimateur import AbstractEstimateur
 
 
-class Moyenne:
-    '''Moyenne d'une variable
+class Moyenne(AbstractEstimateur):
+    '''Moyenne calculée sur chaque variable d'une table
 
-    Cette classe ne contient qu'une seule méthode statique
-    Il n'y a pas de constructeur car il n'est pas nécessaire d'instancier une objet de cette classe
+    Attributes
+    ----------
+    nom : str = 'moyenne'
     '''
 
+    def __init__(self):
+        '''Constructeur'''
+        self.nom = 'moyenne'
+
     @staticmethod
-    def appliquer(table, numero_colonne):
+    def estim1var(table, numero_colonne):
         '''Calculer la moyenne d'une colonne de la table
 
         Parameters
@@ -29,12 +36,14 @@ class Moyenne:
 
         Returns
         -------
-            float : moyenne des valeurs de la colonne
+        float : moyenne des valeurs de la colonne
 
         Examples
         --------
 
         '''
+        if table.type_var[numero_colonne] != "float":
+            return None
 
         somme = 0
         nb = 0
@@ -56,7 +65,10 @@ class Moyenne:
 
         return moyenne
 
-    def __str__(self):
-        '''Conversion de l'objet en chaîne de caractères
-        '''
-        return "Je suis une moyenne"
+# à enlever si la classe abstraite vous convient :
+#    @staticmethod
+#    def table_moyenne(table):
+#        liste_moyenne = []
+#        for i in len(table.liste_var):
+#            liste_moyenne.append(estim1var(table, i))
+#        return TableDonnees(table.nom + "_moyenne", table.liste_var, table.type_var, [liste_moyenne])

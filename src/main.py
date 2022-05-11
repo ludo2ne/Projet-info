@@ -10,7 +10,6 @@ from pipeline.pipeline import Pipeline
 from transformation.centrage import Centrage
 from transformation.selectionvariables import SelectionVariables
 
-
 # tests des fonctionnalités
 
 ma_table = TableDonnees(nom="table_test",
