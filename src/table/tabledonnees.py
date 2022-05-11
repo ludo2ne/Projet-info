@@ -6,9 +6,6 @@ Licence : Domaine public
 Version : 1.0
 '''
 import doctest
-import gzip
-import csv
-import numpy as np
 from tabulate import tabulate
 
 
@@ -19,18 +16,17 @@ class TableDonnees:
     ----------
     nom : str
         Nom de la table
-    donnees : list[list[str]]
-        données rangées dans une liste de listes
-    chemin_complet : str
-        Chemin complet du fichier à charger
-
-    TODO
-    liste_var : list[str]
-        Liste contenant les noms des variables
-        et ainsi supprimer la premiere ligne de donnees ?
+    donnees : numpy array
+        données rangées dans un numpy array
+    variables : numpy array
+        liste des variables
+    type_var : numpy array
+        type des variables
+    identifiants : list[str]
+        liste des noms de variables étant des identifiants
     '''
 
-    def __init__(self, nom, chemin_complet, identifiants=None, delimiteur=";", valeur_manquante="na"):
+    def __init__(self, nom, donnees, identifiants=None, valeur_manquante="na"):
         '''Constructeur de l'objet
 
         Parameters
@@ -38,89 +34,17 @@ class TableDonnees:
         nom : str
             nom de la table
         donnees : numpy array
-            données rangées dans une liste de listes
+            données rangées dans un numpy array
         variables : numpy array
             liste des variables
-        type_var : list[str]
-            type des variables
         identifiants : list[str]
             liste des noms de variables étant des identifiants
-        chemin_complet : str
-            Chemin complet du fichier à charger
-        delimiteur : str
-            delimiteur utilisé dans le fichier, point virgule par défaut
+        valeur_manquante : str
+            indique par quelle chaine de caractères sont représentées les valeurs manquantes
+            na par défaut
         '''
         self.nom = nom
-        self.chemin_complet = chemin_complet
         self.identifiants = identifiants
-        self.delimiteur = delimiteur
-
-        # Chargement du fichier dans l'objet data
-        donnees_csv = []
-        with gzip.open(self.chemin_complet, mode='rt') as gzfile:
-            synopreader = csv.reader(gzfile, delimiter=self.delimiteur)
-            for row in synopreader:
-                donnees_csv.append(row)
-
-        self.variables = np.array(donnees_csv[0], dtype=object)
-
-        donnees_csv.pop(0)
-        self.donnees = np.array(donnees_csv, dtype=object)
-        self.type_var = []
-
-        self.donnees[self.donnees == valeur_manquante] = np.nan
-
-        # Remplir la liste self.type_var
-        for num_colonne in range(len(self.donnees[0])):
-
-            # si il y a le mot date dans le nom de la variable elle sera de type date
-            if "date" in self.variables[num_colonne]:
-                self.type_var.append('date')
-                continue
-
-            # si la variable est un identifiant elle reste de type str
-            if self.variables[num_colonne] in self.identifiants:
-                self.type_var.append('str')
-                continue
-
-            # on va maintenant tester si la variable est un int, un float ou aucun des deux
-#            isInt = True
-            isFloat = True
-
-            for num_ligne in range(len(self.donnees)):
-                #                try:
-                #                    int(self.donnees[num_ligne, num_colonne])
-                #                except:
-                #                    if not np.isnan(self.donnees[num_ligne, num_colonne]):
-                #                        isInt = False
-
-                try:
-                    float(self.donnees[num_ligne, num_colonne])
-                except:
-                    isFloat = False
-                    break
-
-#            if isInt:
-#                self.type_var.append('int')
-            if isFloat:
-                self.type_var.append('float')
-            else:
-                self.type_var.append('str')
-
-        self.type_var = np.array(self.type_var)
-
-        # Transformer en float les donnees des variables de type float
-        for num_colonne in range(len(self.donnees[0])):
-            if self.type_var[num_colonne] == 'float':
-                for num_ligne in range(len(self.donnees)):
-                    self.donnees[num_ligne, num_colonne] = float(
-                        self.donnees[num_ligne, num_colonne])
-
-        print("------------------------------------------------------")
-        print("Fichier chargé")
-        print("   nombre de lignes    : " + str(self.donnees.shape[0]))
-        print("   nombre de variables : " + str(len(self.variables)))
-        print("------------------------------------------------------")
 
     def afficher(self, nb_lignes=-1, nb_colonnes=-1):
         '''Affiche sous forme de tableau un extrait de la table
