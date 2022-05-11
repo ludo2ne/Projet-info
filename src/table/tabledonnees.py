@@ -72,25 +72,42 @@ class TableDonnees:
 
         # Remplir la liste self.type_var
         for num_colonne in range(len(self.donnees[0])):
-            # si la variable est un identifiant elle reste de type str
-            if self.variables[num_colonne] in self.identifiants:
-                self.type_var.append('str')
-                continue
 
             # si il y a le mot date dans le nom de la variable elle sera de type date
             if "date" in self.variables[num_colonne]:
                 self.type_var.append('date')
                 continue
 
-            isfloat = True
+            # si la variable est un identifiant elle reste de type str
+            if self.variables[num_colonne] in self.identifiants:
+                self.type_var.append('str')
+                continue
+
+            # on va maintenant tester si la variable est un int, un float ou aucun des deux
+#            isInt = True
+            isFloat = True
+
             for num_ligne in range(len(self.donnees)):
+                #                try:
+                #                    int(self.donnees[num_ligne, num_colonne])
+                #                except:
+                #                    if not np.isnan(self.donnees[num_ligne, num_colonne]):
+                #                        isInt = False
+
                 try:
                     float(self.donnees[num_ligne, num_colonne])
                 except:
-                    isfloat = False
+                    isFloat = False
                     break
 
-            self.type_var.append('float' if isfloat else 'str')
+#            if isInt:
+#                self.type_var.append('int')
+            if isFloat:
+                self.type_var.append('float')
+            else:
+                self.type_var.append('str')
+
+        self.type_var = np.array(self.type_var)
 
         # Transformer en float les donnees des variables de type float
         for num_colonne in range(len(self.donnees[0])):
@@ -134,6 +151,7 @@ class TableDonnees:
         # Creation d une sous liste
         reduced_list = []
         reduced_list.append(self.variables[: nb_colonnes+1])
+        reduced_list.append(self.type_var[: nb_colonnes+1])
         for i in range(1, nb_lignes + 1):
             list_row = listes_donnees[i][: nb_colonnes+1]
             reduced_list.append(list_row)
