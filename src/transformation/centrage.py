@@ -18,7 +18,7 @@ class Centrage(Transformation):
     '''Centrage d'une ou plusieurs variables
     '''
 
-    def __init__(self, liste_colonnes):
+    def __init__(self):
         '''Constructeur de l'objet
 
         Attributes
@@ -26,7 +26,7 @@ class Centrage(Transformation):
         liste_colonnes : list[str]
             liste des noms des colonnes auquelles appliquer la transformation
         '''
-        self.liste_colonnes = liste_colonnes
+        pass
 
     def appliquer_variable(self, table, numero_colonne):
         '''Appliquer le centrage à une variable de la table
@@ -43,21 +43,15 @@ class Centrage(Transformation):
 
         '''
 
-        print("------------------------------------------------------")
-        print("Centrage de la variable " + table.variables[numero_colonne])
-
         #colx = table.donnees[:, numero_colonne].astype(float)
         # print(type(colx))
 
         # Calcul de la moyenne
         moyenne = Moyenne.appliquer(table, numero_colonne)
-        colonne_en_ligne = table.donnees[:, numero_colonne].T
-        moyenne2 = statistics.mean(colonne_en_ligne)
 
-        # Centrage de toutes les valeurs qui ne sont pas nan
+        # Centrage de toutes les valeurs qui ne sont pas NaN
         for i in range(0, len(table.donnees)):
             if not np.isnan(table.donnees[i][numero_colonne]):
-                # if (table.donnees[i][numero_colonne]) != "mq":
                 old_value = float(table.donnees[i][numero_colonne])
                 new_value = str(old_value - moyenne)
                 table.donnees[i][numero_colonne] = new_value
@@ -72,13 +66,12 @@ class Centrage(Transformation):
         table : TableDonnees
             table de données
         '''
-        for col in self.liste_colonnes:
-            try:
-                num_col = table.variables.tolist().index(col)
-            except:
-                warnings.warn("Variable " + col +
-                              " non trouvée dans la table " + table.nom)
-            else:
+
+        print("------------------------------------------------------")
+        print("Centrage de la table " + table.nom)
+
+        for num_col in range(len(table.variables)):
+            if table.type_var[num_col] == 'float':
                 self.appliquer_variable(table, num_col)
 
     def __str__(self):

@@ -22,8 +22,8 @@ ma_table.afficher(nb_lignes=10,
 
 # Creation du pipeline
 mon_premier_pipeline = Pipeline(nom="pipo",
-                                liste_transformations=[Centrage(['ff', 't', 'xxxxx'])])
-# SelectionVariables(['numer_sta', 'ff', 'w1'])])
+                                liste_transformations=[Centrage(),
+                                                       SelectionVariables(['numer_sta', 'ff', 'w1', 'sw'])])
 mon_premier_pipeline.lancer(ma_table)
 
 ma_table.afficher(nb_lignes=10,

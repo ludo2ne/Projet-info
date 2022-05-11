@@ -47,7 +47,7 @@ class Moyenne:
             else:
                 nb_na += 1
 
-        moyenne = round(somme / nb, 2)
+        moyenne = round(somme / nb, 2) if nb != 0 else np.nan
 
         print("------------------------------------------------------")
         print("Calcul de la moyenne de la variable " +
