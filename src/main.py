@@ -5,6 +5,7 @@ Date	: 05/05/2022
 Licence : Domaine public
 Version : 1.0
 '''
+import os
 from table.donneescsv import DonneesCsv
 from pipeline.pipeline import Pipeline
 from transformation.centrage import Centrage
@@ -13,7 +14,7 @@ from transformation.selectionvariables import SelectionVariables
 # tests des fonctionnalités
 
 ma_table = DonneesCsv(nom="table_test",
-                      chemin_complet="P:/projet-info-sources/Projet-info/donnees/synop.201301.csv.gz",
+                      chemin_complet=os.getcwd() + "/donnees/synop.201301.csv.gz",
                       identifiants=['numer_sta', 'date'],
                       valeur_manquante="mq")
 
