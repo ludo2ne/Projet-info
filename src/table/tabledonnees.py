@@ -30,7 +30,7 @@ class TableDonnees:
         et ainsi supprimer la premiere ligne de donnees ?
     '''
 
-    def __init__(self, nom, chemin_complet, delimiteur=";"):
+    def __init__(self, nom, chemin_complet, delimiteur=";", valeur_manquante="na"):
         '''Constructeur de l'objet
 
         Parameters
@@ -61,8 +61,28 @@ class TableDonnees:
 
         donnees_csv.pop(0)
         self.donnees = np.array(donnees_csv, dtype=object)
+        self.type_var = []
 
-        # TODO coder un truc pour essayer de trouver le type de donnees de chaque variable
+        self.donnees[self.donnees == valeur_manquante] = np.nan
+
+        # Remplir la liste self.type_var
+        for num_colonne in range(len(self.donnees[0])):
+            isfloat = True
+            for num_ligne in range(len(self.donnees)):
+                try:
+                    float(self.donnees[num_ligne, num_colonne])
+                except:
+                    isfloat = False
+                    break
+
+            self.type_var.append('float' if isfloat else 'str')
+
+        # Transformer en float les donnees des variables de type float
+        for num_colonne in range(len(self.donnees[0])):
+            if self.type_var[num_colonne] == 'float':
+                for num_ligne in range(len(self.donnees)):
+                    self.donnees[num_ligne, num_colonne] = float(
+                        self.donnees[num_ligne, num_colonne])
 
         print("------------------------------------------------------")
         print("Fichier chargé")

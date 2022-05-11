@@ -7,7 +7,9 @@ Version : 1.0
 '''
 
 import warnings
+import statistics
 import doctest
+import numpy as np
 from transformation.transformation import Transformation
 from estimateur.moyenne import Moyenne
 
@@ -44,12 +46,17 @@ class Centrage(Transformation):
         print("------------------------------------------------------")
         print("Centrage de la variable " + table.variables[numero_colonne])
 
+        #colx = table.donnees[:, numero_colonne].astype(float)
+        # print(type(colx))
+
         # Calcul de la moyenne
         moyenne = Moyenne.appliquer(table, numero_colonne)
+        #moyenne2 = statistics.mean(list(float(table.donnees[:, numero_colonne])))
 
-        # Centrage de toutes les valeurs
+        # Centrage de toutes les valeurs qui ne sont pas nan
         for i in range(0, len(table.donnees)):
-            if table.donnees[i][numero_colonne] != "mq":
+            if not np.isnan(table.donnees[i][numero_colonne]):
+                # if (table.donnees[i][numero_colonne]) != "mq":
                 old_value = float(table.donnees[i][numero_colonne])
                 new_value = str(old_value - moyenne)
                 table.donnees[i][numero_colonne] = new_value
