@@ -6,6 +6,7 @@ Licence : Domaine public
 Version : 1.0
 '''
 import doctest
+from ..table.tabledonnees import TableDonnees
 
 
 class Moyenne:
@@ -16,7 +17,7 @@ class Moyenne:
     '''
 
     @staticmethod
-    def appliquer(table, numero_colonne):
+    def estim1var(table, numero_colonne):
         '''Calculer la moyenne d'une colonne de la table
 
         Parameters
@@ -34,7 +35,7 @@ class Moyenne:
         --------
 
         '''
-
+        assert(table.type_var[numero_colonne] == "float")
         somme = 0
         nb = 0
         nb_na = 0
@@ -55,7 +56,9 @@ class Moyenne:
 
         return moyenne
 
-    def __str__(self):
-        '''Conversion de l'objet en chaîne de caractères
-        '''
-        return "Je suis une moyenne"
+    @staticmethod
+    def table_moyenne(table):
+        liste_moyenne = []
+        for i in len(table.liste_var):
+            liste_moyenne.append(estim1var(table, i))
+        return TableDonnees(table.nom + "_moyenne", table.liste_var, table.type_var, [liste_moyenne])
