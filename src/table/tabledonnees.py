@@ -30,7 +30,7 @@ class TableDonnees:
         et ainsi supprimer la premiere ligne de donnees ?
     '''
 
-    def __init__(self, nom, chemin_complet, delimiteur=";", valeur_manquante="na"):
+    def __init__(self, nom, chemin_complet, identifiants=None, delimiteur=";", valeur_manquante="na"):
         '''Constructeur de l'objet
 
         Parameters
@@ -41,8 +41,10 @@ class TableDonnees:
             données rangées dans une liste de listes
         variables : numpy array
             liste des variables
-        type_var: list[str]
+        type_var : list[str]
             type des variables
+        identifiants : list[str]
+            liste des noms de variables étant des identifiants
         chemin_complet : str
             Chemin complet du fichier à charger
         delimiteur : str
@@ -50,6 +52,7 @@ class TableDonnees:
         '''
         self.nom = nom
         self.chemin_complet = chemin_complet
+        self.identifiants = identifiants
         self.delimiteur = delimiteur
 
         # Chargement du fichier dans l'objet data
@@ -69,6 +72,16 @@ class TableDonnees:
 
         # Remplir la liste self.type_var
         for num_colonne in range(len(self.donnees[0])):
+            # si la variable est un identifiant elle reste de type str
+            if self.variables[num_colonne] in self.identifiants:
+                self.type_var.append('str')
+                continue
+
+            # si il y a le mot date dans le nom de la variable elle sera de type date
+            if "date" in self.variables[num_colonne]:
+                self.type_var.append('date')
+                continue
+
             isfloat = True
             for num_ligne in range(len(self.donnees)):
                 try:

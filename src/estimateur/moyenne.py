@@ -49,10 +49,10 @@ class Moyenne:
 
         moyenne = round(somme / nb, 2) if nb != 0 else np.nan
 
-        print("------------------------------------------------------")
-        print("Calcul de la moyenne de la variable " +
-              table.variables[numero_colonne] + " : " + str(round(moyenne, 2)) +
-              " (sur " + str(nb) + " valeurs renseignées et " + str(nb_na) + " valeurs manquantes)")
+#        print("------------------------------------------------------")
+#        print("Calcul de la moyenne de la variable " +
+#              table.variables[numero_colonne] + " : " + str(round(moyenne, 2)) +
+#              " (sur " + str(nb) + " valeurs renseignées et " + str(nb_na) + " valeurs manquantes)")
 
         return moyenne
 

@@ -15,6 +15,7 @@ from transformation.selectionvariables import SelectionVariables
 
 ma_table = TableDonnees(nom="table_test",
                         chemin_complet="P:/projet-info-sources/Projet-info/donnees/synop.201301.csv.gz",
+                        identifiants=['numer_sta', 'date'],
                         valeur_manquante="mq")
 
 ma_table.afficher(nb_lignes=10,
@@ -23,7 +24,7 @@ ma_table.afficher(nb_lignes=10,
 # Creation du pipeline
 mon_premier_pipeline = Pipeline(nom="pipo",
                                 liste_transformations=[Centrage(),
-                                                       SelectionVariables(['numer_sta', 'ff', 'w1', 'sw'])])
+                                                       SelectionVariables(['numer_sta', 'date', 'ff', 'w1', 'sw'])])
 mon_premier_pipeline.lancer(ma_table)
 
 ma_table.afficher(nb_lignes=10,
