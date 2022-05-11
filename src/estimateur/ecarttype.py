@@ -5,18 +5,22 @@ Date    : 11/05/2022
 Licence : Domaine public
 Version : 1.0
 '''
-import doctest
 import math
 from moyenne import Moyenne
-from ..table.tabledonnees import TableDonnees
+from estimateur.abstract_estimateur import AbstractEstimateur
+from table.tabledonnees import TableDonnees
 
 
-class EcartType:
-    '''Ecart-type d'une variable calculé sur une table
+class EcartType(AbstractEstimateur):
+    '''Ecart-type calculé sur chaque variable d'une table
 
-    Cette classe ne contient qu'une seule méthode statique
-    Il n'y a pas de constructeur car il n'est pas nécessaire d'instancier une objet de cette classe
+    Attributes
+    ----------
+    nom : str = 'ecart_type'
     '''
+
+    def __init__(self):
+        self.nom = 'ecart_type'
 
     @staticmethod
     def estim1var(table, numero_colonne):
@@ -31,7 +35,7 @@ class EcartType:
 
         Returns
         -------
-            float : écart-type des valeurs de la colonne
+        float : écart-type des valeurs de la colonne
 
         Examples
         --------
@@ -60,14 +64,3 @@ class EcartType:
               " (sur " + str(nb) + " valeurs renseignées et " + str(nb_na) + " valeurs manquantes)")
 
         return ecart_type
-
-    @staticmethod
-    def table_ecarttype(table):
-        '''
-        '''
-        # TODO boucle pour appliquer l'estimateur à chauqe variable de la table
-        table_ecarttype = TableDonnees(nom=table.nom + 'ecarttype',
-                                       liste_var=table.liste_var,
-                                       type_var=table.type_var,
-                                       donnees=  # TODO ?
-                                       )
