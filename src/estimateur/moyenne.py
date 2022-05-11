@@ -5,6 +5,7 @@ Date    : 05/05/2022
 Licence : Domaine public
 Version : 1.0
 '''
+import numpy as np
 import doctest
 
 
@@ -40,7 +41,7 @@ class Moyenne:
         nb_na = 0
 
         for i in range(1, len(table.donnees)):
-            if table.donnees[i][numero_colonne] != "mq":
+            if not np.isnan(table.donnees[i][numero_colonne]):
                 somme += float(table.donnees[i][numero_colonne])
                 nb += 1
             else:

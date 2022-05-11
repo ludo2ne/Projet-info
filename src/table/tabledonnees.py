@@ -77,12 +77,16 @@ class TableDonnees:
 
             self.type_var.append('float' if isfloat else 'str')
 
+        print(self.donnees[0:5, 0:10])
+
         # Transformer en float les donnees des variables de type float
         for num_colonne in range(len(self.donnees[0])):
             if self.type_var[num_colonne] == 'float':
                 for num_ligne in range(len(self.donnees)):
                     self.donnees[num_ligne, num_colonne] = float(
                         self.donnees[num_ligne, num_colonne])
+
+        print(self.donnees[0:5, 0:10])
 
         print("------------------------------------------------------")
         print("Fichier chargé")

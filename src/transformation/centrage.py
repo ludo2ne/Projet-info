@@ -51,7 +51,8 @@ class Centrage(Transformation):
 
         # Calcul de la moyenne
         moyenne = Moyenne.appliquer(table, numero_colonne)
-        #moyenne2 = statistics.mean(list(float(table.donnees[:, numero_colonne])))
+        colonne_en_ligne = table.donnees[:, numero_colonne].T
+        moyenne2 = statistics.mean(colonne_en_ligne)
 
         # Centrage de toutes les valeurs qui ne sont pas nan
         for i in range(0, len(table.donnees)):
