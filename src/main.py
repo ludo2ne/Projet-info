@@ -7,8 +7,9 @@ Version : 1.0
 '''
 import os
 import numpy as np
-from table.donneescsv import DonneesCsv
 from table.tabledonnees import TableDonnees
+from table.donneescsv import DonneesCsv
+from table.donneesjson import DonneesJson
 from pipeline.pipeline import Pipeline
 from transformation.centrage import Centrage
 from transformation.selectionvariables import SelectionVariables
@@ -16,7 +17,7 @@ from transformation.selectionvariables import SelectionVariables
 # -------------------------------------------------------------------
 # Creation a partir d un fichier csv
 # -------------------------------------------------------------------
-ma_table_csv = DonneesCsv(nom="table_test",
+ma_table_csv = DonneesCsv(nom="table_csv",
                           chemin_complet=os.getcwd() + "/donnees/synop.201301.csv.gz",
                           identifiants=['numer_sta', 'date'],
                           valeur_manquante="mq")
@@ -46,3 +47,15 @@ ma_table = TableDonnees(nom="t1",
                         type_var=["str", "date", "float"])
 
 ma_table.afficher()
+
+
+# -------------------------------------------------------------------
+# Creation a partir d un fichier json
+# -------------------------------------------------------------------
+ma_table_json = DonneesJson(nom="table_json",
+                            chemin_complet=os.getcwd() + "/donnees/2013-01.json.gz",
+                            identifiants=[],
+                            valeur_manquante="mq")
+
+ma_table_json.afficher(nb_lignes=10,
+                       nb_colonnes=7)
