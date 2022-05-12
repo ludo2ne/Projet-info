@@ -22,7 +22,7 @@ ma_table_csv = DonneesCsv(nom="table_test",
                           valeur_manquante="mq")
 
 ma_table_csv.afficher(nb_lignes=10,
-                      nb_colonnes=15)
+                      nb_colonnes=12)
 
 # -------------------------------------------------------------------
 # Creation et lancement du pipeline
@@ -33,7 +33,7 @@ mon_premier_pipeline = Pipeline(nom="pipo",
 mon_premier_pipeline.lancer(ma_table_csv)
 
 ma_table_csv.afficher(nb_lignes=10,
-                      nb_colonnes=15)
+                      nb_colonnes=12)
 
 
 # -------------------------------------------------------------------

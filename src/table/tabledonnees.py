@@ -83,25 +83,29 @@ class TableDonnees:
         # Pour eviter de tout refaire je reconverti le numpy array en liste de liste
         listes_donnees = self.donnees.tolist()
 
-        # Gestion des valeurs par defaut des parametres
-        if nb_lignes == None:
+        # Si les parametres sont resenignes a None ou si leur valeur est trop grande
+        # ils prennent simplement la valeur maximum possible
+        if nb_lignes == None or nb_lignes > len(listes_donnees):
             nb_lignes = len(listes_donnees)
-        if nb_colonnes == None:
+        if nb_colonnes == None or nb_colonnes > len(listes_donnees[0]):
             nb_colonnes = len(listes_donnees[0])
 
         # Creation d une sous liste
-        reduced_list = []
-        reduced_list.append(self.variables[: nb_colonnes+1])
-        reduced_list.append(self.type_var[: nb_colonnes+1])
+        reduced_list = [[]]
+
+        for i in range(0, nb_colonnes):
+            reduced_list[0].append(self.variables[i] + "\n" + self.type_var[i])
+
         for i in range(nb_lignes):
-            list_row = listes_donnees[i][: nb_colonnes+1]
+            list_row = listes_donnees[i][: nb_colonnes]
             reduced_list.append(list_row)
 
         # Affichage
         print(
             "\n" + tabulate(tabular_data=reduced_list[1:],
                             headers=reduced_list[0],
-                            floatfmt=".2f") + "\n")                 # 2 decimales pour les float
+                            tablefmt="psql",
+                            floatfmt=".2f") + "\n")    # 2 decimales pour les float
 
     def __str__(self):
         '''Conversion de l'objet en chaîne de caractères
