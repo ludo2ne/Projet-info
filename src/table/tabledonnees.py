@@ -6,6 +6,7 @@ Licence : Domaine public
 Version : 1.0
 '''
 import doctest
+import numpy as np
 from tabulate import tabulate
 
 
@@ -26,7 +27,7 @@ class TableDonnees:
         liste des noms de variables étant des identifiants
     '''
 
-    def __init__(self, nom, donnees, identifiants=None, valeur_manquante="na"):
+    def __init__(self, nom, donnees, identifiants=None, type_var=[], valeur_manquante="na"):
         '''Constructeur de l'objet
 
         Parameters
@@ -35,18 +36,34 @@ class TableDonnees:
             nom de la table
         donnees : numpy array
             données rangées dans un numpy array
-        variables : numpy array
-            liste des variables
         identifiants : list[str]
             liste des noms de variables étant des identifiants
+        type_var : numpy array
+            type des variables
         valeur_manquante : str
             indique par quelle chaine de caractères sont représentées les valeurs manquantes
             na par défaut
+
+        Examples
+        --------
         '''
         self.nom = nom
         self.identifiants = identifiants
+        self.type_var = type_var
 
-    def afficher(self, nb_lignes=-1, nb_colonnes=-1):
+        if self.__class__.__name__ == "TableDonnees":
+            self.variables = donnees[0]
+            self.donnees = donnees[1:]
+            self.bilan_chargement()
+
+    def bilan_chargement(self):
+        print("------------------------------------------------------")
+        print("Table " + self.nom + " chargée : ")
+        print("   nombre de lignes    : " + str(len(self.donnees)))
+        print("   nombre de variables : " + str(len(self.variables)))
+        print("------------------------------------------------------")
+
+    def afficher(self, nb_lignes=None, nb_colonnes=None):
         '''Affiche sous forme de tableau un extrait de la table
 
         Parameters
@@ -67,16 +84,16 @@ class TableDonnees:
         listes_donnees = self.donnees.tolist()
 
         # Gestion des valeurs par defaut des parametres
-        if nb_lignes == -1:
-            nb_lignes = len(listes_donnees) - 1
-        if nb_colonnes == -1:
+        if nb_lignes == None:
+            nb_lignes = len(listes_donnees)
+        if nb_colonnes == None:
             nb_colonnes = len(listes_donnees[0])
 
         # Creation d une sous liste
         reduced_list = []
         reduced_list.append(self.variables[: nb_colonnes+1])
         reduced_list.append(self.type_var[: nb_colonnes+1])
-        for i in range(1, nb_lignes + 1):
+        for i in range(nb_lignes):
             list_row = listes_donnees[i][: nb_colonnes+1]
             reduced_list.append(list_row)
 

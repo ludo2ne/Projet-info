@@ -6,26 +6,43 @@ Licence : Domaine public
 Version : 1.0
 '''
 import os
+import numpy as np
 from table.donneescsv import DonneesCsv
+from table.tabledonnees import TableDonnees
 from pipeline.pipeline import Pipeline
 from transformation.centrage import Centrage
 from transformation.selectionvariables import SelectionVariables
 
-# tests des fonctionnalités
+# -------------------------------------------------------------------
+# Creation a partir d un fichier csv
+# -------------------------------------------------------------------
+ma_table_csv = DonneesCsv(nom="table_test",
+                          chemin_complet=os.getcwd() + "/donnees/synop.201301.csv.gz",
+                          identifiants=['numer_sta', 'date'],
+                          valeur_manquante="mq")
 
-ma_table = DonneesCsv(nom="table_test",
-                      chemin_complet=os.getcwd() + "/donnees/synop.201301.csv.gz",
-                      identifiants=['numer_sta', 'date'],
-                      valeur_manquante="mq")
+ma_table_csv.afficher(nb_lignes=10,
+                      nb_colonnes=15)
 
-ma_table.afficher(nb_lignes=10,
-                  nb_colonnes=15)
-
-# Creation du pipeline
+# -------------------------------------------------------------------
+# Creation et lancement du pipeline
+# -------------------------------------------------------------------
 mon_premier_pipeline = Pipeline(nom="pipo",
                                 liste_transformations=[Centrage(),
                                                        SelectionVariables(['numer_sta', 'date', 'ff', 'w1', 'sw'])])
-mon_premier_pipeline.lancer(ma_table)
+mon_premier_pipeline.lancer(ma_table_csv)
 
-ma_table.afficher(nb_lignes=10,
-                  nb_colonnes=15)
+ma_table_csv.afficher(nb_lignes=10,
+                      nb_colonnes=15)
+
+
+# -------------------------------------------------------------------
+# Creation manuelle d une table
+# -------------------------------------------------------------------
+ma_table = TableDonnees(nom="t1",
+                        donnees=np.array([["id", "dnais", "taille"], [
+                                         "id1", 20120101, 160], ["id2", 20060920, 180]]),
+                        identifiants=["id"],
+                        type_var=["str", "date", "float"])
+
+ma_table.afficher()

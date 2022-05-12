@@ -66,7 +66,6 @@ class DonneesCsv(TableDonnees):
 
         donnees_csv.pop(0)
         self.donnees = np.array(donnees_csv, dtype=object)
-        self.type_var = []
 
         self.donnees[self.donnees == valeur_manquante] = np.nan
 
@@ -116,11 +115,7 @@ class DonneesCsv(TableDonnees):
                     self.donnees[num_ligne, num_colonne] = float(
                         self.donnees[num_ligne, num_colonne])
 
-        print("------------------------------------------------------")
-        print("Fichier chargé")
-        print("   nombre de lignes    : " + str(self.donnees.shape[0]))
-        print("   nombre de variables : " + str(len(self.variables)))
-        print("------------------------------------------------------")
+        self.bilan_chargement()
 
 
 if __name__ == '__main__':
