@@ -1,33 +1,30 @@
 '''
-Module centrage
+Module reduction
 Auteurs : Deneuville Ludovic, Trotta Jean-Philippe et Villacampa Laurene
-Date    : 05/05/2022
+Date    : 13/05/2022
 Licence : Domaine public
 Version : 1.0
 '''
 
 import warnings
+import statistics
 import doctest
+import numpy as np
 from transformation.transformation import Transformation
-from estimateur.moyenne import Moyenne
+from estimateur.ecarttype import EcartType
 
 
-class Centrage(Transformation):
-    '''Centrage d'une ou plusieurs variables
+class Reduction(Transformation):
+    '''Reduction d'une ou plusieurs variables
     '''
 
-    def __init__(self, liste_colonnes):
+    def __init__(self):
         '''Constructeur de l'objet
-
-        Attributes
-        ----------
-        liste_colonnes : list[str]
-            liste des noms des colonnes auquelles appliquer la transformation
         '''
-        self.liste_colonnes = liste_colonnes
+        pass
 
     def appliquer_variable(self, table, numero_colonne):
-        '''Appliquer le centrage à une variable de la table
+        '''Appliquer la réduction à une variable de la table
 
         Parameters
         ----------
@@ -41,34 +38,33 @@ class Centrage(Transformation):
 
         '''
 
-        print("------------------------------------------------------")
-        print("Centrage de la variable " + table.variables[numero_colonne])
+        #colx = table.donnees[:, numero_colonne].astype(float)
+        # print(type(colx))
 
-        # Calcul de la moyenne
-        moyenne = Moyenne.appliquer(table, numero_colonne)
+        # Calcul de l'écart-type
+        ecartype = EcartType.estim1var(table, numero_colonne)
 
-        # Centrage de toutes les valeurs
+        # Réduction de toutes les valeurs qui ne sont pas NaN
         for i in range(0, len(table.donnees)):
-            if table.donnees[i][numero_colonne] != "mq":
-                old_value = float(table.donnees[i][numero_colonne])
-                new_value = str(old_value - moyenne)
+            if not np.isnan(table.donnees[i][numero_colonne]):
+                old_value = table.donnees[i][numero_colonne]
+                new_value = old_value/ecartype
                 table.donnees[i][numero_colonne] = new_value
 
-        return table
+        return table #pourquoi il y a un return ? TODO
 
     def appliquer(self, table):
-        '''Appliquer la transformation à plusieurs variables de la table
+        '''Appliquer la transformation à à toutes les variables numériques de la table
 
         Parameters
         ----------
         table : TableDonnees
             table de données
         '''
-        for col in self.liste_colonnes:
-            try:
-                num_col = table.variables.tolist().index(col)
-            except:
-                warnings.warn("Variable " + col +
-                              " non trouvée dans la table " + table.nom)
-            else:
+
+        print("------------------------------------------------------")
+        print("Réduction de la table " + table.nom)
+
+        for num_col in range(len(table.variables)):
+            if table.type_var[num_col] == "float":
                 self.appliquer_variable(table, num_col)

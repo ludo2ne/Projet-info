@@ -27,7 +27,7 @@ class TableDonnees:
         liste des noms de variables étant des identifiants
     '''
 
-    def __init__(self, nom, donnees, identifiants=None, type_var=[], valeur_manquante="na"):
+    def __init__(self, nom, donnees_avec_entete, identifiants=None, type_var=[], valeur_manquante="na"):
         '''Constructeur de l'objet
 
         Parameters
@@ -52,8 +52,8 @@ class TableDonnees:
         self.type_var = type_var
 
         if self.__class__.__name__ == "TableDonnees":
-            self.variables = donnees[0]
-            self.donnees = donnees[1:]
+            self.variables = donnees_avec_entete[0]
+            self.donnees = donnees_avec_entete[1:]
             self.bilan_chargement()
 
     def bilan_chargement(self):

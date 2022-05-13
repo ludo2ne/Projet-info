@@ -44,7 +44,7 @@ class AbstractEstimateur(ABC):
         Parameters
         ----------
         table : TableDonnees
-            table de données
+            table de données déjà selectionnée pour que toutes les variables soit de type "float"
 
         Returns
         -------
