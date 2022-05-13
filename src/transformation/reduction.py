@@ -1,7 +1,7 @@
 '''
 Module reduction
 Auteurs : Deneuville Ludovic, Trotta Jean-Philippe et Villacampa Laurene
-Date    : 05/05/2022
+Date    : 13/05/2022
 Licence : Domaine public
 Version : 1.0
 '''
@@ -20,11 +20,6 @@ class Reduction(Transformation):
 
     def __init__(self):
         '''Constructeur de l'objet
-
-        Attributes
-        ----------
-        liste_colonnes : list[str]
-            liste des noms des colonnes auquelles appliquer la transformation (colonnes de type "float")
         '''
         pass
 
@@ -56,7 +51,7 @@ class Reduction(Transformation):
                 new_value = old_value/ecartype
                 table.donnees[i][numero_colonne] = new_value
 
-        return table
+        return table #pourquoi il y a un return ? TODO
 
     def appliquer(self, table):
         '''Appliquer la transformation à plusieurs variables de la table

@@ -29,7 +29,7 @@ class DonneesJson(TableDonnees):
     identifiants : list[str]
         liste des noms de variables étant des identifiants
     '''
-#TODO Est-ce qu'ici l'attribut donnees est en fait donnees_avec_entete ? Si oui, modifier et mettre l'ULM à joir en même temps (idem dans la classe csv)
+#TODO Est-ce qu'ici l'attribut donnees est en fait donnees_avec_entete ? Si oui, modifier et mettre l'ULM à jour en même temps (idem dans la classe csv)
     def __init__(self, nom, chemin_complet, identifiants=None, delimiteur=";", valeur_manquante="na"):
         '''Constructeur de l'objet
 

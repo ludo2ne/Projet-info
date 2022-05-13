@@ -24,9 +24,10 @@ class Centrage(Transformation):
         Attributes
         ----------
         liste_colonnes : list[str]
-            liste des noms des colonnes auquelles appliquer la transformation (colonnes de type "float")
+            liste des noms des colonnes auxquelles appliquer la transformation (colonnes de type "float")
         '''
         pass
+# est-ce que la liste_colonnes est vraiment un attribut la classe de Centrage ? si oui l'ajouter sur l'UML, sinon le supprimer de la documentation TODO
 
     def appliquer_variable(self, table, numero_colonne):
         '''Appliquer le centrage à une variable de la table
