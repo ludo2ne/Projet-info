@@ -57,7 +57,7 @@ class Moyenne:
         return moyenne
 
     @staticmethod
-    def table_moyenne(table):
+    def table_estimateur(table):
         liste_moyenne = []
         for i in len(table.liste_var):
             liste_moyenne.append(estim1var(table, i))

@@ -16,14 +16,19 @@ class Centrage(Transformation):
     '''Centrage d'une ou plusieurs variables
     '''
 
-    def __init__(self, liste_colonnes):
+    def __init__(self):
         '''Constructeur de l'objet
 
         Attributes
         ----------
         liste_colonnes : list[str]
-            liste des noms des colonnes auquelles appliquer la transformation
+            liste des noms des colonnes auquelles appliquer la transformation (colonnes de type "float")
         '''
+        liste_colonnes=[]
+        for i in range(len(self.liste_var)):
+            if self.type_var[i]=="float":
+                liste_colonnes.append(self.liste_var[i])
+
         self.liste_colonnes = liste_colonnes
 
     def appliquer_variable(self, table, numero_colonne):
@@ -72,8 +77,3 @@ class Centrage(Transformation):
                               " non trouvée dans la table " + table.nom)
             else:
                 self.appliquer_variable(table, num_col)
-
-    def __str__(self):
-        '''Conversion de l'objet en chaîne de caractères
-        '''
-        return "Je suis un centrage"
