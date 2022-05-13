@@ -56,7 +56,7 @@ class AbstractEstimateur(ABC):
         liste_estim = []
         for i in len(table.variables):
             liste_estim.append(self.estim1var(table, i))
-        return TableDonnees(nom=table.nom + "_" + self.nom,
-                            donnees=[liste_estim],
-                            variables=table.variables,
-                            type_var=table.type_var)
+        return TableDonnees(nom = table.nom + "_" + self.nom,
+                            donnees = [liste_estim],
+                            variables = table.variables,
+                            type_var = table.type_var)

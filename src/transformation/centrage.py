@@ -24,7 +24,7 @@ class Centrage(Transformation):
         Attributes
         ----------
         liste_colonnes : list[str]
-            liste des noms des colonnes auquelles appliquer la transformation
+            liste des noms des colonnes auquelles appliquer la transformation (colonnes de type "float")
         '''
         pass
 
@@ -73,8 +73,3 @@ class Centrage(Transformation):
         for num_col in range(len(table.variables)):
             if table.type_var[num_col] == 'float':
                 self.appliquer_variable(table, num_col)
-
-    def __str__(self):
-        '''Conversion de l'objet en chaîne de caractères
-        '''
-        return "Je suis un centrage"

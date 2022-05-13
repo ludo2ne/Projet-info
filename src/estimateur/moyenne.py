@@ -8,7 +8,7 @@ Version : 1.0
 
 import numpy as np
 from table.tabledonnees import TableDonnees
-from estimateur.abstract_estimateur import AbstractEstimateur
+from estimateur.estimateur import AbstractEstimateur
 
 
 class Moyenne(AbstractEstimateur):
@@ -64,6 +64,7 @@ class Moyenne(AbstractEstimateur):
 #              " (sur " + str(nb) + " valeurs renseignées et " + str(nb_na) + " valeurs manquantes)")
 
         return moyenne
+
 
 # à enlever si la classe abstraite vous convient :
 #    @staticmethod

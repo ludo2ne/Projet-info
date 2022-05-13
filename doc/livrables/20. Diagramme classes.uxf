@@ -1,62 +1,62 @@
-<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>Space for diagram not</help_text><element><id>UMLClass</id><coordinates><x>510</x><y>753</y><w>380</w><h>90</h></coordinates><panel_attributes>&lt;&lt;Abstract&gt;&gt;
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>Space for diagram not</help_text><element><id>UMLClass</id><coordinates><x>510</x><y>720</y><w>380</w><h>90</h></coordinates><panel_attributes>&lt;&lt;Abstract&gt;&gt;
 /Transformation/
 --
 
 --
 /&lt;&lt;create&gt;&gt; __init__() &lt;&lt;Abstract&gt;&gt; /
-/+appliquer(donnees : TableDonnees) : TableDonnees   &lt;&lt;Abstract&gt;&gt; /
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>470</x><y>1013</y><w>250</w><h>110</h></coordinates><panel_attributes>MoyenneGlissante
+/+appliquer(table : TableDonnees) : TableDonnees   &lt;&lt;Abstract&gt;&gt; /
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>470</x><y>980</y><w>250</w><h>110</h></coordinates><panel_attributes>MoyenneGlissante
 --
 
 --
 &lt;&lt;Create&gt;&gt; __init__()
-+appliquer(donnees : TableDonnees)
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>310</x><y>1213</y><w>210</w><h>110</h></coordinates><panel_attributes>Centrage
++appliquer(table : TableDonnees)
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>310</x><y>1180</y><w>210</w><h>110</h></coordinates><panel_attributes>Centrage
 --
 
 --
 &lt;&lt;Create&gt;&gt; __init__()
-+appliquer(donnees : TableDonnees)
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>1213</y><w>210</w><h>110</h></coordinates><panel_attributes>Reduction
++appliquer(table : TableDonnees)
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>1180</y><w>210</w><h>110</h></coordinates><panel_attributes>Reduction
 --
 
 --
 &lt;&lt;Create&gt;&gt; __init__()
-+appliquer(donnees : TableDonnees)
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>140</x><y>1013</y><w>250</w><h>110</h></coordinates><panel_attributes>Normalisation
++appliquer(table : TableDonnees)
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>140</x><y>980</y><w>250</w><h>110</h></coordinates><panel_attributes>Normalisation
 --
 
 --
 &lt;&lt;Create&gt;&gt; __init__()
-+appliquer(donnees : TableDonnees)
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>240</x><y>833</y><w>500</w><h>200</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>480;10;480;90;10;90;10;180</additional_attributes></element><element><id>Relation</id><coordinates><x>570</x><y>833</y><w>170</w><h>200</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>150;10;150;90;10;90;10;180</additional_attributes></element><element><id>Relation</id><coordinates><x>90</x><y>1113</y><w>170</w><h>120</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;100;10;50;150;50;150;10</additional_attributes></element><element><id>Relation</id><coordinates><x>230</x><y>1113</y><w>150</w><h>120</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>130;100;130;50;10;50;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>430</x><y>833</y><w>310</w><h>400</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>290;10;290;90;10;90;10;380</additional_attributes></element><element><id>UMLClass</id><coordinates><x>610</x><y>1153</y><w>340</w><h>110</h></coordinates><panel_attributes>SelectionVariables
++appliquer(table : TableDonnees)
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>240</x><y>800</y><w>500</w><h>200</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>480;10;480;90;10;90;10;180</additional_attributes></element><element><id>Relation</id><coordinates><x>570</x><y>800</y><w>170</w><h>200</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>150;10;150;90;10;90;10;180</additional_attributes></element><element><id>Relation</id><coordinates><x>90</x><y>1080</y><w>170</w><h>120</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;100;10;50;150;50;150;10</additional_attributes></element><element><id>Relation</id><coordinates><x>230</x><y>1080</y><w>150</w><h>120</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>130;100;130;50;10;50;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>430</x><y>800</y><w>310</w><h>400</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>290;10;290;90;10;90;10;380</additional_attributes></element><element><id>UMLClass</id><coordinates><x>610</x><y>1120</y><w>340</w><h>110</h></coordinates><panel_attributes>SelectionVariables
 --
 +list_var : list[str] or 'All'
 +type_var : str or None
 --
 &lt;&lt;Create&gt;&gt; __init__( list_var : list[str] , type_var : str )
-+appliquer(donnees : TableDonnees)
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>710</x><y>833</y><w>80</w><h>340</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;90;60;90;60;320</additional_attributes></element><element><id>UMLClass</id><coordinates><x>790</x><y>1013</y><w>440</w><h>110</h></coordinates><panel_attributes>JointureInterne
++appliquer(table : TableDonnees)
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>710</x><y>800</y><w>80</w><h>340</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;90;60;90;60;320</additional_attributes></element><element><id>UMLClass</id><coordinates><x>790</x><y>980</y><w>390</w><h>110</h></coordinates><panel_attributes>JointureInterne
 --
-+autre_table_donnees : TableDonnees
++autre_table : TableDonnees
 +cles : list[ tuple[str] ]
 
 --
-&lt;&lt;Create&gt;&gt; __init__(autre_table_donnees : TableDonnees, cles : list[ tuple[str] ] )
-+appliquer(donnees : TableDonnees)
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>710</x><y>833</y><w>270</w><h>200</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;90;250;90;250;180</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1120</x><y>1153</y><w>240</w><h>110</h></coordinates><panel_attributes>AgregatitonSpatiale
+&lt;&lt;Create&gt;&gt; __init__(autre_table : TableDonnees, cles : list[ tuple[str] ] )
++appliquer(table : TableDonnees)
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>710</x><y>800</y><w>270</w><h>200</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;90;250;90;250;180</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1120</x><y>1120</y><w>240</w><h>110</h></coordinates><panel_attributes>AgregatitonSpatiale
 --
 +echelon : str
 --
 &lt;&lt;Create&gt;&gt; __init__(echelon : str)
-+appliquer(donnees : TableDonnees)
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>710</x><y>833</y><w>560</w><h>340</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;90;540;90;540;320</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1300</x><y>1013</y><w>290</w><h>110</h></coordinates><panel_attributes>ConcatenationLignes
++appliquer(table : TableDonnees)
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>710</x><y>800</y><w>560</w><h>340</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;90;540;90;540;320</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1300</x><y>980</y><w>290</w><h>110</h></coordinates><panel_attributes>ConcatenationLignes
 --
-+autre_donnees : TableDonnees
++autre_table : TableDonnees
 --
-&lt;&lt;Create&gt;&gt; __init__(autre_donnees : TableDonnees)
-+appliquer(donnees : TableDonnees)
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>710</x><y>833</y><w>710</w><h>200</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;90;690;90;690;180</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1410</x><y>1143</y><w>510</w><h>170</h></coordinates><panel_attributes>Filtre
+&lt;&lt;Create&gt;&gt; __init__(autre_table : TableDonnees)
++appliquer(table : TableDonnees)
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>710</x><y>800</y><w>710</w><h>200</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;90;690;90;690;180</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1410</x><y>1110</y><w>510</w><h>170</h></coordinates><panel_attributes>Filtre
 --
 var : str
 modalite : list or None
@@ -65,17 +65,17 @@ debut : date
 fin : date
 --
 &lt;&lt;Create&gt;&gt; __init__(var : str , modalite=None ,  fenetrage : bool=True , debut : date , fin : date)
-+appliquer(donnees : TableDonnees)
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1670</x><y>1013</y><w>220</w><h>110</h></coordinates><panel_attributes>SupprimeNA
++appliquer(table : TableDonnees)
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1670</x><y>980</y><w>220</w><h>110</h></coordinates><panel_attributes>SupprimeNA
 --
 +liste_var : list[str]
 --
 &lt;&lt;Create&gt;&gt; __init__(liste_var : list[str])
-+appliquer(donnees : TableDonnees)
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>710</x><y>833</y><w>1050</w><h>200</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;90;1030;90;1030;180</additional_attributes></element><element><id>Relation</id><coordinates><x>710</x><y>833</y><w>920</w><h>330</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;90;900;90;900;310</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1350</x><y>393</y><w>390</w><h>200</h></coordinates><panel_attributes>TableDonnees
++appliquer(table : TableDonnees)
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>710</x><y>800</y><w>1050</w><h>200</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;90;1030;90;1030;180</additional_attributes></element><element><id>Relation</id><coordinates><x>710</x><y>800</y><w>920</w><h>330</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;90;900;90;900;310</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1350</x><y>360</y><w>390</w><h>200</h></coordinates><panel_attributes>TableDonnees
 --
 +nom : str
-+liste_var : list[str]
++variables : list[str]
 +type_var : list[str]
 +donnees : list[ list[ ] ]
 --
@@ -85,18 +85,18 @@ fin : date
 +afficher(nb_max_ligne : int=20, nb_max_col=10)
 +nuage_points(var1 : str ,var2 : str)
 +etude_lien( var1 : str , var2 : str)
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1240</x><y>733</y><w>240</w><h>80</h></coordinates><panel_attributes>DonneesCSV
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1240</x><y>700</y><w>240</w><h>80</h></coordinates><panel_attributes>DonneesCSV
 --
 
 --
-+charger_fichier(source : str)</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1360</x><y>583</y><w>180</w><h>170</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>160;10;160;70;10;70;10;150</additional_attributes></element><element><id>Relation</id><coordinates><x>1510</x><y>583</y><w>150</w><h>170</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;70;130;70;130;150</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1530</x><y>733</y><w>240</w><h>80</h></coordinates><panel_attributes>DonneesJSON
++charger_fichier(source : str)</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1360</x><y>550</y><w>180</w><h>170</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>160;10;160;70;10;70;10;150</additional_attributes></element><element><id>Relation</id><coordinates><x>1510</x><y>550</y><w>150</w><h>170</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;70;130;70;130;150</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1530</x><y>700</y><w>240</w><h>80</h></coordinates><panel_attributes>DonneesJSON
 --
 
 --
-+charger_fichier(source : str)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>580</x><y>463</y><w>560</w><h>180</h></coordinates><panel_attributes>Pipeline
++charger_fichier(source : str)</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>580</x><y>430</y><w>560</w><h>180</h></coordinates><panel_attributes>Pipeline
 --
 +nom : str
-+donnees : TableDonnees
++table : TableDonnees
 +liste_transformations : list[Transformation]
 +type_estimateur : int
 --
@@ -104,39 +104,43 @@ fin : date
 +ajouter_transfo(transformation : Transformation)
 +supprimer_transfo(rang : int)
 +modifier_estimateur(nouvel_estim : Estimateur)
-+lancer(donnees : TableDonnees)
++lancer(table : TableDonnees)
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>960</x><y>223</y><w>410</w><h>130</h></coordinates><panel_attributes>&lt;&lt;Abstract&gt;&gt;
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>930</x><y>190</y><w>440</w><h>130</h></coordinates><panel_attributes>&lt;&lt;Abstract&gt;&gt;
 /Estimateur/
 --
+/+nom : str/
+--
+/estim1var(table : TableDonnees, numero_colonne : int) : float &lt;&lt;Abstract&gt;&gt;/
+table_estimateur(table : TableDonnees, numero_colonne : int) : TableDonnees
 
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>740</x><y>0</y><w>340</w><h>80</h></coordinates><panel_attributes>Moyenne
 --
-/+calculer(donnees : TableDonnees) : TableDonnees &lt;&lt;Abstract&gt;&gt; /
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>720</x><y>33</y><w>360</w><h>80</h></coordinates><panel_attributes>Moyenne
++nom : str = 'moyenne'
 --
+&lt;&lt;create&gt;&gt; __init__()
+estim1var(table : TableDonnees, numero_colonne : int) : float
 
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1030</x><y>70</y><w>120</w><h>140</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>100;120;100;70;10;70;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1070</x><y>30</y><w>120</w><h>30</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;100;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1120</x><y>70</y><w>140</w><h>140</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;120;10;70;120;70;120;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1170</x><y>0</y><w>340</w><h>80</h></coordinates><panel_attributes>EcartType
 --
-+calculer(donnees : TableDonnees) : TableDonnees
-
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1030</x><y>103</y><w>120</w><h>140</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>100;120;100;70;10;70;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1070</x><y>63</y><w>120</w><h>30</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;100;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1120</x><y>103</y><w>140</w><h>140</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;120;10;70;120;70;120;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1170</x><y>33</y><w>340</w><h>80</h></coordinates><panel_attributes>EcartType
++nom : str = 'ecart_type'
 --
-
---
-+calculer(donnees : TableDonnees) : TableDonnees
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1130</x><y>493</y><w>240</w><h>40</h></coordinates><panel_attributes>lt=-
-</panel_attributes><additional_attributes>220;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>1020</x><y>343</y><w>80</w><h>140</h></coordinates><panel_attributes>lt=-
+&lt;&lt;create&gt;&gt; __init__()
+estim1var(table : TableDonnees, numero_colonne : int) : float
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1130</x><y>460</y><w>240</w><h>40</h></coordinates><panel_attributes>lt=-
+</panel_attributes><additional_attributes>220;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>1020</x><y>310</y><w>80</w><h>140</h></coordinates><panel_attributes>lt=-
 m1=0..1
 m2=*
-&lt; calcule</panel_attributes><additional_attributes>10;120;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>780</x><y>633</y><w>90</w><h>140</h></coordinates><panel_attributes>lt=-
+&lt; calcule</panel_attributes><additional_attributes>10;120;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>780</x><y>600</y><w>90</w><h>140</h></coordinates><panel_attributes>lt=-
 m1=*
 m2=*
-applique &gt;</panel_attributes><additional_attributes>10;10;10;120</additional_attributes></element><element><id>UMLClass</id><coordinates><x>400</x><y>233</y><w>390</w><h>130</h></coordinates><panel_attributes>&lt;&lt;Abstract&gt;&gt;
+applique &gt;</panel_attributes><additional_attributes>10;10;10;120</additional_attributes></element><element><id>UMLClass</id><coordinates><x>400</x><y>200</y><w>390</w><h>130</h></coordinates><panel_attributes>&lt;&lt;Abstract&gt;&gt;
 /Lien2Var/
 --
 
 --
-/+etudelien(donnees : TableDonnees) &lt;&lt;Abstract&gt;&gt; /
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>470</x><y>113</y><w>120</w><h>140</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>100;120;100;70;10;70;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>690</x><y>353</y><w>80</w><h>130</h></coordinates><panel_attributes>lt=-
+/+etudelien(table : TableDonnees) &lt;&lt;Abstract&gt;&gt; /
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>470</x><y>80</y><w>120</w><h>140</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>100;120;100;70;10;70;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>690</x><y>320</y><w>80</w><h>130</h></coordinates><panel_attributes>lt=-
 m1=0..1
 m2=*
 &lt; calcule</panel_attributes><additional_attributes>10;110;10;10</additional_attributes></element></diagram>
