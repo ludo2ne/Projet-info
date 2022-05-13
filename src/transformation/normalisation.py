@@ -7,6 +7,8 @@ Version : 1.0
 '''
 
 import doctest
+
+from matplotlib.pyplot import table
 from transformation.transformation import Transformation
 from transformation.reduction import Reduction
 from transformation.centrage import Centrage
@@ -15,7 +17,21 @@ class Normalisation(Transformation):
     '''Normalisation (ou standardisation) d'une table de données,
     ne prend en compte que les variables numériques "float" sans modifier les autres'''
 
-     def __init__(self):
+    def __init__(self):
         '''Constructeur de l'objet
         '''
         pass
+
+    def appliquer(self, table):
+        '''Appliquer la transformation à toutes les variables numériques de la table
+
+        Parameters
+        ----------
+        table : TableDonnees
+            table de données
+        '''
+        table.Centrage.appliquer()
+        table.Reduction.appliquer()
+
+        print("------------------------------------------------------")
+        print("Normalisation (standardisation) de la table " + table.nom)

@@ -54,7 +54,7 @@ class Reduction(Transformation):
         return table #pourquoi il y a un return ? TODO
 
     def appliquer(self, table):
-        '''Appliquer la transformation à plusieurs variables de la table
+        '''Appliquer la transformation à à toutes les variables numériques de la table
 
         Parameters
         ----------

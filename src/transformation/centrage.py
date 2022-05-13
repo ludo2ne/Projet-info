@@ -60,7 +60,7 @@ class Centrage(Transformation):
         return table
 
     def appliquer(self, table):
-        '''Appliquer la transformation à plusieurs variables de la table
+        '''Appliquer la transformation à à toutes les variables numériques de la table
 
         Parameters
         ----------
