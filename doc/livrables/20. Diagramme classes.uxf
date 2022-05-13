@@ -75,7 +75,7 @@ fin : date
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>710</x><y>800</y><w>1050</w><h>200</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;90;1030;90;1030;180</additional_attributes></element><element><id>Relation</id><coordinates><x>710</x><y>800</y><w>920</w><h>330</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;90;900;90;900;310</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1350</x><y>360</y><w>390</w><h>200</h></coordinates><panel_attributes>TableDonnees
 --
 +nom : str
-+liste_var : list[str]
++variables : list[str]
 +type_var : list[str]
 +donnees : list[ list[ ] ]
 --
