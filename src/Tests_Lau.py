@@ -33,3 +33,5 @@ mon_autre_table.afficher()
 # -------------------------------------------------------------------
 ma_table_concatenee = ConcatanationLignes(mon_autre_table).appliquer(ma_table)
 # TODO : comment prendre en compte les headers ? erreur avec concatenate
+
+ma_table_concatenee.afficher()

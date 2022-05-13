@@ -38,14 +38,16 @@ class ConcatanationLignes(Transformation):
         #assert(table.type_var == self.autre_table.type_var)
 
         if np.array_equal(table.variables, self.autre_table.variables):
-            donnees_conc = np.concatenate(
-                table.donnees, self.autre_table.donnees)
+            donnees_conc = np.concatenate((
+                table.donnees, self.autre_table.donnees))
+
             print('Les tables' + table.nom + 'et' +
                   self.autre_table.nom + 'ont été concaténées')
+
             return TableDonnees(table.nom + '_' + self.autre_table.nom,
                                 donnees_conc,
                                 identifiants=None,
-                                yp_var=table.type_var,
+                                type_var=table.type_var,
                                 valeur_manquante="na")
         else:
             print("erreur de concatenation")
