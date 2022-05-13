@@ -74,7 +74,7 @@ fin : date
 --
 &lt;&lt;Create&gt;&gt; __init__(liste_var : list[str])
 +appliquer(table : TableDonnees)
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>930</x><y>800</y><w>1050</w><h>200</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;90;1030;90;1030;180</additional_attributes></element><element><id>Relation</id><coordinates><x>930</x><y>800</y><w>920</w><h>330</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;90;900;90;900;310</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1570</x><y>360</y><w>390</w><h>220</h></coordinates><panel_attributes>TableDonnees
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>930</x><y>800</y><w>1050</w><h>200</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;90;1030;90;1030;180</additional_attributes></element><element><id>Relation</id><coordinates><x>930</x><y>800</y><w>920</w><h>330</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;90;900;90;900;310</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1570</x><y>360</y><w>580</w><h>220</h></coordinates><panel_attributes>TableDonnees
 --
 +nom : str
 +donnees : list[ list[ ] ]
