@@ -6,8 +6,6 @@ Licence : Domaine public
 Version : 1.0
 '''
 import doctest
-import gzip
-import csv
 import numpy as np
 from tabulate import tabulate
 
@@ -19,18 +17,17 @@ class TableDonnees:
     ----------
     nom : str
         Nom de la table
-    donnees : list[list[str]]
-        données rangées dans une liste de listes
-    chemin_complet : str
-        Chemin complet du fichier à charger
-
-    TODO
-    liste_var : list[str]
-        Liste contenant les noms des variables
-        et ainsi supprimer la premiere ligne de donnees ?
+    donnees : numpy array
+        données rangées dans un numpy array
+    variables : numpy array
+        liste des variables
+    type_var : numpy array
+        type des variables
+    identifiants : list[str]
+        liste des noms de variables étant des identifiants
     '''
 
-    def __init__(self, nom, chemin_complet, delimiteur=";"):
+    def __init__(self, nom, donnees, identifiants=None, type_var=[], valeur_manquante="na"):
         '''Constructeur de l'objet
 
         Parameters
@@ -38,39 +35,35 @@ class TableDonnees:
         nom : str
             nom de la table
         donnees : numpy array
-            données rangées dans une liste de listes
-        variables : numpy array
-            liste des variables
-        chemin_complet : str
-            Chemin complet du fichier à charger
-        delimiteur : str
-            delimiteur utilisé dans le fichier, point virgule par défaut
+            données rangées dans un numpy array
+        identifiants : list[str]
+            liste des noms de variables étant des identifiants
+        type_var : numpy array
+            type des variables
+        valeur_manquante : str
+            indique par quelle chaine de caractères sont représentées les valeurs manquantes
+            na par défaut
+
+        Examples
+        --------
         '''
         self.nom = nom
-        self.chemin_complet = chemin_complet
-        self.delimiteur = delimiteur
+        self.identifiants = identifiants
+        self.type_var = type_var
 
-        # Chargement du fichier dans l'objet data
-        donnees_csv = []
-        with gzip.open(self.chemin_complet, mode='rt') as gzfile:
-            synopreader = csv.reader(gzfile, delimiter=self.delimiteur)
-            for row in synopreader:
-                donnees_csv.append(row)
+        if self.__class__.__name__ == "TableDonnees":
+            self.variables = donnees[0]
+            self.donnees = donnees[1:]
+            self.bilan_chargement()
 
-        self.variables = np.array(donnees_csv[0], dtype=object)
-
-        donnees_csv.pop(0)
-        self.donnees = np.array(donnees_csv, dtype=object)
-
-        # TODO coder un truc pour essayer de trouver le type de donnees de chaque variable
-
+    def bilan_chargement(self):
         print("------------------------------------------------------")
-        print("Fichier chargé")
-        print("   nombre de lignes    : " + str(self.donnees.shape[0]))
+        print("Table " + self.nom + " chargée : ")
+        print("   nombre de lignes    : " + str(len(self.donnees)))
         print("   nombre de variables : " + str(len(self.variables)))
         print("------------------------------------------------------")
 
-    def afficher(self, nb_lignes=-1, nb_colonnes=-1):
+    def afficher(self, nb_lignes=None, nb_colonnes=None):
         '''Affiche sous forme de tableau un extrait de la table
 
         Parameters
@@ -90,24 +83,29 @@ class TableDonnees:
         # Pour eviter de tout refaire je reconverti le numpy array en liste de liste
         listes_donnees = self.donnees.tolist()
 
-        # Gestion des valeurs par defaut des parametres
-        if nb_lignes == -1:
-            nb_lignes = len(listes_donnees) - 1
-        if nb_colonnes == -1:
+        # Si les parametres sont resenignes a None ou si leur valeur est trop grande
+        # ils prennent simplement la valeur maximum possible
+        if nb_lignes == None or nb_lignes > len(listes_donnees):
+            nb_lignes = len(listes_donnees)
+        if nb_colonnes == None or nb_colonnes > len(listes_donnees[0]):
             nb_colonnes = len(listes_donnees[0])
 
         # Creation d une sous liste
-        reduced_list = []
-        reduced_list.append(self.variables[: nb_colonnes+1])
-        for i in range(1, nb_lignes + 1):
-            list_row = listes_donnees[i][: nb_colonnes+1]
+        reduced_list = [[]]
+
+        for i in range(0, nb_colonnes):
+            reduced_list[0].append(self.variables[i] + "\n" + self.type_var[i])
+
+        for i in range(nb_lignes):
+            list_row = listes_donnees[i][: nb_colonnes]
             reduced_list.append(list_row)
 
         # Affichage
         print(
             "\n" + tabulate(tabular_data=reduced_list[1:],
                             headers=reduced_list[0],
-                            floatfmt=".2f") + "\n")                 # 2 decimales pour les float
+                            tablefmt="psql",
+                            floatfmt=".2f") + "\n")    # 2 decimales pour les float
 
     def __str__(self):
         '''Conversion de l'objet en chaîne de caractères

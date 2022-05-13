@@ -5,16 +5,23 @@ Date    : 05/05/2022
 Licence : Domaine public
 Version : 1.0
 '''
-import doctest
-from ..table.tabledonnees import TableDonnees
+
+import numpy as np
+from table.tabledonnees import TableDonnees
+from estimateur.abstract_estimateur import AbstractEstimateur
 
 
-class Moyenne:
-    '''Moyenne d'une variable
+class Moyenne(AbstractEstimateur):
+    '''Moyenne calculée sur chaque variable d'une table
 
-    Cette classe ne contient qu'une seule méthode statique
-    Il n'y a pas de constructeur car il n'est pas nécessaire d'instancier une objet de cette classe
+    Attributes
+    ----------
+    nom : str = 'moyenne'
     '''
+
+    def __init__(self):
+        '''Constructeur'''
+        self.nom = 'moyenne'
 
     @staticmethod
     def estim1var(table, numero_colonne):
@@ -29,36 +36,40 @@ class Moyenne:
 
         Returns
         -------
-            float : moyenne des valeurs de la colonne
+        float : moyenne des valeurs de la colonne
 
         Examples
         --------
 
         '''
-        assert(table.type_var[numero_colonne] == "float")
+        if table.type_var[numero_colonne] != "float":
+            return None
+
         somme = 0
         nb = 0
         nb_na = 0
 
         for i in range(1, len(table.donnees)):
-            if table.donnees[i][numero_colonne] != "mq":
+            if not np.isnan(table.donnees[i][numero_colonne]):
                 somme += float(table.donnees[i][numero_colonne])
                 nb += 1
             else:
                 nb_na += 1
 
-        moyenne = round(somme / nb, 2)
+        moyenne = round(somme / nb, 2) if nb != 0 else np.nan
 
-        print("------------------------------------------------------")
-        print("Calcul de la moyenne de la variable " +
-              table.variables[numero_colonne] + " : " + str(round(moyenne, 2)) +
-              " (sur " + str(nb) + " valeurs renseignées et " + str(nb_na) + " valeurs manquantes)")
+#        print("------------------------------------------------------")
+#        print("Calcul de la moyenne de la variable " +
+#              table.variables[numero_colonne] + " : " + str(round(moyenne, 2)) +
+#              " (sur " + str(nb) + " valeurs renseignées et " + str(nb_na) + " valeurs manquantes)")
 
         return moyenne
 
-    @staticmethod
-    def table_estimateur(table):
-        liste_moyenne = []
-        for i in len(table.liste_var):
-            liste_moyenne.append(estim1var(table, i))
-        return TableDonnees(table.nom + "_moyenne", table.liste_var, table.type_var, [liste_moyenne])
+
+# à enlever si la classe abstraite vous convient :
+#    @staticmethod
+#    def table_moyenne(table):
+#        liste_moyenne = []
+#        for i in len(table.liste_var):
+#            liste_moyenne.append(estim1var(table, i))
+#        return TableDonnees(table.nom + "_moyenne", table.liste_var, table.type_var, [liste_moyenne])

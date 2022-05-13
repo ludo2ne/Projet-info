@@ -50,9 +50,5 @@ class SelectionVariables(Transformation):
                               " non trouvée dans la table " + table.nom)
 
         table.variables = table.variables[index_conserves]
+        table.type_var = table.type_var[index_conserves]
         table.donnees = table.donnees[:, index_conserves]
-
-    def __str__(self):
-        '''Conversion de l'objet en chaîne de caractères
-        '''
-        return "Je suis un centrage"
