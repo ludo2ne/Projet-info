@@ -30,7 +30,8 @@ ma_table_csv.afficher(nb_lignes=10,
 # -------------------------------------------------------------------
 mon_premier_pipeline = Pipeline(nom="pipo",
                                 liste_transformations=[Centrage(),
-                                                       SelectionVariables(['numer_sta', 'date', 'ff', 'w1', 'sw'])])
+                                                       SelectionVariables(['numer_sta', 'date', 'ff', 'w1', 'sw'])],
+                                exporter_table=True)
 mon_premier_pipeline.lancer(ma_table_csv)
 
 ma_table_csv.afficher(nb_lignes=10,

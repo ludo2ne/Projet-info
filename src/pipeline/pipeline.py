@@ -5,6 +5,7 @@ Date    : 05/05/2022
 Licence : Domaine public
 Version : 1.0
 '''
+from transformation.export import Export
 
 
 class Pipeline:
@@ -20,7 +21,7 @@ class Pipeline:
         estimateur final à appliquer
     '''
 
-    def __init__(self, nom, liste_transformations, estimateur_final=None):
+    def __init__(self, nom, liste_transformations, estimateur_final=None, exporter_table=False):
         '''Constructeur de l'objet
 
         Parameters
@@ -36,6 +37,7 @@ class Pipeline:
         self.nom = nom
         self.liste_transformations = liste_transformations
         self.estimateur_final = estimateur_final
+        self.exporter_table = exporter_table
 
     def lancer(self, table):
         '''Lancement du pipeline
@@ -58,3 +60,6 @@ class Pipeline:
         # Pour chaque transformation de la liste
         for i in range(len(self.liste_transformations)):
             self.liste_transformations[i].appliquer(table)
+
+        if self.exporter_table:
+            Export.appliquer(table)
