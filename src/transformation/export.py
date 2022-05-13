@@ -33,20 +33,13 @@ class Export(Transformation):
         print("------------------------------------------------------")
         print("Export de la table " + table.nom)
 
-        current_date_and_time = datetime.datetime.now().strftime("%Y.%m.%d %Hh%M")
-
         donnees_exportees = np.concatenate(([table.variables], table.donnees))
-        # for i in range(len(table.donnees)):
-        #    donnees_exportees = np.concatenate(
-        #        donnees_exportees, table.donnees[i])
+        current_date_and_time = datetime.datetime.now().strftime("%Y.%m.%d %Hh%M")
+        nom_fichier_exporte = os.getcwd() + "/donnees/exports/" + table.nom + \
+            "_" + current_date_and_time + ".csv"
 
-        if format == 'csv':
-            np.savetxt(os.getcwd() + "/donnees/exports/" +
-                       table.nom + "_" + current_date_and_time + ".csv", np.array(donnees_exportees), delimiter=";", fmt="%s")
+        if format == "csv":
+            np.savetxt(nom_fichier_exporte, donnees_exportees,
+                       delimiter=";", fmt="%s")
         else:
             warnings.warn("Seul le format csv est autorisé pour l'export")
-
-    def __str__(self):
-        '''Conversion de l'objet en chaîne de caractères
-        '''
-        return "Je suis un centrage"

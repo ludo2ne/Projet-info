@@ -6,9 +6,6 @@ Licence : Domaine public
 Version : 1.0
 '''
 
-import warnings
-import statistics
-import doctest
 import numpy as np
 from transformation.transformation import Transformation
 from estimateur.moyenne import Moyenne
@@ -37,10 +34,6 @@ class Centrage(Transformation):
             table de données
         numero_colonne : int
             numéro de la colonne sur laquelle appliquer
-
-        Examples
-        --------
-
         '''
 
         #colx = table.donnees[:, numero_colonne].astype(float)

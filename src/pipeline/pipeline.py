@@ -33,6 +33,9 @@ class Pipeline:
         estimateur_final : EstimateurFinal
             estimateur final à appliquer
             None par défaut
+        export_table : bool
+            Si True le fichier est exporté dans donnees/export
+            False par défaut
         '''
         self.nom = nom
         self.liste_transformations = liste_transformations
