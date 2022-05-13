@@ -129,4 +129,4 @@ dmypy.json
 .pyre/
 
 #Ajouts Ludo
-donnees/exports/
+donnees/exports/*.csv
