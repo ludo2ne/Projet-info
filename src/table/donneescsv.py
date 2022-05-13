@@ -108,13 +108,7 @@ class DonneesCsv(TableDonnees):
 
         self.type_var = np.array(self.type_var)
 
-        # Transformer en float les donnees des variables de type float
-        for num_colonne in range(len(self.donnees[0])):
-            if self.type_var[num_colonne] == 'float':
-                for num_ligne in range(len(self.donnees)):
-                    self.donnees[num_ligne, num_colonne] = float(
-                        self.donnees[num_ligne, num_colonne])
-
+        self.appliquer_format()
         self.bilan_chargement()
 
 

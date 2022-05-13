@@ -6,12 +6,11 @@ Licence : Domaine public
 Version : 1.0
 '''
 
-import doctest
-
 from matplotlib.pyplot import table
 from transformation.transformation import Transformation
 from transformation.reduction import Reduction
 from transformation.centrage import Centrage
+
 
 class Normalisation(Transformation):
     '''Normalisation (ou standardisation) d'une table de données,
@@ -30,8 +29,8 @@ class Normalisation(Transformation):
         table : TableDonnees
             table de données
         '''
-        table.Centrage.appliquer()
-        table.Reduction.appliquer()
+        Centrage().appliquer(table)
+        Reduction().appliquer(table)
 
         print("------------------------------------------------------")
         print("Normalisation (standardisation) de la table " + table.nom)

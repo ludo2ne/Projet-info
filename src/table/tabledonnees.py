@@ -27,7 +27,7 @@ class TableDonnees:
         liste des noms de variables étant des identifiants
     '''
 
-    def __init__(self, nom, donnees_avec_entete, identifiants=None, type_var=[], valeur_manquante="na"):
+    def __init__(self, nom, donnees, identifiants=None, type_var=[], valeur_manquante="na"):
         '''Constructeur de l'objet
 
         Parameters
@@ -36,6 +36,7 @@ class TableDonnees:
             nom de la table
         donnees : numpy array
             données rangées dans un numpy array
+            la première ligne contient les entêtes de colonnes (variables)
         identifiants : list[str]
             liste des noms de variables étant des identifiants
         type_var : numpy array
@@ -52,8 +53,9 @@ class TableDonnees:
         self.type_var = type_var
 
         if self.__class__.__name__ == "TableDonnees":
-            self.variables = donnees_avec_entete[0]
-            self.donnees = donnees_avec_entete[1:]
+            self.variables = donnees[0]
+            self.donnees = donnees[1:]
+            self.appliquer_format()
             self.bilan_chargement()
 
     def bilan_chargement(self):
@@ -106,6 +108,16 @@ class TableDonnees:
                             headers=reduced_list[0],
                             tablefmt="psql",
                             floatfmt=".2f") + "\n")    # 2 decimales pour les float
+
+    def appliquer_format(self):
+        '''Transforme en float les données des variables de type float
+        '''
+        for num_colonne in range(len(self.donnees[0])):
+            if self.type_var[num_colonne] == "float":
+                for num_ligne in range(len(self.donnees)):
+                    self.donnees[num_ligne, num_colonne] = float(
+                        self.donnees[num_ligne, num_colonne])
+                print(type(self.donnees[0, num_colonne]))
 
     def __str__(self):
         '''Conversion de l'objet en chaîne de caractères

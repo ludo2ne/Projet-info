@@ -49,7 +49,7 @@ class Moyenne(AbstractEstimateur):
         nb = 0
         nb_na = 0
 
-        for i in range(1, len(table.donnees)):
+        for i in range(len(table.donnees)):
             if not np.isnan(table.donnees[i][numero_colonne]):
                 somme += float(table.donnees[i][numero_colonne])
                 nb += 1
