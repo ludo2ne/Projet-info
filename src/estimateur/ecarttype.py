@@ -7,7 +7,7 @@ Version : 1.0
 '''
 import math
 from moyenne import Moyenne
-from estimateur.abstract_estimateur import AbstractEstimateur
+from estimateur.estimateur import AbstractEstimateur
 from table.tabledonnees import TableDonnees
 
 
