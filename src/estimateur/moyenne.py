@@ -72,4 +72,4 @@ class Moyenne(AbstractEstimateur):
 #        liste_moyenne = []
 #        for i in len(table.liste_var):
 #            liste_moyenne.append(estim1var(table, i))
-#        return TableDonnees(table.nom + "_moyenne", table.liste_var, table.type_var, [liste_moyenne])
+#        return TableDonnees(nom=table.nom + "_moyenne", variables=table.variables, type_var=table.type_var, donnee=[liste_moyenne])

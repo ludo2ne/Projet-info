@@ -41,7 +41,7 @@ ma_table_csv.afficher(nb_lignes=10,
 # Creation manuelle d une table
 # -------------------------------------------------------------------
 ma_table = TableDonnees(nom="t1",
-                        donnees=np.array([["id", "dnais", "taille"], [
+                        donnees_avec_entete=np.array([["id", "dnais", "taille"], [
                                          "id1", 20120101, 160], ["id2", 20060920, 180]]),
                         identifiants=["id"],
                         type_var=["str", "date", "float"])

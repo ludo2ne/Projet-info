@@ -52,8 +52,8 @@ class Centrage(Transformation):
         # Centrage de toutes les valeurs qui ne sont pas NaN
         for i in range(0, len(table.donnees)):
             if not np.isnan(table.donnees[i][numero_colonne]):
-                old_value = float(table.donnees[i][numero_colonne])
-                new_value = str(old_value - moyenne)
+                old_value = table.donnees[i][numero_colonne]
+                new_value = old_value - moyenne
                 table.donnees[i][numero_colonne] = new_value
 
         return table
@@ -71,5 +71,5 @@ class Centrage(Transformation):
         print("Centrage de la table " + table.nom)
 
         for num_col in range(len(table.variables)):
-            if table.type_var[num_col] == 'float':
+            if table.type_var[num_col] == "float":
                 self.appliquer_variable(table, num_col)
