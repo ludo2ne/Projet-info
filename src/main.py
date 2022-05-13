@@ -42,12 +42,12 @@ ma_table_csv.afficher(nb_lignes=10,
 # Creation manuelle d une table
 # -------------------------------------------------------------------
 ma_table = TableDonnees(nom="t1",
-                        donnees_avec_entete=np.array([["id", "dnais", "taille"], [
-                                         "id1", 20120101, 160], ["id2", 20060920, 180]]),
+                        donnees_avec_entete=np.array([["id", "dnais", "taille"],
+                                        ["id1", 20120101, 160], ["id2", 20060920, 180]]),
                         identifiants=["id"],
                         type_var=["str", "date", "float"])
 
-ma_table.afficher()
+ma_table.afficher(nb_lignes=10 , nb_colonnes=7)
 
 
 # -------------------------------------------------------------------
@@ -60,3 +60,9 @@ ma_table_json = DonneesJson(nom="table_json",
 
 ma_table_json.afficher(nb_lignes=10,
                        nb_colonnes=7)
+
+# -------------------------------------------------------------------
+# Normaliser une table
+# -------------------------------------------------------------------
+ma_table.Normaliser.appliquer() #à débuguer TODO
+ma_table.afficher(nb_lignes=10 , nb_colonnes=7)
