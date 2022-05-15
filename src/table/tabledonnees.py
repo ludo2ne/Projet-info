@@ -96,7 +96,8 @@ class TableDonnees:
         reduced_list = [[]]
 
         for i in range(0, nb_colonnes):
-            reduced_list[0].append(str(self.variables[i]) + "\n" + str(self.type_var[i]))
+            reduced_list[0].append(
+                str(self.variables[i]) + "\n" + str(self.type_var[i]))
 
         for i in range(nb_lignes):
             list_row = listes_donnees[i][: nb_colonnes]
@@ -108,6 +109,54 @@ class TableDonnees:
                             headers=reduced_list[0],
                             tablefmt="psql",
                             floatfmt=".2f") + "\n")    # 2 decimales pour les float
+
+    def determiner_formats(self):
+        '''Méthode qui détermine le format de chaque colonne à partir des données
+
+        Si la variable contient le mot date, le format de cette variable sera date
+        Si la variable fait parti de la liste des identifiants, celle-ci reste de type str
+        Si toutes les données d'une variable sont de type float, la variable sera de type float
+        '''
+
+        liste_formats = []
+
+        for num_colonne in range(len(self.variables)):
+
+            # si il y a le mot date dans le nom de la variable elle sera de type date
+            if "date" in self.variables[num_colonne]:
+                liste_formats.append('date')
+                continue
+
+            # si la variable est un identifiant elle reste de type str
+            if self.variables[num_colonne] in self.identifiants:
+                liste_formats.append('str')
+                continue
+
+            # on va maintenant tester si la variable est un int, un float ou aucun des deux
+#            isInt = True
+            isFloat = True
+
+            for num_ligne in range(len(self.donnees)):
+                #                try:
+                #                    int(self.donnees[num_ligne, num_colonne])
+                #                except:
+                #                    if not np.isnan(self.donnees[num_ligne, num_colonne]):
+                #                        isInt = False
+
+                try:
+                    float(self.donnees[num_ligne, num_colonne])
+                except:
+                    isFloat = False
+                    break
+
+#            if isInt:
+#                liste_formats.append('int')
+            if isFloat:
+                liste_formats.append('float')
+            else:
+                liste_formats.append('str')
+
+        return np.array(liste_formats)
 
     def appliquer_format(self):
         '''Transforme en float les données des variables de type float

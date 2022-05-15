@@ -69,47 +69,7 @@ class DonneesCsv(TableDonnees):
 
         self.donnees[self.donnees == valeur_manquante] = np.nan
 
-        self.type_var = []
-
-        # Remplir la liste self.type_var
-        for num_colonne in range(len(self.donnees[0])):
-
-            # si il y a le mot date dans le nom de la variable elle sera de type date
-            if "date" in self.variables[num_colonne]:
-                self.type_var.append('date')
-                continue
-
-            # si la variable est un identifiant elle reste de type str
-            if self.variables[num_colonne] in self.identifiants:
-                self.type_var.append('str')
-                continue
-
-            # on va maintenant tester si la variable est un int, un float ou aucun des deux
-#            isInt = True
-            isFloat = True
-
-            for num_ligne in range(len(self.donnees)):
-                #                try:
-                #                    int(self.donnees[num_ligne, num_colonne])
-                #                except:
-                #                    if not np.isnan(self.donnees[num_ligne, num_colonne]):
-                #                        isInt = False
-
-                try:
-                    float(self.donnees[num_ligne, num_colonne])
-                except:
-                    isFloat = False
-                    break
-
-#            if isInt:
-#                self.type_var.append('int')
-            if isFloat:
-                self.type_var.append('float')
-            else:
-                self.type_var.append('str')
-
-        self.type_var = np.array(self.type_var)
-
+        self.type_var = self.determiner_formats()
         self.appliquer_format()
         self.bilan_chargement()
 
