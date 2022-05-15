@@ -56,11 +56,18 @@ class DonneesJson(TableDonnees):
         self.chemin_complet = chemin_complet
         self.delimiteur = delimiteur
 
-        # Chargement du fichier dans l'objet data
-        with gzip.open(self.chemin_complet, mode='rt', encoding='utf-8') as gzfile:
-            dico = json.load(gzfile)
+        dico = None
 
-        # Etape 1 recherche de toutes les variables
+        if self.chemin_complet.endswith(".gz"):
+            with gzip.open(self.chemin_complet, mode='rt', encoding='utf-8') as gzfile:
+                dico = json.load(gzfile)
+        elif self.chemin_complet.endswith(".json"):
+            with open(self.chemin_complet, mode='r', encoding='utf-8') as jsonfile:
+                dico = json.load(jsonfile)
+        else:
+            warnings.warn("Le fichier doit être un json ou un json.gz")
+
+            # Etape 1 recherche de toutes les variables
         variables_tmp = []
         for item in range(len(dico)):
             for cle in dico[item].get('fields').keys():

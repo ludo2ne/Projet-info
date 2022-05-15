@@ -8,6 +8,7 @@ Version : 1.0
 import doctest
 import gzip
 import csv
+import warnings
 import numpy as np
 
 from table.tabledonnees import TableDonnees
@@ -55,17 +56,24 @@ class DonneesCsv(TableDonnees):
         self.chemin_complet = chemin_complet
         self.delimiteur = delimiteur
 
-        # Chargement du fichier dans l'objet data
         donnees_csv = []
-        with gzip.open(self.chemin_complet, mode='rt') as gzfile:
-            synopreader = csv.reader(gzfile, delimiter=self.delimiteur)
-            for row in synopreader:
-                donnees_csv.append(row)
+
+        # Teste si le fichier csv est dans une archive gz
+        if self.chemin_complet.endswith(".gz"):
+            with gzip.open(self.chemin_complet, mode='rt') as file:
+                synopreader = csv.reader(file, delimiter=self.delimiteur)
+                for row in synopreader:
+                    donnees_csv.append(row)
+        elif self.chemin_complet.endswith(".csv"):
+            with open(self.chemin_complet) as file:
+                synopreader = csv.reader(file, delimiter=self.delimiteur)
+                for row in synopreader:
+                    donnees_csv.append(row)
+        else:
+            warnings.warn("Le fichier doit être un csv ou un csv.gz")
 
         self.variables = np.array(donnees_csv[0], dtype=object)
-
-        donnees_csv.pop(0)
-        self.donnees = np.array(donnees_csv, dtype=object)
+        self.donnees = np.array(donnees_csv[1:], dtype=object)
 
         self.donnees[self.donnees == valeur_manquante] = np.nan
 
