@@ -55,7 +55,7 @@ class TableDonnees:
             self.variables = np.array(donnees[0], dtype=object)
             self.type_var = np.array(type_var, dtype=object)
             self.donnees = np.array(donnees[1:], dtype=object)
-            self.appliquer_format()
+            self.appliquer_formats()
             self.bilan_chargement()
 
     def bilan_chargement(self):
@@ -158,7 +158,7 @@ class TableDonnees:
 
         return np.array(liste_formats)
 
-    def appliquer_format(self):
+    def appliquer_formats(self):
         '''Transforme en float les données des variables de type float
         '''
         for num_colonne in range(len(self.donnees[0])):

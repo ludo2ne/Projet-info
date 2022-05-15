@@ -70,7 +70,7 @@ class DonneesCsv(TableDonnees):
         self.donnees[self.donnees == valeur_manquante] = np.nan
 
         self.type_var = self.determiner_formats()
-        self.appliquer_format()
+        self.appliquer_formats()
         self.bilan_chargement()
 
 

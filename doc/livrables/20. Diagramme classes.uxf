@@ -77,16 +77,17 @@ fin : date
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>930</x><y>960</y><w>1050</w><h>200</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;90;1030;90;1030;180</additional_attributes></element><element><id>Relation</id><coordinates><x>930</x><y>960</y><w>920</w><h>330</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;90;900;90;900;310</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1570</x><y>520</y><w>680</w><h>240</h></coordinates><panel_attributes>TableDonnees
 --
 +nom : str
-+donnees : list[ list[ ] ]
++donnees : numpy array 2D
 +identifiants : list [ str ]
-+variables : list[str]
-+type_var : list[str]
++variables : numpy array 1D
++type_var : numpy array 1D
 
 --
 &lt;&lt;Create&gt;&gt; __init__(nom : str , donnees_avec_entete : list[ list[ ] ] , type_var= [ ] , identifiants=None , valeur_manquante="na" )
 /+charger_fichier(source : str) &lt;&lt;Abstract&gt;&gt; /
++determiner_formats() : numpy array 1D
++appliquer_formats()
 +bilan_chargement() : str
-+exportCSV(destination : str)
 +afficher(nb_lignes : int=None, nb_colonnes : int=None )</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1270</x><y>870</y><w>560</w><h>150</h></coordinates><panel_attributes>DonneesCSV
 --
 +nom : str
@@ -111,6 +112,7 @@ identifiants : list [ str ]
 +table : TableDonnees
 +liste_transformations : list[Transformation]
 +type_estimateur : int
++exporter_table : bool
 --
 &lt;&lt;Create&gt;&gt; __init__( nom : str , liste_transformation : list[Transformation] , type_estimateur :  int)
 +ajouter_transfo(transformation : Transformation)
