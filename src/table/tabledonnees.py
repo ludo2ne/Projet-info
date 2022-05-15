@@ -50,11 +50,11 @@ class TableDonnees:
         '''
         self.nom = nom
         self.identifiants = identifiants
-        self.type_var = type_var
 
         if self.__class__.__name__ == "TableDonnees":
-            self.variables = donnees[0]
-            self.donnees = donnees[1:]
+            self.variables = np.array(donnees[0], dtype=object)
+            self.type_var = np.array(type_var, dtype=object)
+            self.donnees = np.array(donnees[1:], dtype=object)
             self.appliquer_format()
             self.bilan_chargement()
 
@@ -96,7 +96,7 @@ class TableDonnees:
         reduced_list = [[]]
 
         for i in range(0, nb_colonnes):
-            reduced_list[0].append(self.variables[i] + "\n" + self.type_var[i])
+            reduced_list[0].append(str(self.variables[i]) + "\n" + str(self.type_var[i]))
 
         for i in range(nb_lignes):
             list_row = listes_donnees[i][: nb_colonnes]
@@ -117,7 +117,6 @@ class TableDonnees:
                 for num_ligne in range(len(self.donnees)):
                     self.donnees[num_ligne, num_colonne] = float(
                         self.donnees[num_ligne, num_colonne])
-                print(type(self.donnees[0, num_colonne]))
 
     def __str__(self):
         '''Conversion de l'objet en chaîne de caractères

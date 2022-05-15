@@ -41,8 +41,8 @@ class ConcatanationLignes(Transformation):
             donnees_conc = np.concatenate((
                 table.donnees, self.autre_table.donnees))
 
-            print('Les tables' + table.nom + 'et' +
-                  self.autre_table.nom + 'ont été concaténées')
+            print('Les tables ' + table.nom + ' et ' +
+                  self.autre_table.nom + ' ont été concaténées')
 
             return TableDonnees(table.nom + '_' + self.autre_table.nom,
                                 donnees_conc,

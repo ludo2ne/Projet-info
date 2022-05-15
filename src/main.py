@@ -55,9 +55,9 @@ ma_table_json.afficher(nb_lignes=10,
 # Creation manuelle d une table
 # -------------------------------------------------------------------
 ma_table = TableDonnees(nom="t1",
-                        donnees=np.array([["id", "dnais", "taille"],
-                                          ["id1", "20120101", "160"],
-                                          ["id2", "20060920", "180"]]),
+                        donnees=[["id", "dnais", "taille"],
+                                 ["id1", "20120101", "160"],
+                                 ["id2", "20060920", "180"]],
                         identifiants=["id"],
                         type_var=["str", "date", "float"])
 

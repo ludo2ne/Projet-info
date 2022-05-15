@@ -20,11 +20,11 @@ class DonneesCsv(TableDonnees):
     ----------
     nom : str
         Nom de la table
-    donnees : numpy array
+    donnees : numpy array 2D
         données rangées dans un numpy array
-    variables : numpy array
+    variables : numpy array 1D
         liste des variables
-    type_var : list[str]
+    type_var : numpy array 1D
         type des variables
     identifiants : list[str]
         liste des noms de variables étant des identifiants
@@ -68,6 +68,8 @@ class DonneesCsv(TableDonnees):
         self.donnees = np.array(donnees_csv, dtype=object)
 
         self.donnees[self.donnees == valeur_manquante] = np.nan
+
+        self.type_var = []
 
         # Remplir la liste self.type_var
         for num_colonne in range(len(self.donnees[0])):

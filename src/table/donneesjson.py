@@ -29,7 +29,8 @@ class DonneesJson(TableDonnees):
     identifiants : list[str]
         liste des noms de variables étant des identifiants
     '''
-#TODO Est-ce qu'ici l'attribut donnees est en fait donnees_avec_entete ? Si oui, modifier et mettre l'ULM à jour en même temps (idem dans la classe csv)
+# TODO Est-ce qu'ici l'attribut donnees est en fait donnees_avec_entete ? Si oui, modifier et mettre l'ULM à jour en même temps (idem dans la classe csv)
+
     def __init__(self, nom, chemin_complet, identifiants=None, delimiteur=";", valeur_manquante="na"):
         '''Constructeur de l'objet
 
@@ -66,8 +67,6 @@ class DonneesJson(TableDonnees):
                 if cle not in variables_tmp:
                     variables_tmp.append(cle)
 
-        print(variables_tmp)
-
         self.variables = np.array(variables_tmp, dtype=object)
 
         # Etape 2 conversion du dictionnaire en numpy array
@@ -83,7 +82,9 @@ class DonneesJson(TableDonnees):
 
         self.donnees[self.donnees == valeur_manquante] = np.nan
 
-        # Remplir la liste self.type_var
+        # Remplissage de la liste self.type_var
+        self.type_var = []
+
         for num_colonne in range(len(self.donnees[0])):
 
             # si il y a le mot date dans le nom de la variable elle sera de type date
