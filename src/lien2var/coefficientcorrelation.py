@@ -15,11 +15,10 @@ class CoefficientCorrelation(Lien2var):
 
     def __init__(self, table, var1, var2):
         '''Constructeur de l'objet'''
-        super().__init__(self, table, var1, var2)
+        super().__init__(table, var1, var2)
         assert(self.etude == "quanti/quanti")
 
-
-    def representation(self, table, var1, var2):
+    def representation(self, table, var1, var2): #bug d'indentation ? TODO
         '''Nuage de points'''
         plt.scatter(self.var1_liste, self.var1_liste)
         plt.title('Nuage de points')
@@ -29,8 +28,9 @@ class CoefficientCorrelation(Lien2var):
         plt.show()
 
      def etude_lien(self, table, var1, var2):
+         '''étude de la corrélation entre les variables'''
          print("Etude du lien entre", var1, "et", var2)
-         coeff_corr = np.corrcoef(self.var1, self.var2)
+         coeff_corr = np.corrcoef(self.var1_liste, self.var2_liste)
          print("le coefficient de corrélation de ces variables est :", coeff_corr)
          if coeff_corr < 0.4:
             print("la relation entre ces variables est assez faible")
