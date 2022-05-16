@@ -74,7 +74,7 @@ ma_table.afficher(nb_lignes=10, nb_colonnes=7)
 # Etude du lien entre 2 variables quantitatives
 # -------------------------------------------------------------------
 CoefficientCorrelation().representation(ma_table_csv,"pmer","tend")
-#CoefficientCorrelation().etude_lien(ma_table_csv,"pmer","tend")
+CoefficientCorrelation().etude_lien(ma_table_csv,"pmer","tend")
 
 # -------------------------------------------------------------------
 # Moyennes glissantes d'une table
