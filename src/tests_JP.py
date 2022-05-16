@@ -20,7 +20,7 @@ from transformation.normalisation import Normalisation
 # Creation a partir d un fichier csv
 # -------------------------------------------------------------------
 ma_table_csv = DonneesCsv(nom="table_csv",
-                          chemin_complet=os.getcwd() + "/donnees/synop.201301.csv.gz",
+                          chemin_complet=os.getcwd() + "/donnees/test/synop.201301.csv.gz",
                           identifiants=['numer_sta', 'date'],
                           valeur_manquante="mq")
 
@@ -44,8 +44,8 @@ ma_table_csv.afficher(nb_lignes=10,
 # -------------------------------------------------------------------
 ma_table = TableDonnees(nom="t1",
                         donnees=[["id", "dnais", "taille"],
-                                ["id1", "20120101", "160"],
-                                ["id2", "20060920", "180"]],
+                                 ["id1", "20120101", "160"],
+                                 ["id2", "20060920", "180"]],
                         identifiants=["id"],
                         type_var=["str", "date", "float"])
 

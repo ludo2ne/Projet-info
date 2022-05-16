@@ -82,6 +82,9 @@ class TableDonnees:
         None
         '''
 
+        print("------------------------------------------------------")
+        print("Affichage de la table " + self.nom)
+
         # Pour eviter de tout refaire je reconverti le numpy array en liste de liste
         listes_donnees = self.donnees.tolist()
 

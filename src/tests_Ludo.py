@@ -1,34 +1,29 @@
-'''
-Module main
-Auteurs : Deneuville Ludovic, Trotta Jean-Philippe et Villacampa Laurene
-Date	: 05/05/2022
-Licence : Domaine public
-Version : 1.0
-'''
 import os
 import numpy as np
 from table.tabledonnees import TableDonnees
-from table.donneescsv import DonneesCsv
-from table.donneesjson import DonneesJson
-from pipeline.pipeline import Pipeline
-from transformation.centrage import Centrage
-from transformation.selectionvariables import SelectionVariables
-from transformation.normalisation import Normalisation
+from transformation.concatenation import ConcatanationLignes
+
+# -------------------------------------------------------------------
+# Creation manuelle d une table
+# -------------------------------------------------------------------
+ma_table = TableDonnees(nom="t1",
+                        donnees=[["id", "dnais", "taille", "poids"],
+                                 ["id1", 20120101, 160, 50],
+                                 ["id2", 20060920, 180, 80],
+                                 ["id3", 20010815, 155, 45]],
+                        identifiants=["id"],
+                        type_var=["str", "date", "float", "float"])
+
+mon_autre_table = TableDonnees(nom="t2",
+                               donnees=[["id", "dnais", "taille", "poids"],
+                                        ["id1", 20100101, 130, 40]],
+                               identifiants=["id"],
+                               type_var=["str", "date", "float", "float"])
 
 
-ma_table_csv = DonneesCsv(nom="table_csv",
-                          chemin_complet=os.getcwd() + "/donnees/synop.201301.csv",
-                          identifiants=['numer_sta', 'date'],
-                          valeur_manquante="mq")
+ma_table.afficher()
+mon_autre_table.afficher()
 
-ma_table_csv.afficher(nb_lignes=10,
-                      nb_colonnes=12)
+ma_table_concatenee = ConcatanationLignes(mon_autre_table).appliquer(ma_table)
 
-
-ma_table_csv_gz = DonneesCsv(nom="table_csv",
-                             chemin_complet=os.getcwd() + "/donnees/synop.201301.csv.gz",
-                             identifiants=['numer_sta', 'date'],
-                             valeur_manquante="mq")
-
-ma_table_csv_gz.afficher(nb_lignes=10,
-                         nb_colonnes=12)
+ma_table_concatenee.afficher()
