@@ -7,6 +7,7 @@ Version : 1.0
 '''
 import os
 import numpy as np
+from src.transformation.moyenneglissante import MoyenneGlissante
 from table.tabledonnees import TableDonnees
 from table.donneescsv import DonneesCsv
 from table.donneesjson import DonneesJson
@@ -56,3 +57,10 @@ ma_table.afficher(nb_lignes=10, nb_colonnes=7)
 # -------------------------------------------------------------------
 Normalisation().appliquer(ma_table)
 ma_table.afficher(nb_lignes=10, nb_colonnes=7)
+
+# -------------------------------------------------------------------
+# Moyennes glissantes d'une table
+# -------------------------------------------------------------------
+MoyenneGlissante().appliquer(ma_table_csv)
+ma_table_csv.afficher(nb_lignes=10,
+                      nb_colonnes=12)
