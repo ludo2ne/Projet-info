@@ -32,11 +32,11 @@ class MoyenneGlissante(Transformation):
         liste = []
         for i in range(len(table.donnees)):
             liste.append(table.donnees[i][numero_colonne])
-        return liste #cette méthode sera utile pour la classe Lien2Var : est-ce qu'il vaut mieux la  mettre en méthode de TableDonnées ? #TODO
+        return liste #cette méthode est utile pour la classe Lien2var : est-ce qu'il vaut mieux la mettre en méthode de TableDonnees ? #TODO
 
     @staticmethod
     def sous_liste(liste,debut,fin):
-        '''extrait une sous liste'''
+        '''extrait une sous-liste'''
         ss_list = []
         for i in range(debut,fin+1):
             ss_list.append(liste[i])

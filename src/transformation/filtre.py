@@ -8,7 +8,7 @@ Version : 1.0
 
 import doctest
 from transformation.transformation import Transformation
-
+from lien2var.lien2var import Lien2var  #pour la méthode num_col() à déplacer ?
 
 class Filtre(Transformation):
     '''Appliation d'un ou plusieurs filtres (par modalité ou fenétrage temporel)
@@ -42,23 +42,20 @@ class Filtre(Transformation):
         table : TableDonnees
             table de données
         '''
-
+        numero_colonne = num_col(table, self.var)
         print("------------------------------------------------------")
-        if fenetrage == True:
-            print("Fenétrage temporel de : ",self.debut,"à",self.fin)
 
-        if modalite=!None:
+        if self.modalite != None:
+            print("Liste des modalités selectionnées", self.modalite, "pour la variable", self.var)
+            for i in range(len(table.donnees)):
+                if table.donnees[i][numero_colonne] is not in self.modalite: #syntaxe à vérifier
+                    table.donnees.pop(i)
+                    i=i-1
 
-        index_conserves = []
-
-        # On parcourt la liste des colonnes de SelectionVariables
-        for col in self.liste_colonnes:
-            try:
-                index_conserves.append(table.variables.tolist().index(col))
-            except:
-                warnings.warn("Variable " + col +
-                              " non trouvée dans la table " + table.nom)
-
-        table.variables = table.variables[index_conserves]
-        table.type_var = table.type_var[index_conserves]
-        table.donnees = table.donnees[:, index_conserves]
+        if self.fenetrage == True:
+            print("Fenétrage temporel de : ", self.debut, "à", self.fin)
+            if self.modalite != None:
+                for i in range(len(table.donnees)):
+                    if #TODO<debut or TODO>fin:   à voir le fonctionnement des inégalités avec les dates
+                        table.donnees.pop(i)
+                        i=i-1
