@@ -15,6 +15,7 @@ from pipeline.pipeline import Pipeline
 from transformation.centrage import Centrage
 from transformation.selectionvariables import SelectionVariables
 from transformation.normalisation import Normalisation
+from lien2var.coefficientcorrelation import CoefficientCorrelation
 
 # -------------------------------------------------------------------
 # Creation a partir d un fichier csv
@@ -51,12 +52,29 @@ ma_table = TableDonnees(nom="t1",
 
 ma_table.afficher(nb_lignes=10, nb_colonnes=7)
 
+ma_table2 = TableDonnees(nom="t2",
+                        donnees=[["id", "dnais", "taille", "poids"],
+                                ["id1", "20120101", 160, "68"],
+                                ["id2", "20060920", 180, 85],
+                                ["id3", "20060921", 170, 70]],
+                        identifiants=["id"])
+ma_table2.determiner_formats
+print(ma_table2.type_var)
+
 
 # -------------------------------------------------------------------
 # Normaliser une table
 # -------------------------------------------------------------------
 Normalisation().appliquer(ma_table)
 ma_table.afficher(nb_lignes=10, nb_colonnes=7)
+
+
+
+# -------------------------------------------------------------------
+# Etude du lien entre 2 variables quantitatives
+# -------------------------------------------------------------------
+CoefficientCorrelation().representation(ma_table_csv,"pmer","tend")
+CoefficientCorrelation().etude_lien(ma_table_csv,"pmer","tend")
 
 # -------------------------------------------------------------------
 # Moyennes glissantes d'une table
