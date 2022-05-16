@@ -32,7 +32,7 @@ class MoyenneGlissante(Transformation):
         liste = []
         for i in range(len(table.donnees)):
             liste.append(table.donnees[i][numero_colonne])
-        return liste
+        return liste #cette méthode sera utile pour la classe Lien2Var : est-ce qu'il vaut mieux la  mettre en méthode de TableDonnées ? #TODO
 
     @staticmethod
     def sous_liste(liste,debut,fin):

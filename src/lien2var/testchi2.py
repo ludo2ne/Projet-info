@@ -9,7 +9,7 @@ Version : 1.0
 import doctest
 
 class Testchi2(Lien2var):
-    '''Test d'indépendance du X² de deux variables numériques d'une table de données'''
+    '''Test d'indépendance du X² de deux variables qualitatives d'une table de données'''
 
     def __init__(self):
         '''Constructeur de l'objet'''
