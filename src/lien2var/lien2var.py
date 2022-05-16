@@ -13,9 +13,18 @@ from transformation.moyenneglissante import liste_colonne #à vérifier TODO
 class Lien2var:
     '''Classe (abstraite ?) pour étudier les liens entre deux variables d'une table donnée'''
 
+    @staticmethod
+    def num_col(table,var): #à déplacer dans la classe TableDonnees ? TODO
+        for i in len(table.variables):
+            if table.variables[i] == var:
+                return i
+
+
+
     def __init__(self, table, var1, var2): #pas sur que ça soit la meilleure façon de faire, à vérifier TODO
         '''Constructeur de l'objet'''
-        # créer les variables numcol_var1 et numcol_var2 qui donnent les numéros de colonne de var1 et var 2 dans la table TODO
+        numcol_var1=num_col(table,var1)
+        numcol_var2=num_col(table,var2)
         self.var1_liste = liste_colonne(table,numcol_var1)
         self.var2_liste = liste_colonne(table,numcol_var2)
         if table.type_var[numcol_var1]=="float" and table.type_var[numcol_var2]=="float":
