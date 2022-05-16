@@ -74,13 +74,5 @@ class ConcatanationLignes(Transformation):
                             "Les variables des deux tables ne sont pas identiques")
         else:
             # Concatenation des donnees
-            donnees_conc = np.concatenate(
+            table.donnees = np.concatenate(
                 (table.donnees, self.autre_table.donnees))
-            # Ajout en premiere position de la liste des variables
-            donnees_conc = np.concatenate(([table.variables], donnees_conc))
-
-            return TableDonnees(table.nom + '_' + self.autre_table.nom,
-                                donnees=donnees_conc,
-                                identifiants=None,
-                                type_var=table.type_var,
-                                valeur_manquante="na")
