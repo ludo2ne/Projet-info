@@ -29,14 +29,15 @@ class ConcatanationLignes(Transformation):
 
         Returns
         -------
-        TableDonnees: l'attribut donnees a été modifié 
+        TableDonnees : Contenant les données des deux tables
 
         Examples
         --------
         '''
-        #assert(table.variables == self.autre_table.variables)
-        #assert(table.type_var == self.autre_table.type_var)
+        # assert(table.variables == self.autre_table.variables)
+        # assert(table.type_var == self.autre_table.type_var)
 
+        '''
         if np.array_equal(table.variables, self.autre_table.variables):
             # liste vide avec "la bonne taille"
             donnees = [[] for k in range(
@@ -48,8 +49,8 @@ class ConcatanationLignes(Transformation):
             for k in range(len(donnees_conc)):
                 donnees[k+1] = donnees_conc[k]  # ajout des lignes
 
-            #donnees = np.asarray(table.variables)
-            #table.donnees = np.concatenate((table.donnees, self.autre_table.donnees))
+            # donnees = np.asarray(table.variables)
+            # table.donnees = np.concatenate((table.donnees, self.autre_table.donnees))
 
             print('Les tables ' + table.nom + ' et ' +
                   self.autre_table.nom + ' ont été concaténées')
@@ -62,3 +63,16 @@ class ConcatanationLignes(Transformation):
         else:
             print("erreur de concatenation")
             return None
+        '''
+
+        print("------------------------------------------------------")
+        print("Concaténation des tables " +
+              table.nom + ' et ' + self.autre_table.nom)
+
+        if not np.array_equal(table.variables, self.autre_table.variables):
+            raise Exception("Erreur de concaténation",
+                            "Les variables des deux tables ne sont pas identiques")
+        else:
+            # Concatenation des donnees
+            table.donnees = np.concatenate(
+                (table.donnees, self.autre_table.donnees))

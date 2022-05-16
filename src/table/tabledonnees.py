@@ -82,6 +82,9 @@ class TableDonnees:
         None
         '''
 
+        print("------------------------------------------------------")
+        print("Affichage de la table " + self.nom)
+
         # Pour eviter de tout refaire je reconverti le numpy array en liste de liste
         listes_donnees = self.donnees.tolist()
 
@@ -171,6 +174,9 @@ class TableDonnees:
         '''Conversion de l'objet en chaîne de caractères
         '''
         return "Table de données : {}".format(self.nom)
+
+    def index_variable(self, nom_variable):
+        return np.where(self.variables == nom_variable)[0][0]
 
 
 if __name__ == '__main__':

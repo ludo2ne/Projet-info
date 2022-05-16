@@ -1,11 +1,7 @@
-import os
-import numpy as np
-from table.tabledonnees import TableDonnees
-from transformation.concatenation import ConcatanationLignes
 
-# -------------------------------------------------------------------
-# Creation manuelle d une table
-# -------------------------------------------------------------------
+from table.tabledonnees import TableDonnees
+import numpy as np
+
 ma_table = TableDonnees(nom="t1",
                         donnees=[["id", "dnais", "taille", "poids"],
                                  ["id1", 20120101, 160, 50],
@@ -15,10 +11,12 @@ ma_table = TableDonnees(nom="t1",
                         type_var=["str", "date", "float", "float"])
 
 
-print(ma_table.index_variable("poids"))
+# Numero colonne
+print(ma_table.index_variable("taille"))
+print(np.where(ma_table.variables == "taille")[0][0])
 
+# colonne -> liste
 print(ma_table.donnees[:, 2])
 
-
-ma_liste = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
-print(ma_liste[3:5])
+# sous liste
+print(ma_table.variables[1:3])

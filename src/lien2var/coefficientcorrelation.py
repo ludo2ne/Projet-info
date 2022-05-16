@@ -7,9 +7,11 @@ Version : 1.0
 '''
 
 import doctest
+from lien2var.lien2var import Lien2var
 import matplotlib.pyplot as plt
 import numpy as np
 from lien2var.lien2var import Lien2var
+
 
 class CoefficientCorrelation(Lien2var):
     '''Etude de la corrélation de deux variables numériques d'une table de données'''
@@ -19,7 +21,7 @@ class CoefficientCorrelation(Lien2var):
         super().__init__(table, var1, var2)
         assert(self.etude == "quanti/quanti")
 
-    def representation(self, table, var1, var2): #bug d'indentation ? TODO
+    def representation(self, table, var1, var2):  # bug d'indentation ? TODO
         '''Nuage de points'''
         plt.scatter(self.var1_liste, self.var1_liste)
         plt.title('Nuage de points')
@@ -34,6 +36,10 @@ class CoefficientCorrelation(Lien2var):
         coeff_corr = np.corrcoef(self.var1_liste, self.var2_liste)
         print("le coefficient de corrélation de ces variables est :", coeff_corr)
         if coeff_corr < 0.4:
+<<<<<<< HEAD
            print("la relation entre ces variables est assez faible")
+=======
+            print("la relation entre ces variables est assez faible")
+>>>>>>> e6db8536ebe266fbb922489f22858c07a6bf44ec
         if coeff_corr > 0.6:
             print("la relation entre ces variables est assez forte")
