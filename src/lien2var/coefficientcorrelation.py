@@ -7,8 +7,10 @@ Version : 1.0
 '''
 
 import doctest
+from lien2var.lien2var import Lien2var
 import matplotlib.pyplot as plt
 import numpy as np
+
 
 class CoefficientCorrelation(Lien2var):
     '''Etude de la corrélation de deux variables numériques d'une table de données'''
@@ -18,7 +20,7 @@ class CoefficientCorrelation(Lien2var):
         super().__init__(table, var1, var2)
         assert(self.etude == "quanti/quanti")
 
-    def representation(self, table, var1, var2): #bug d'indentation ? TODO
+    def representation(self, table, var1, var2):  # bug d'indentation ? TODO
         '''Nuage de points'''
         plt.scatter(self.var1_liste, self.var1_liste)
         plt.title('Nuage de points')
@@ -27,12 +29,12 @@ class CoefficientCorrelation(Lien2var):
         plt.savefig('ScatterPlot_{}_{}_{}.png'.format(var1, var2, table.nom))
         plt.show()
 
-     def etude_lien(self, table, var1, var2):
-         '''étude de la corrélation entre les variables'''
-         print("Etude du lien entre", var1, "et", var2)
-         coeff_corr = np.corrcoef(self.var1_liste, self.var2_liste)
-         print("le coefficient de corrélation de ces variables est :", coeff_corr)
-         if coeff_corr < 0.4:
+    def etude_lien(self, table, var1, var2):
+        '''étude de la corrélation entre les variables'''
+        print("Etude du lien entre", var1, "et", var2)
+        coeff_corr = np.corrcoef(self.var1_liste, self.var2_liste)
+        print("le coefficient de corrélation de ces variables est :", coeff_corr)
+        if coeff_corr < 0.4:
             print("la relation entre ces variables est assez faible")
-         if coeff_corr > 0.6:
-             print("la relation entre ces variables est assez forte")
+        if coeff_corr > 0.6:
+            print("la relation entre ces variables est assez forte")

@@ -6,7 +6,8 @@ Licence : Domaine public
 Version : 1.0
 '''
 
-import doctest
+from lien2var.lien2var import Lien2var
+
 
 class Testchi2(Lien2var):
     '''Test d'indépendance du X² de deux variables qualitatives d'une table de données'''

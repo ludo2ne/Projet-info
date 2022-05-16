@@ -175,6 +175,9 @@ class TableDonnees:
         '''
         return "Table de données : {}".format(self.nom)
 
+    def index_variable(self, nom_variable):
+        return np.where(self.variables == nom_variable)[0][0]
+
 
 if __name__ == '__main__':
     doctest.testmod(verbose=True)

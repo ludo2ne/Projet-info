@@ -26,6 +26,7 @@ class MoyenneGlissante(Transformation):
         pass
 # est-ce que la liste_colonnes est vraiment un attribut la classe de MoyenneGlissante ? si oui l'ajouter sur l'UML, sinon le supprimer de la documentation TODO
 
+    # table.donnees[:, numero_colonne]
     def liste_colonne(self, table, numero_colonne):
         '''converti les données d'une colonne de la table en une liste'''
         liste = []
@@ -33,6 +34,7 @@ class MoyenneGlissante(Transformation):
             liste.append(table.donnees[i][numero_colonne])
         return liste  # cette méthode sera utile pour la classe Lien2Var : est-ce qu'il vaut mieux la  mettre en méthode de TableDonnées ? #TODO
 
+    # liste[debut:fin]
     def sous_liste(self, liste, debut, fin):
         '''extrait une sous liste'''
         ss_list = []
