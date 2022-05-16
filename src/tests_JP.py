@@ -7,7 +7,7 @@ Version : 1.0
 '''
 import os
 import numpy as np
-from src.transformation.moyenneglissante import MoyenneGlissante
+from transformation.moyenneglissante import MoyenneGlissante
 from table.tabledonnees import TableDonnees
 from table.donneescsv import DonneesCsv
 from table.donneesjson import DonneesJson
