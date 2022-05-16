@@ -18,7 +18,7 @@ class CoefficientCorrelation(Lien2var):
         super().__init__(table, var1, var2)
         assert(self.etude == "quanti/quanti")
 
-    def representation(self, table, var1, var2):
+    def representation(self, table, var1, var2): #bug d'indentation ? TODO
         '''Nuage de points'''
         plt.scatter(self.var1_liste, self.var1_liste)
         plt.title('Nuage de points')
