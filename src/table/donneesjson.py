@@ -30,6 +30,7 @@ class DonneesJson(TableDonnees):
         liste des noms de variables étant des identifiants
     '''
 # TODO Est-ce qu'ici l'attribut donnees est en fait donnees_avec_entete ? Si oui, modifier et mettre l'ULM à jour en même temps (idem dans la classe csv)
+# Lau : peut-être pas besoin de changer le nom ? on sait que les array 1D correspondent à donnees[0] et donnees[1:]?
 
     def __init__(self, nom, chemin_complet, identifiants=None, delimiteur=";", valeur_manquante="na"):
         '''Constructeur de l'objet
