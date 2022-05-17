@@ -33,4 +33,5 @@ print(ma_table.donnees[1])
 liste_test = ma_table.donnees[:,2]
 #liste_test.pop([3,0]) ne fonctionne pas ainsi
 
+#concatenation de listes
 print([1,2]+[3])
