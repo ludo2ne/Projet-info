@@ -82,3 +82,6 @@ ma_table.afficher()
 #    print(donnees)
 #donnees = np.asarray(donnees)
 # print(donnees)
+
+tableau = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]*2)
+print(tableau)
