@@ -51,7 +51,7 @@ class JointureInterne(Transformation):
                     #list_concat.pop(col_cle[0]) dans l'idée de supprimer les colonnes en double, mais pop() attend un seul entier pas une liste
                     table_donnees.append(list_concat)
         #finir par transformer table_donnee en array ?
-        # supprimer les colonnes de numeros contenus dans cle1 car en double TODO
+        # supprimer les colonnes (de la nouvelle table jointe) dont les numeros sont contenus dans cle1 (car en double) TODO
         table.nom = nom_tb_joint
         table.variables = list_var
         table.donnees = table_donnees
