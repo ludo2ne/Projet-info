@@ -32,14 +32,15 @@ class AgregationSpatiale(Transformation):
         table : TableDonnees
             table de données
         '''
-        #TODO
+        #TODO il faudrait voir un peu plus la "tête"  des tables et de la table d'association (région/station) pour comprendre la mise en oeuvre
 
         #algorithme (brouillon) :
         #1ere étape : à partir d'une table_station qui associe une variable num_stat à une region,
-        # créer une liste de listes qui contient une 1ere liste entête avec chaque nom de régions (sans doublon)
-        # puis pour chaque région une liste de liste de numéro de station (éventuellement sans doublons)
+        # créer une liste (entête) qui contient chaque nom de régions (sans doublon)
+        #  une liste de [ liste de numéros de station (éventuellement sans doublons) pour une région ] par région
         #
         # 2ème étape : dans la table.donnees extraire une sous-matrice des données de type numérique pour chaque date et pour chaque liste de station d'une même région
-        # pour une région et une date, calculer la moyenne de chaque variable numerique
+        # pour une région et une date, calculer la moyenne de chaque variable numerique : recuperer cette liste et la mettre (append) dans une liste de donnees
 
-        #la table récupérée (en sortie) aura la même structure que table.donnee mais avec une variable region à la place de la variable num_stat
+        #la table récupérée (en sortie) aura la même structure que table.donnees mais avec une variable region à la place de la variable num_stat ,
+        # il n'y aura pas de doublons des couples d'identifiants (region, date)
