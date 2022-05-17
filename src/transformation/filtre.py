@@ -16,25 +16,28 @@ class Filtre(Transformation):
     '''Appliation d'un ou plusieurs filtres (par modalité ou fenétrage temporel)
     '''
 
-    def __init__(self, var, modalite=None, fenetrage=False, debut, fin):
+    def __init__(self, var, modalite = None, fenetrage = False, debut, fin, variable_date = "date"):
         '''Constructeur de l'objet
 
         Attributes
         ----------
         var : str
             variable sur laquelle appliquer le filtre par modalités
-        modalite : list[str] = None
+        modalite : list[str]
             liste des modalités à conserver
-        fenetrage : bool = False
+        fenetrage : bool
             True si on souhaite appliquer un fêtrage temporel, False sinon
         debut : date
         fin : date
+        variable_date : str
+            nom de la variable donnant l'horodatage
         '''
-        self.var=var
-        self.modalite=modalite
-        self.fenetrage=fenetrage
-        self.debut=debut
-        self.fin=fin
+        self.var = var
+        self.modalite = modalite
+        self.fenetrage = fenetrage
+        self.debut = debut
+        self.fin = fin
+        self.variable_date = variable_date
 
     def appliquer(self, table):
         '''Appliquer la transformation à la table
@@ -56,8 +59,9 @@ class Filtre(Transformation):
 
         if self.fenetrage == True:
             print("Fenétrage temporel de : ", self.debut, "à", self.fin)
+            num_col_date = table.index_variable(self.variable_date)
             if self.modalite != None:
                 for i in range(len(table.donnees)):
-                    if #TODO<debut or TODO>fin:   à voir le fonctionnement des inégalités avec les dates
+                    if (table.donnees[i][num_col_date] < debut) or (table.donnees[i][num_col_date] > fin): #vérifier format date (float ou str) TODO
                         table.donnees.pop(i)
                         i=i-1
