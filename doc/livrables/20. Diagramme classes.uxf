@@ -74,39 +74,35 @@ fin : date
 --
 &lt;&lt;Create&gt;&gt; __init__(liste_var : list[str])
 +appliquer(table : TableDonnees)
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>930</x><y>960</y><w>1050</w><h>200</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;90;1030;90;1030;180</additional_attributes></element><element><id>Relation</id><coordinates><x>930</x><y>960</y><w>920</w><h>330</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;90;900;90;900;310</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1570</x><y>520</y><w>680</w><h>240</h></coordinates><panel_attributes>TableDonnees
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>930</x><y>960</y><w>1050</w><h>200</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;90;1030;90;1030;180</additional_attributes></element><element><id>Relation</id><coordinates><x>930</x><y>960</y><w>920</w><h>330</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;90;900;90;900;310</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1650</x><y>520</y><w>400</w><h>250</h></coordinates><panel_attributes>TableDonnees
 --
 +nom : str
 +donnees : numpy array 2D
 +identifiants : list [ str ]
 +variables : numpy array 1D
 +type_var : numpy array 1D
-
++valeur_manquante : str = "na"
 --
-&lt;&lt;Create&gt;&gt; __init__(nom : str , donnees_avec_entete : list[ list[ ] ] , type_var= [ ] , identifiants=None , valeur_manquante="na" )
-/+charger_fichier(source : str) &lt;&lt;Abstract&gt;&gt; /
+&lt;&lt;Create&gt;&gt; __init__(nom : str , donnees : list[ list[ ] ] , type_var : list = [ ] , 
+                              identifiants : str =None , valeur_manquante : str ="na" )
++bilan_chargement() : str
++afficher(nb_lignes : int=None, nb_colonnes : int=None )
 +determiner_formats() : numpy array 1D
 +appliquer_formats()
-+bilan_chargement() : str
-+afficher(nb_lignes : int=None, nb_colonnes : int=None )</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1270</x><y>870</y><w>560</w><h>150</h></coordinates><panel_attributes>DonneesCSV
++__str__() : str
++index_variables(nom_variable : str) : int</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1430</x><y>870</y><w>430</w><h>100</h></coordinates><panel_attributes>DonneesCSV
 --
-+nom : str
-+donnees : numpy array
-variables : numpy
-type_var : list [ str ]
-identifiants : list [ str ]
++chemin_complet : str
++delimiteur : str
 --
-&lt;&lt;Create&gt;&gt; __init__(nom, chemin_complet, identifiants=None, delimiteur=";", valeur_manquante="na")
-+charger_fichier(source : str)</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1710</x><y>750</y><w>180</w><h>140</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>160;10;160;60;10;60;10;120</additional_attributes></element><element><id>Relation</id><coordinates><x>1860</x><y>750</y><w>150</w><h>140</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;60;130;60;130;120</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1880</x><y>870</y><w>560</w><h>150</h></coordinates><panel_attributes>DonneesJSON
+&lt;&lt;Create&gt;&gt; __init__(nom : str, chemin_complet : str, identifiants : list[str] =None, 
+                             delimiteur : str =";", valeur_manquante : str ="na")</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1710</x><y>760</y><w>160</w><h>130</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>140;10;140;50;10;50;10;110</additional_attributes></element><element><id>Relation</id><coordinates><x>1840</x><y>760</y><w>170</w><h>130</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;50;150;50;150;110</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1880</x><y>870</y><w>440</w><h>100</h></coordinates><panel_attributes>DonneesJSON
 --
-+nom : str
-+donnees : numpy array
-variables : numpy
-type_var : list [ str ]
-identifiants : list [ str ]
++chemin_complet : str
++delimiteur : str
 --
 &lt;&lt;Create&gt;&gt; __init__(nom, chemin_complet, identifiants=None, delimiteur=";", valeur_manquante="na")
-+charger_fichier(source : str)  ???? n'y est pas dans le programme</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>800</x><y>590</y><w>560</w><h>180</h></coordinates><panel_attributes>Pipeline
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>800</x><y>590</y><w>560</w><h>180</h></coordinates><panel_attributes>Pipeline
 --
 +nom : str
 +table : TableDonnees
@@ -141,8 +137,8 @@ estim1var(table : TableDonnees, numero_colonne : int) : float
 --
 &lt;&lt;create&gt;&gt; __init__()
 estim1var(table : TableDonnees, numero_colonne : int) : float
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1350</x><y>620</y><w>240</w><h>40</h></coordinates><panel_attributes>lt=-
-</panel_attributes><additional_attributes>220;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>1240</x><y>470</y><w>80</w><h>140</h></coordinates><panel_attributes>lt=-
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1350</x><y>620</y><w>320</w><h>40</h></coordinates><panel_attributes>lt=-
+</panel_attributes><additional_attributes>300;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>1240</x><y>470</y><w>80</w><h>140</h></coordinates><panel_attributes>lt=-
 m1=0..1
 m2=*
 &lt; calcule</panel_attributes><additional_attributes>10;120;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1000</x><y>760</y><w>90</w><h>140</h></coordinates><panel_attributes>lt=-
@@ -177,4 +173,38 @@ m2=*
 --
 +etude_lien(table : TableDonnees, var1 : str, var2 :  str )
 +representation(table : TableDonnees, var1 : str, var2 :  str ) : nuage_points
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>670</x><y>310</y><w>140</w><h>120</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>120;50;120;10;50;10;10;100</additional_attributes></element><element><id>Relation</id><coordinates><x>150</x><y>960</y><w>810</w><h>400</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>790;10;790;90;10;90;10;380</additional_attributes></element></diagram>
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>670</x><y>310</y><w>140</w><h>120</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>120;50;120;10;50;10;10;100</additional_attributes></element><element><id>Relation</id><coordinates><x>150</x><y>960</y><w>810</w><h>400</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>790;10;790;90;10;90;10;380</additional_attributes></element><element><id>UMLClass</id><coordinates><x>2660</x><y>440</y><w>400</w><h>250</h></coordinates><panel_attributes>TableDonnees
+--
++nom : str
++donnees : numpy array 2D
++identifiants : list [ str ]
++variables : numpy array 1D
++type_var : numpy array 1D
++valeur_manquante : str = "na"
+--
+&lt;&lt;Create&gt;&gt; __init__(nom : str , donnees : list[ list[ ] ] , type_var : list = [ ] , 
+                              identifiants : str =None , valeur_manquante : str ="na" )
++bilan_chargement() : str
++afficher(nb_lignes : int=None, nb_colonnes : int=None )
++determiner_formats() : numpy array 1D
++appliquer_formats()
++__str__() : str
++index_variables(nom_variable : str) : int</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>2370</x><y>920</y><w>430</w><h>100</h></coordinates><panel_attributes>DonneesCSV
+--
++chemin_complet : str
++delimiteur : str
+--
+&lt;&lt;Create&gt;&gt; __init__(nom : str, chemin_complet : str, identifiants : list[str] =None, 
+                             delimiteur : str =";", valeur_manquante : str ="na")</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>2840</x><y>920</y><w>440</w><h>100</h></coordinates><panel_attributes>DonneesJSON
+--
++chemin_complet : str
++delimiteur : str
+--
+&lt;&lt;Create&gt;&gt; __init__(nom, chemin_complet, identifiants=None, delimiteur=";", valeur_manquante="na")
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>2640</x><y>750</y><w>430</w><h>100</h></coordinates><panel_attributes>&lt;&lt;Abstract&gt;&gt;
+/TableDonneesViaFichier/
+--
++chemin_complet : str
++delimiteur : str
+--
+/&lt;&lt;create&gt;&gt; __init__() &lt;&lt;Abstract&gt;&gt; /</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>2560</x><y>840</y><w>280</w><h>100</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>260;10;260;50;10;50;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>2810</x><y>840</y><w>310</w><h>100</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;50;290;50;290;80</additional_attributes></element><element><id>Relation</id><coordinates><x>2810</x><y>680</y><w>30</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;70</additional_attributes></element></diagram>
