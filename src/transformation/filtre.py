@@ -7,23 +7,25 @@ Version : 1.0
 '''
 
 import doctest
+from src.table.tabledonnees import TableDonnees
 from transformation.transformation import Transformation
-from lien2var.lien2var import Lien2var  #pour la méthode num_col() à déplacer ?
+#from lien2var.lien2var import Lien2var  #pour la méthode num_col() à déplacer ?
+
 
 class Filtre(Transformation):
     '''Appliation d'un ou plusieurs filtres (par modalité ou fenétrage temporel)
     '''
 
-    def __init__(self, var, modalite=None, fenetrage=False,debut,fin):
+    def __init__(self, var, modalite=None, fenetrage=False, debut, fin):
         '''Constructeur de l'objet
 
         Attributes
         ----------
         var : str
             variable sur laquelle appliquer le filtre par modalités
-        modalite : list[str]
+        modalite : list[str] = None
             liste des modalités à conserver
-        fenetrage : bool
+        fenetrage : bool = False
             True si on souhaite appliquer un fêtrage temporel, False sinon
         debut : date
         fin : date
@@ -42,13 +44,13 @@ class Filtre(Transformation):
         table : TableDonnees
             table de données
         '''
-        numero_colonne = num_col(table, self.var)
+        numero_colonne = table.index_variable(self.var) #syntaxe ?
         print("------------------------------------------------------")
 
         if self.modalite != None:
             print("Liste des modalités selectionnées", self.modalite, "pour la variable", self.var)
             for i in range(len(table.donnees)):
-                if table.donnees[i][numero_colonne] is not in self.modalite: #syntaxe à vérifier
+                if table.donnees[i][numero_colonne] not in self.modalite:
                     table.donnees.pop(i)
                     i=i-1
 

@@ -178,6 +178,11 @@ class TableDonnees:
     def index_variable(self, nom_variable):
         return np.where(self.variables == nom_variable)[0][0]
 
+   # def num_col(self, var):  # à déplacer depuis la classe TableDonnees ? TODO est-ce que ça fait la même chose que index_variable ?
+    #    for i in len(self.variables):
+     #       if self.variables[i] == var:
+      #          return i
+
 
 if __name__ == '__main__':
     doctest.testmod(verbose=True)

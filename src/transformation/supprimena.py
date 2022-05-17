@@ -8,7 +8,7 @@ Version : 1.0
 
 import doctest
 from transformation.transformation import Transformation
-from lien2var.lien2var import Lien2var  #pour la méthode num_col() à déplacer ?
+#from lien2var.lien2var import Lien2var  #pour la méthode num_col() à déplacer ?  à supprimer
 
 class SupprimeNA(Transformation):
     '''Suppression des valeurs manques pour une liste de variables
@@ -35,7 +35,8 @@ class SupprimeNA(Transformation):
         '''
         liste_numero_col=[]
         for var in self.liste_var:
-            liste_numero_col.append(num_col(table, var))
+            #liste_numero_col.append(num_col(table, var))
+            liste_numero_col.append(table.idex_variable(var))
 
         for i in liste_numero_col:
             for j in range(len(table.donnees)):

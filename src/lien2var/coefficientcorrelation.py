@@ -10,7 +10,6 @@ import doctest
 from lien2var.lien2var import Lien2var
 import matplotlib.pyplot as plt
 import numpy as np
-from lien2var.lien2var import Lien2var
 
 
 class CoefficientCorrelation(Lien2var):
@@ -36,10 +35,6 @@ class CoefficientCorrelation(Lien2var):
         coeff_corr = np.corrcoef(self.var1_liste, self.var2_liste)
         print("le coefficient de corrélation de ces variables est :", coeff_corr)
         if coeff_corr < 0.4:
-<<<<<<< HEAD
-           print("la relation entre ces variables est assez faible")
-=======
             print("la relation entre ces variables est assez faible")
->>>>>>> e6db8536ebe266fbb922489f22858c07a6bf44ec
         if coeff_corr > 0.6:
             print("la relation entre ces variables est assez forte")

@@ -26,15 +26,15 @@ class MoyenneGlissante(Transformation):
         pass
 # est-ce que la liste_colonnes est vraiment un attribut la classe de MoyenneGlissante ? si oui l'ajouter sur l'UML, sinon le supprimer de la documentation TODO
 
-    # table.donnees[:, numero_colonne]
-    def liste_colonne(self, table, numero_colonne):
-        '''converti les données d'une colonne de la table en une liste'''
-        liste = []
-        for i in range(len(table.donnees)):
-            liste.append(table.donnees[i][numero_colonne])
-        return liste  # cette méthode sera utile pour la classe Lien2Var : est-ce qu'il vaut mieux la  mettre en méthode de TableDonnées ? #TODO
+    # table.donnees[:, numero_colonne]  ça ne fonctionne pas pour les listes de listes sauf si converties au format np.array
+    #def liste_colonne(self, table, numero_colonne):
+      #  '''converti les données d'une colonne de la table en une liste'''
+       # liste = []
+       # for i in range(len(table.donnees)):
+        #    liste.append(table.donnees[i][numero_colonne])
+        #return liste  # cette méthode sera utile pour la classe Lien2Var : est-ce qu'il vaut mieux la  mettre en méthode de TableDonnées ? #TODO
 
-    # liste[debut:fin]
+    # liste[debut:fin] OK
     #def sous_liste(self, liste, debut, fin):
      #   '''extrait une sous liste'''
       #  ss_list = []
@@ -42,7 +42,7 @@ class MoyenneGlissante(Transformation):
         #    ss_list.append(liste[i])
         #return ss_list
 
-    def moyenne_glissante(self, table, numero_colonne, pas):
+    def moyenne_glissante(self, table, numero_colonne, pas): #est-ce que ça pourrait être une staticmethode en se dispensant de self ? TODO
         '''Calculer la liste des moyennes glissantes à d'une variable de la table
 
         Parameters
@@ -52,7 +52,7 @@ class MoyenneGlissante(Transformation):
         numero_colonne : int
             numéro de la colonne sur laquelle appliquer
         '''
-        liste_valeurs = self.liste_colonne(table, numero_colonne)
+        liste_valeurs = table.donnes[:, numero_colonne]
         liste_moyennes = []
 
         if pas % 2 == 1:  # cas impair
