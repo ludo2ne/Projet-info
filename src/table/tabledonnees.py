@@ -175,7 +175,7 @@ class TableDonnees:
         '''
         return "Table de données : {}".format(self.nom)
 
-    def index_variable(self, nom_variable):
+    def index_variable(self, nom_variable): #faire une variante de cette méthode pour qu'applique aussi à une liste ? TODO utile pour les clés de jointure
         return np.where(self.variables == nom_variable)[0][0]
 
    # def num_col(self, var):  # à déplacer depuis la classe TableDonnees ? apparement ça fait la même chose que index_variable . à supprimer

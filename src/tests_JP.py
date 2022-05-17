@@ -68,7 +68,8 @@ print(ma_table2.type_var)
 Normalisation().appliquer(ma_table)
 ma_table.afficher(nb_lignes=10, nb_colonnes=7)
 
-
+#test de la methode index_variable() sur une liste
+ma_table.index_variable("taille")
 
 # -------------------------------------------------------------------
 # Etude du lien entre 2 variables quantitatives

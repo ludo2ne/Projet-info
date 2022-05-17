@@ -20,7 +20,7 @@ class Lien2var:
       #      if table.variables[i] == var:
        #         return i
 
-    def __init__(self, table, var1, var2): # pas sur que ça soit la meilleure façon de faire, à vérifier TODO
+    def __init__(self, table, var1, var2): # pas sûr que ça soit la meilleure façon de faire, à vérifier TODO
         '''Constructeur de l'objet'''
         numcol_var1 = table.index_variable(var1)
         numcol_var2 = table.index_variable(var2)
