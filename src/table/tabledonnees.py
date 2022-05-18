@@ -19,16 +19,15 @@ class TableDonnees:
         Nom de la table
     donnees : numpy array
         données rangées dans un numpy array
-    variables : list [str]
+    variables : numpy array
         liste des variables
-    type_var : list [str]
+    type_var : numpy array
         type des variables
     identifiants : list[str]
         liste des noms de variables étant des identifiants
-    #TODO est-ce que
     '''
 
-    def __init__(self, nom, donnees_avec_entete, identifiants = None, type_var = [], valeur_manquante = "na"):
+    def __init__(self, nom, donnees_avec_entete, identifiants=None, type_var=[], valeur_manquante=None):
         '''Constructeur de l'objet
 
         Parameters
@@ -40,8 +39,11 @@ class TableDonnees:
             la première ligne contient les entêtes de colonnes (variables)
         identifiants : list[str]
             liste des noms de variables étant des identifiants
-        type_var : list[str]
+        type_var : numpy array
             type des variables
+        valeur_manquante : str
+            indique par quelle chaine de caractères sont représentées les valeurs manquantes
+            na par défaut
 
         Examples
         --------
@@ -50,9 +52,14 @@ class TableDonnees:
         self.identifiants = identifiants
 
         if self.__class__.__name__ == "TableDonnees":
-            self.variables = np.array(donnees_avec_entete[0], dtype=object)
             self.type_var = np.array(type_var, dtype=object)
-            self.donnees = np.array(donnees_avec_entete[1:], dtype=object)
+            if donnees_avec_entete != []:  # Lau : ajouté pour enlever le pbm rencontré avec donneesJSON et liste vide..?
+                self.variables = np.array(donnees_avec_entete[0], dtype=object)
+                self.donnees = np.array(donnees_avec_entete[1:], dtype=object)
+            else:
+                self.variables = []
+                self.donnees = []
+            # TODO : si type_var = [] déterminer format
             self.appliquer_formats()
             self.bilan_chargement()
 
@@ -63,7 +70,7 @@ class TableDonnees:
         print("   nombre de variables : " + str(len(self.variables)))
         print("------------------------------------------------------")
 
-    def afficher(self, nb_lignes = None, nb_colonnes = None):
+    def afficher(self, nb_lignes=None, nb_colonnes=None):
         '''Affiche sous forme de tableau un extrait de la table
 
         Parameters
@@ -86,14 +93,14 @@ class TableDonnees:
         # Pour eviter de tout refaire je reconverti le numpy array en liste de liste
         listes_donnees = self.donnees.tolist()
 
-        # Si les parametres sont resenignés à None ou si leur valeur est trop grande
+        # Si les parametres sont resenignes a None ou si leur valeur est trop grande
         # ils prennent simplement la valeur maximum possible
         if nb_lignes == None or nb_lignes > len(listes_donnees):
             nb_lignes = len(listes_donnees)
         if nb_colonnes == None or nb_colonnes > len(listes_donnees[0]):
             nb_colonnes = len(listes_donnees[0])
 
-        # Creation d'une sous liste
+        # Creation d une sous liste
         reduced_list = [[]]
 
         for i in range(0, nb_colonnes):
@@ -111,7 +118,7 @@ class TableDonnees:
                             tablefmt="psql",
                             floatfmt=".2f") + "\n")    # 2 decimales pour les float
 
-    def determiner_formats(self): #remplacer format par type ? TODO
+    def determiner_formats(self):
         '''Méthode qui détermine le format de chaque colonne à partir des données
 
         Si la variable contient le mot date, le format de cette variable sera date

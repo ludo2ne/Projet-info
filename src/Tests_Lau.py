@@ -9,12 +9,13 @@ import os
 import numpy as np
 from table.tabledonnees import TableDonnees
 from transformation.concatenation import ConcatanationLignes
+from table.donneesjson import DonneesJson
 
 # -------------------------------------------------------------------
 # Creation manuelle d une table
 # -------------------------------------------------------------------
 ma_table = TableDonnees(nom="t1",
-                        donnees_avec_entete=[["id", "dnais", "taille", "poids"],
+                        donnees=[["id", "dnais", "taille", "poids"],
                                  ["id1", 20120101, 160, 50],
                                  ["id2", 20060920, 180, 80],
                                  ["id3", 20010815, 155, 45]],
@@ -22,7 +23,7 @@ ma_table = TableDonnees(nom="t1",
                         type_var=["str", "date", "float", "float"])
 
 mon_autre_table = TableDonnees(nom="t2",
-                               donnees_avec_entete=[["id", "dnais", "taille", "poids"],
+                               donnees=[["id", "dnais", "taille", "poids"],
                                         ["id1", 20100101, 130, 40]],
                                identifiants=["id"],
                                type_var=["str", "date", "float", "float"])
@@ -51,37 +52,14 @@ ConcatanationLignes(mon_autre_table).appliquer(ma_table)
 ma_table.afficher()
 
 
-# exemple qui marche : (mais type final obtenu un peu bizarre, liste de tableaux..? )
-# donnees = [[] for k in range(
-#    len(ma_table.donnees) + len(mon_autre_table.donnees) + 1)]
-# print(donnees)
-#donnees[0] = np.asarray(ma_table.variables)
-# print(donnees)
-# donnees_conc = np.concatenate(
-#    (ma_table.donnees, mon_autre_table.donnees))
-# print(donnees_conc)
-# print(len(donnees))
-# print(len(donnees_conc))
-# for k in range(len(donnees_conc)):
-#    donnees[k+1] = donnees_conc[k]
-#    print(donnees)
+# -------------------------------------------------------------------
+# Creation a partir d un fichier json
+# -------------------------------------------------------------------
+ma_table_json = DonneesJson(nom="table_json",
+                            donnees_avec_entete=[],
+                            chemin_complet=os.getcwd() + "/donnees/test/2013-01.json.gz",
+                            identifiants=[],
+                            valeur_manquante="mq")
 
-# avec tentative de changer de type :
-# donnees = [[] for k in range(
-#    len(ma_table.donnees) + len(mon_autre_table.donnees) + 1)]
-# print(donnees)
-#donnees[0] = list(ma_table.variables)
-# print(donnees)
-# donnees_conc = np.concatenate(
-#    (ma_table.donnees, mon_autre_table.donnees))
-# print(donnees_conc)
-# print(len(donnees))
-# print(len(donnees_conc))
-# for k in range(len(donnees_conc)):
-#    donnees[k+1] = list(donnees_conc[k])
-#    print(donnees)
-#donnees = np.asarray(donnees)
-# print(donnees)
-
-tableau = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]*2)
-print(tableau)
+ma_table_json.afficher(nb_lignes=10,
+                       nb_colonnes=7)
