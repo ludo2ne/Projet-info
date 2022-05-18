@@ -31,15 +31,17 @@ class DonneesCsv(TableDonnees):
         liste des noms de variables étant des identifiants
     '''
 
-    def __init__(self, nom, chemin_complet, identifiants=None, delimiteur=";", valeur_manquante="na"):
+    def __init__(self, nom, chemin_complet, identifiants=None, delimiteur=";", valeur_manquante="mq"):
+        # Lau : deux remarques :
+        # à mon sens il manque des éléments dans __init__(...) : donnees_avec_entete ?
+        # Il me semblait que chemin_complet et delimiteur n'étaient pas des attributs mais des paramètres donc je ne comprends pas pourquoi ils sont définis via self.chemin_complet et self.delimiteur
+        # ==> ce n'est pas cohérent avec la classe JSON ?
         '''Constructeur de l'objet
 
         Parameters
         ----------
         nom : str
             nom de la table
-        variables : numpy array
-            liste des variables
         identifiants : list[str]
             liste des noms de variables étant des identifiants
             aucun par défaut
@@ -51,10 +53,8 @@ class DonneesCsv(TableDonnees):
             indique par quelle chaine de caractères sont représentées les valeurs manquantes
             na par défaut
         '''
-        super().__init__(nom=nom, donnees_avec_entete=[], identifiants=identifiants)
-
-        self.chemin_complet = chemin_complet
-        self.delimiteur = delimiteur
+        super().__init__(nom=nom, donnees_avec_entete=[],
+                         identifiants=identifiants)  # il manque aussi des paramètres ?
 
         donnees_csv = []
 
