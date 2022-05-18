@@ -44,7 +44,7 @@ ma_table_csv.afficher(nb_lignes=10,
 # Creation manuelle d une table
 # -------------------------------------------------------------------
 ma_table = TableDonnees(nom="t1",
-                        donnees=[["id", "dnais", "taille"],
+                        donnees_avec_entete=[["id", "dnais", "taille"],
                                  ["id1", "20120101", "160"],
                                  ["id2", "20060920", "180"]],
                         identifiants=["id"],
@@ -53,7 +53,7 @@ ma_table = TableDonnees(nom="t1",
 ma_table.afficher(nb_lignes=10, nb_colonnes=7)
 
 ma_table2 = TableDonnees(nom="t2",
-                        donnees=[["id", "dnais", "taille", "poids"],
+                        donnees_avec_entete=[["id", "dnais", "taille", "poids"],
                                 ["id1", "20120101", 160, "68"],
                                 ["id2", "20060920", 180, 85],
                                 ["id3", "20060921", 170, 70]],

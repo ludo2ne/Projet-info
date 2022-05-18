@@ -62,7 +62,7 @@ ma_table_json.afficher(nb_lignes=10,
 # Creation manuelle d une table
 # -------------------------------------------------------------------
 ma_table = TableDonnees(nom="t1",
-                        donnees=[["id", "dnais", "taille"],
+                        donnees_avec_entete=[["id", "dnais", "taille"],
                                  ["id1", "20120101", "160"],
                                  ["id2", "20060920", "180"]],
                         identifiants=["id"],
