@@ -30,10 +30,8 @@ class DonneesJson(TableDonnees):
     identifiants : list[str]
         liste des noms de variables étant des identifiants
     '''
-# TODO Est-ce qu'ici l'attribut donnees est en fait donnees_avec_entete ? Si oui, modifier et mettre l'ULM à jour en même temps (idem dans la classe csv)
-# Lau : peut-être pas besoin de changer le nom ? on sait que les array 1D correspondent à donnees[0] et donnees[1:]?
 
-    # ?valeur_manquante à enlever ?
+    # ?valeur_manquante à enlever ? TODO
     def __init__(self, nom, chemin_complet, identifiants=None, delimiteur=";", valeur_manquante="mq"):
         '''Constructeur de l'objet
 
@@ -54,7 +52,7 @@ class DonneesJson(TableDonnees):
             indique par quelle chaine de caractères sont représentées les valeurs manquantes
             na par défaut
         '''
-        super().__init__(nom=nom, donnees_avec_entete=[], identifiants=identifiants)
+        super().__init__(nom=nom, donnees_avec_entete=[], identifiants=identifiants) #finelement on ne se sert pas de donnees_avec_entete pour json ? TODO
 
         dico = None
 
@@ -86,9 +84,9 @@ class DonneesJson(TableDonnees):
                 ma_ligne.append(dico[item].get('fields').get(variable))
             donnees_json.append(ma_ligne)
 
-        self.donnees_avec_entete = np.array(donnees_json, dtype=object)
+        self.donnees= np.array(donnees_json, dtype=object) #vérifier si données est bien l'attribut sans entête ?
 
-        self.donnees_avec_entete[self.donnees_avec_entete == valeur_manquante] = np.nan
+        self.donnees[self.donnees == valeur_manquante] = np.nan
 
         self.type_var = self.determiner_formats()
         self.appliquer_formats()

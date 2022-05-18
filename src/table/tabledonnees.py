@@ -93,7 +93,7 @@ class TableDonnees:
         # Pour eviter de tout refaire je reconverti le numpy array en liste de liste
         listes_donnees = self.donnees.tolist()
 
-        # Si les parametres sont resenignes a None ou si leur valeur est trop grande
+        # Si les parametres sont resenignes???TODO a None ou si leur valeur est trop grande
         # ils prennent simplement la valeur maximum possible
         if nb_lignes == None or nb_lignes > len(listes_donnees):
             nb_lignes = len(listes_donnees)
@@ -182,11 +182,6 @@ class TableDonnees:
 
     def index_variable(self, nom_variable):
         return np.where(self.variables == nom_variable)[0][0]
-
-   # def num_col(self, var):  # à déplacer depuis la classe TableDonnees ? apparement ça fait la même chose que index_variable . à supprimer
-    #    for i in len(self.variables):
-     #       if self.variables[i] == var:
-      #          return i
 
 
 if __name__ == '__main__':
