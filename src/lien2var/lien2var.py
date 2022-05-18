@@ -8,17 +8,10 @@ Version : 1.0
 
 from abc import abstractmethod
 import doctest
-#from transformation.moyenneglissante import liste_colonne  # à vérifier TODO à supprimer
 
 
 class Lien2var:
     '''Classe (abstraite ?) pour étudier les liens entre deux variables d'une table donnée'''
-
-    #@staticmethod
-    #def num_col(table, var):  # à déplacer dans la classe TableDonnees ? TODO à supprimer
-     #   for i in len(table.variables):
-      #      if table.variables[i] == var:
-       #         return i
 
     def __init__(self, table, var1, var2): # pas sûr que ça soit la meilleure façon de faire, à vérifier TODO
         '''Constructeur de l'objet'''

@@ -1,10 +1,9 @@
-
 from table.tabledonnees import TableDonnees
 from table.donneescsv import DonneesCsv
 import os
 import numpy as np
 import statistics
-
+import matplotlib.pyplot as plt
 
 ma_table = TableDonnees(nom="t1",
                         donnees_avec_entete=[["id", "dnais", "taille", "poids"],
@@ -12,8 +11,7 @@ ma_table = TableDonnees(nom="t1",
                                  ["id2", 20060920, 180, 80],
                                  ["id3", 20010815, 155, 45]],
                         identifiants=["id"],
-                        type_var=["str", "date", "float", "float"]) #il y a encore confusion entre donnees et donnees_avec_entete TODO
-
+                        type_var=["str", "date", "float", "float"])
 
 # Numero colonne
 print(ma_table.index_variable("taille"))
@@ -62,3 +60,10 @@ print(np.isnan(ma_table.donnees[0,2]))
 #moyenne avec NA
 liste=[5,3,5,10,9,np.nan]
 print(statistics.mean(liste))
+
+#coeff de corr
+print(np.corrcoef([1,2,3],[10,15,30])[1,0])
+
+#nuage de points
+plt.scatter([1,2,3],[10,15,30])
+plt.show()

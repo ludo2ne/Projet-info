@@ -76,4 +76,11 @@ ma_table_csv.afficher(nb_lignes=10, nb_colonnes=7)
 # -------------------------------------------------------------------
 MoyenneGlissante().appliquer(ma_table_csv) #ne fonctionne pas, ni avec ma_table3 TODO à debugger
 ma_table_csv.afficher(nb_lignes=10,
-                      nb_colonnes=12)
+                      nb_colonnes=7)
+
+# -------------------------------------------------------------------
+# Etude du lien entre 2 variables quantitatives
+# -------------------------------------------------------------------
+SupprimeNA(["ff","tend"]).appliquer(ma_table_csv)
+CoefficientCorrelation(ma_table_csv,"ff","tend").representation(ma_table_csv,"ff","tend")
+CoefficientCorrelation(ma_table_csv,"ff","tend").etude_lien(ma_table_csv,"ff","tend")

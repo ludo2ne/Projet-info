@@ -20,19 +20,19 @@ class CoefficientCorrelation(Lien2var):
         super().__init__(table, var1, var2)
         assert(self.etude == "quanti/quanti")
 
-    def representation(self, table, var1, var2):  # bug d'indentation ? TODO
+    def representation(self, table, var1, var2):
         '''Nuage de points'''
-        plt.scatter(self.var1_liste, self.var1_liste)
+        plt.scatter(self.var1_liste, self.var2_liste)
         plt.title('Nuage de points')
         plt.xlabel('{}'.format(var1))
         plt.ylabel('{}'.format(var2))
-        plt.savefig('ScatterPlot_{}_{}_{}.png'.format(var1, var2, table.nom))
+        plt.savefig('ScatterPlot_{}_{}_{}.png'.format(var1, var2, table.nom)) #comment l'enregistrer dans donnees.exports.graphique ? TODO
         plt.show()
 
     def etude_lien(self, table, var1, var2):
         '''étude de la corrélation entre les variables'''
         print("Etude du lien entre", var1, "et", var2)
-        coeff_corr = np.corrcoef(self.var1_liste, self.var2_liste)
+        coeff_corr = np.corrcoef(self.var1_liste, self.var2_liste)[1,0]
         print("le coefficient de corrélation de ces variables est :", coeff_corr)
         if coeff_corr < 0.4:
             print("la relation entre ces variables est assez faible")
