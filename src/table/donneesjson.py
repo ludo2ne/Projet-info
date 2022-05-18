@@ -32,7 +32,7 @@ class DonneesJson(TableDonnees):
     '''
 
     # ?valeur_manquante à enlever ? TODO
-    def __init__(self, nom, chemin_complet, identifiants=None, delimiteur=";", valeur_manquante="mq"):
+    def __init__(self, nom, chemin_complet, identifiants=None, valeur_manquante="mq"):
         '''Constructeur de l'objet
 
         Parameters
@@ -52,15 +52,16 @@ class DonneesJson(TableDonnees):
             indique par quelle chaine de caractères sont représentées les valeurs manquantes
             na par défaut
         '''
-        super().__init__(nom=nom, donnees_avec_entete=[], identifiants=identifiants) #finelement on ne se sert pas de donnees_avec_entete pour json ? TODO
+        super().__init__(nom=nom, donnees_avec_entete=[],
+                         identifiants=identifiants)  # finelement on ne se sert pas de donnees_avec_entete pour json ? TODO
 
         dico = None
 
-        if self.chemin_complet.endswith(".gz"):
-            with gzip.open(self.chemin_complet, mode='rt', encoding='utf-8') as gzfile:
+        if chemin_complet.endswith(".gz"):
+            with gzip.open(chemin_complet, mode='rt', encoding='utf-8') as gzfile:
                 dico = json.load(gzfile)
-        elif self.chemin_complet.endswith(".json"):
-            with open(self.chemin_complet, mode='r', encoding='utf-8') as jsonfile:
+        elif chemin_complet.endswith(".json"):
+            with open(chemin_complet, mode='r', encoding='utf-8') as jsonfile:
                 dico = json.load(jsonfile)
         else:
             warnings.warn("Le fichier doit être un json ou un json.gz")
@@ -84,7 +85,8 @@ class DonneesJson(TableDonnees):
                 ma_ligne.append(dico[item].get('fields').get(variable))
             donnees_json.append(ma_ligne)
 
-        self.donnees= np.array(donnees_json, dtype=object) #vérifier si données est bien l'attribut sans entête ?
+        # vérifier si données est bien l'attribut sans entête ?
+        self.donnees = np.array(donnees_json, dtype=object)
 
         self.donnees[self.donnees == valeur_manquante] = np.nan
 
