@@ -47,10 +47,7 @@ ma_table = TableDonnees(nom="t1",
 
 ma_table.afficher(nb_lignes=10, nb_colonnes=7)
 
-#ma_table2 = TableDonnees(nom="t2",donnees_avec_entete=[["id", "dnais", "taille", "poids"],["id1", "20120101", 160, "68"], ["id2", "20060920", 180, 85], ["id3", "20060921", 170, 70]],identifiants=["id"])
-#bug pour ma_table2 à cause de appliquer.format() TODO ne fonctionne pas si type_var n'est pas prédéfinie, ou sil les variables sont déjà en partie de type float ?
-#ma_table2.determiner_formats ne fonctionne pas
-#print(ma_table2.type_var)
+
 
 # -------------------------------------------------------------------
 # Normaliser une table
@@ -74,13 +71,24 @@ ma_table_csv.afficher(nb_lignes=10, nb_colonnes=7)
 # -------------------------------------------------------------------
 # Moyennes glissantes d'une table
 # -------------------------------------------------------------------
-MoyenneGlissante().appliquer(ma_table_csv) #ne fonctionne pas, ni avec ma_table3 TODO à debugger
+MoyenneGlissante().appliquer(ma_table_csv)
 ma_table_csv.afficher(nb_lignes=10,
                       nb_colonnes=7)
+
+
 
 # -------------------------------------------------------------------
 # Etude du lien entre 2 variables quantitatives
 # -------------------------------------------------------------------
 SupprimeNA(["ff","tend"]).appliquer(ma_table_csv)
 CoefficientCorrelation(ma_table_csv,"ff","tend").representation(ma_table_csv,"ff","tend")
-CoefficientCorrelation(ma_table_csv,"ff","tend").etude_lien(ma_table_csv,"ff","tend")
+CoefficientCorrelation(ma_table_csv,"ff","tend").etude_lien(ma_table_csv,"ff","tend") #TODO à débugger
+
+# -------------------------------------------------------------------
+# Creation manuelle d une table TODO à debugger
+# -------------------------------------------------------------------
+
+ma_table2 = TableDonnees(nom="t2",donnees_avec_entete=[["id", "dnais", "taille", "poids"],["id1", "20120101", "160", "68"], ["id2", "20060920", 180, 85], ["id3", "20060921", 170, 70]],identifiants=["id"])
+#bug pour ma_table2 à cause de appliquer.format() TODO ne fonctionne pas si type_var n'est pas prédéfinie, ou sil les variables sont déjà en partie de type float ?
+#ma_table2.determiner_formats ne fonctionne pas
+print(ma_table2.type_var)

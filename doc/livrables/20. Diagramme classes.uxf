@@ -79,14 +79,10 @@ fin : date
 +nom : str
 +identifiants : list [ str ]
 +variables : numpy array 1D
-<<<<<<< HEAD
-+donnees : numpy array
-=======
 +donnees : numpy array 2D
->>>>>>> 4edb4b3b996e0cba2adb9fd7040e19f59a45a23f
 +type_var :  numpy array 1D
 --
-&lt;&lt;Create&gt;&gt; __init__(nom : str , donnees_avec_entete : array  , type_var : array = [ ] ,
+&lt;&lt;Create&gt;&gt; __init__(nom : str , donnees_avec_entete : array  , type_var : array = [ ] , 
                               identifiants : str =None , valeur_manquante : str ="na" )
 +bilan_chargement() : str
 +afficher(nb_lignes : int=None, nb_colonnes : int=None )
@@ -96,13 +92,8 @@ fin : date
 +index_variables(nom_variable : str) : int</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1430</x><y>870</y><w>430</w><h>70</h></coordinates><panel_attributes>DonneesCSV
 --
 --
-<<<<<<< HEAD
-&lt;&lt;Create&gt;&gt; __init__(nom : str, chemin_complet : str, identifiants : list[str] =None,
-                             delimiteur : str =";", valeur_manquante : str ="na")</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1710</x><y>760</y><w>160</w><h>130</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>140;10;140;50;10;50;10;110</additional_attributes></element><element><id>Relation</id><coordinates><x>1840</x><y>760</y><w>170</w><h>130</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;50;150;50;150;110</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1880</x><y>870</y><w>420</w><h>100</h></coordinates><panel_attributes>DonneesJSON
-=======
 &lt;&lt;Create&gt;&gt; __init__(nom : str, chemin_complet : str, identifiants : list[str] =None, 
                              delimiteur : str =";", valeur_manquante : str ="mq")</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1710</x><y>740</y><w>160</w><h>150</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>140;10;140;70;10;70;10;130</additional_attributes></element><element><id>Relation</id><coordinates><x>1840</x><y>740</y><w>170</w><h>150</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;70;150;70;150;130</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1880</x><y>870</y><w>420</w><h>70</h></coordinates><panel_attributes>DonneesJSON
->>>>>>> 4edb4b3b996e0cba2adb9fd7040e19f59a45a23f
 --
 --
 &lt;&lt;Create&gt;&gt; __init__(nom : str, chemin_complet : str, identifiants : list[str]=None,
