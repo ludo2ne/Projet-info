@@ -27,7 +27,7 @@ class TableDonnees:
         liste des noms de variables étant des identifiants
     '''
 
-    def __init__(self, nom, donnees_avec_entete, identifiants=None, type_var=[], valeur_manquante=None):
+    def __init__(self, nom, donnees_avec_entete, identifiants=[], type_var=[], valeur_manquante=None):
         '''Constructeur de l'objet
 
         Parameters

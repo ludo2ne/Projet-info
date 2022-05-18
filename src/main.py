@@ -51,8 +51,7 @@ ma_table_csv_01.afficher(nb_colonnes=12)
 # -------------------------------------------------------------------
 ma_table_json = DonneesJson(nom="table_json",
                             chemin_complet=os.getcwd() + "/donnees/test/2013-01.json.gz",
-                            identifiants=[],
-                            valeur_manquante="mq")
+                            identifiants=["code_insee_region", "date", "heure"])
 
 ma_table_json.afficher(nb_lignes=10,
                        nb_colonnes=7)
@@ -63,8 +62,8 @@ ma_table_json.afficher(nb_lignes=10,
 # -------------------------------------------------------------------
 ma_table = TableDonnees(nom="t1",
                         donnees_avec_entete=[["id", "dnais", "taille"],
-                                 ["id1", "20120101", "160"],
-                                 ["id2", "20060920", "180"]],
+                                             ["id1", "20120101", "160"],
+                                             ["id2", "20060920", "180"]],
                         identifiants=["id"],
                         type_var=["str", "date", "float"])
 
