@@ -27,7 +27,7 @@ class TableDonnees:
         liste des noms de variables étant des identifiants
     '''
 
-    def __init__(self, nom, donnees_avec_entete, identifiants=None, type_var=[], valeur_manquante=None):
+    def __init__(self, nom, donnees_avec_entete, identifiants = None, type_var = [], valeur_manquante = None):
         '''Constructeur de l'objet
 
         Parameters
@@ -70,7 +70,7 @@ class TableDonnees:
         print("   nombre de variables : " + str(len(self.variables)))
         print("------------------------------------------------------")
 
-    def afficher(self, nb_lignes=None, nb_colonnes=None):
+    def afficher(self, nb_lignes = None, nb_colonnes = None):
         '''Affiche sous forme de tableau un extrait de la table
 
         Parameters

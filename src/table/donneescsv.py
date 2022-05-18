@@ -59,14 +59,14 @@ class DonneesCsv(TableDonnees):
         donnees_csv = []
 
         # Teste si le fichier csv est dans une archive gz
-        if self.chemin_complet.endswith(".gz"):
-            with gzip.open(self.chemin_complet, mode='rt') as file:
-                synopreader = csv.reader(file, delimiter=self.delimiteur)
+        if chemin_complet.endswith(".gz"):
+            with gzip.open(chemin_complet, mode='rt') as file:
+                synopreader = csv.reader(file, delimiter=delimiteur)
                 for row in synopreader:
                     donnees_csv.append(row)
-        elif self.chemin_complet.endswith(".csv"):
-            with open(self.chemin_complet) as file:
-                synopreader = csv.reader(file, delimiter=self.delimiteur)
+        elif chemin_complet.endswith(".csv"):
+            with open(chemin_complet) as file:
+                synopreader = csv.reader(file, delimiter=delimiteur)
                 for row in synopreader:
                     donnees_csv.append(row)
         else:

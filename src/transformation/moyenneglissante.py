@@ -42,7 +42,7 @@ class MoyenneGlissante(Transformation):
         #    ss_list.append(liste[i])
         #return ss_list
 
-    def moyenne_glissante(self, table, numero_colonne, pas): #est-ce que ça pourrait être une staticmethode en se dispensant de self ? TODO
+    def moyenne_glissante(self, table, numero_colonne, pas): #est-ce que ça pourrait être une staticmethode en se dispençant de self ? TODO
         '''Calculer la liste des moyennes glissantes à d'une variable de la table
 
         Parameters
@@ -52,7 +52,7 @@ class MoyenneGlissante(Transformation):
         numero_colonne : int
             numéro de la colonne sur laquelle appliquer
         '''
-        liste_valeurs = table.donnes[:, numero_colonne]
+        liste_valeurs = table.donnees[:, numero_colonne]
         liste_moyennes = []
 
         if pas % 2 == 1:  # cas impair
@@ -60,30 +60,30 @@ class MoyenneGlissante(Transformation):
             demi_pas = int((pas-1) / 2)
 
             for i in range(demi_pas):
-                liste_moyennes.append("na")  # pour les premières valeurs
+                liste_moyennes.append(np.nan)  # pour les premières valeurs
             for i in range(demi_pas, len(table.donnees)-demi_pas+1):
                 ss_liste = liste_valeurs[i-demi_pas : i+demi_pas]
                 if not np.isnan(ss_liste):
                     moyenne = statistics.mean(ss_liste)
                 else:
-                    moyenne = "na"
+                    moyenne = np.nan
                 liste_moyennes.append(moyenne)
             for i in range(demi_pas):
-                liste_moyennes.append("na")  # pour les dernières valeurs
+                liste_moyennes.append(np.nan)  # pour les dernières valeurs
 
         if pas % 2 == 0:  # cas pair
             for i in range(pas/2):
-                liste_moyennes.append("na")  # pour les premières valeurs
+                liste_moyennes.append(np.nan)  # pour les premières valeurs
             for i in range(pas/2, len(table.donnees)-pas/2+1):
                 ss_liste = liste_valeurs[i-pas/2 : i+pas/2]
                 ss_liste.pop(i)
                 if not np.isnan(ss_liste):
                     moyenne = statistics.mean(ss_liste)
                 else:
-                    moyenne = "na"
+                    moyenne = np.nan
                 liste_moyennes.append(moyenne)
             for i in range(pas/2):
-                liste_moyennes.append("na")  # pour les dernières valeurs
+                liste_moyennes.append(np.nan)  # pour les dernières valeurs
 
         return liste_moyennes
 
@@ -97,7 +97,7 @@ class MoyenneGlissante(Transformation):
         numero_colonne : int
             numéro de la colonne sur laquelle appliquer
         '''
-        liste_moyennes = self.moyenne_glissante(table, numero_colonne, pas)
+        liste_moyennes = self.moyenne_glissante(table, numero_colonne, pas) #je crois que ça plante : la méthode n'est pas reconnue TODO à vérifier
         for i in range(len(table.donnees)):
             table.donnees[i][numero_colonne] = liste_moyennes[i]
 

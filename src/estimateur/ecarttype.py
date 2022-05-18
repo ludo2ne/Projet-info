@@ -9,6 +9,7 @@ import math
 from estimateur.moyenne import Moyenne
 from estimateur.estimateur import AbstractEstimateur
 from table.tabledonnees import TableDonnees
+import numpy as np
 
 
 class EcartType(AbstractEstimateur):
@@ -49,18 +50,24 @@ class EcartType(AbstractEstimateur):
         moyenne = Moyenne.estim1var(table, numero_colonne)
 
         for i in range(1, len(table.donnees)):
-            if table.donnees[i][numero_colonne] != "mq":
+            if not np.isnan(table.donnees[i][numero_colonne]):
                 somme += (float(table.donnees[i]
                           [numero_colonne]) - moyenne) ** 2
                 nb += 1
             else:
                 nb_na += 1
-
-        ecart_type = round(math.sqrt(somme / nb), 2)
+        if nb!=0:
+            ecart_type = round(math.sqrt(somme / nb), 5)
+        else:
+            ecart_type = np.nan
+            print("Toutes les valeurs de {} sont manquantes".format(table.variables[numero_colonne]))
 
         print("------------------------------------------------------")
         print("Calcul de l'écart-type de la variable " +
               table.variables[numero_colonne] + " : " + str(ecart_type) +
               " (sur " + str(nb) + " valeurs renseignées et " + str(nb_na) + " valeurs manquantes)")
+
+        if ecart_type == 0:
+            print("Attention, l'écart-type de {} est nul".format(table.variables[numero_colonne]))
 
         return ecart_type

@@ -55,7 +55,4 @@ ma_table_csv.afficher(nb_lignes=10,
 #concatenation de listes
 print([1,2]+[3])
 
-for i in range(20):
-    print(i)
-    if i%5 == 0:
-        i-=2
+print(np.isnan(ma_table.donnees[0,2]))

@@ -6,7 +6,6 @@ Licence : Domaine public
 Version : 1.0
 '''
 
-import warnings
 import statistics
 import doctest
 import numpy as np
@@ -45,16 +44,18 @@ class Reduction(Transformation):
         ecartype = EcartType.estim1var(table, numero_colonne)
 
         # Réduction de toutes les valeurs qui ne sont pas NaN
-        for i in range(0, len(table.donnees)):
-            if not np.isnan(table.donnees[i][numero_colonne]):
-                old_value = table.donnees[i][numero_colonne]
-                new_value = old_value/ecartype
-                table.donnees[i][numero_colonne] = new_value
 
-        return table #pourquoi il y a un return ? TODO
+        if ecartype!=0 and not np.isnan(ecartype):
+            for i in range(0, len(table.donnees)):
+                if not np.isnan(table.donnees[i][numero_colonne]):
+                    old_value = table.donnees[i][numero_colonne]
+                    new_value = old_value/ecartype
+                    table.donnees[i][numero_colonne] = new_value
+        else:
+            print("Attention, la variable",table.variables[numero_colonne],"n'est pas réduite") #warning TODO
 
     def appliquer(self, table):
-        '''Appliquer la transformation à à toutes les variables numériques de la table
+        '''Appliquer la transformation à toutes les variables numériques de la table
 
         Parameters
         ----------

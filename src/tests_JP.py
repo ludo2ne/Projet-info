@@ -47,12 +47,8 @@ ma_table = TableDonnees(nom="t1",
 
 ma_table.afficher(nb_lignes=10, nb_colonnes=7)
 
-ma_table2 = TableDonnees(nom="t2",
-                        donnees_avec_entete=[["id", "dnais", "taille", "poids"],
-                                ["id1", "20120101", 160, "68"],
-                                ["id2", "20060920", 180, 85],
-                                ["id3", "20060921", 170, 70]],
-                        identifiants=["id"])
+#ma_table2 = TableDonnees(nom="t2",donnees_avec_entete=[["id", "dnais", "taille", "poids"],["id1", "20120101", 160, "68"], ["id2", "20060920", 180, 85], ["id3", "20060921", 170, 70]],identifiants=["id"])
+#bug pour ma_table2 à cause de appliquer.format() TODO ne fonctionne pas si type_var n'est pas prédéfinie, ou sil les variables sont déjà en partie de type float ?
 #ma_table2.determiner_formats ne fonctionne pas
 #print(ma_table2.type_var)
 
@@ -61,3 +57,23 @@ ma_table2 = TableDonnees(nom="t2",
 # -------------------------------------------------------------------
 Normalisation().appliquer(ma_table)
 ma_table.afficher(nb_lignes=10, nb_colonnes=7)
+
+ma_table3 = TableDonnees(nom="t3",
+                        donnees_avec_entete=[["id", "dnais", "taille", "poids"],
+                                 ["id1", "20120101", "160", "63"],
+                                 ["id2", "20060920", "180","90"],["id3", "20060921", "170","75"],["id4", "20061020", "183","85"]],
+                        identifiants=["id"],
+                        type_var=["str", "date", "float","float"])
+
+Normalisation().appliquer(ma_table3)
+ma_table3.afficher(nb_lignes=10, nb_colonnes=7)
+
+Normalisation().appliquer(ma_table_csv)
+ma_table_csv.afficher(nb_lignes=10, nb_colonnes=7)
+
+# -------------------------------------------------------------------
+# Moyennes glissantes d'une table
+# -------------------------------------------------------------------
+#MoyenneGlissante().appliquer(ma_table_csv) ne fonctionne pas, ni avec ma_table3 TODO à debugger
+ma_table_csv.afficher(nb_lignes=10,
+                      nb_colonnes=12)
