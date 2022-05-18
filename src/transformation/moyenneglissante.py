@@ -63,10 +63,11 @@ class MoyenneGlissante(Transformation):
                 liste_moyennes.append(np.nan)  # pour les premières valeurs
             for i in range(demi_pas, len(table.donnees)-demi_pas+1):
                 ss_liste = liste_valeurs[i-demi_pas : i+demi_pas]
-                if not np.isnan(ss_liste):
-                    moyenne = statistics.mean(ss_liste)
-                else:
-                    moyenne = np.nan
+                #if not np.isnan(ss_liste):   #
+                #    moyenne = statistics.mean(ss_liste)
+                #else:
+                #    moyenne = np.nan
+                moyenne = statistics.mean(ss_liste) # cette fonction renvoie une valeur manquante si la liste en contient au moins une
                 liste_moyennes.append(moyenne)
             for i in range(demi_pas):
                 liste_moyennes.append(np.nan)  # pour les dernières valeurs
@@ -77,10 +78,7 @@ class MoyenneGlissante(Transformation):
             for i in range(pas/2, len(table.donnees)-pas/2+1):
                 ss_liste = liste_valeurs[i-pas/2 : i+pas/2]
                 ss_liste.pop(i)
-                if not np.isnan(ss_liste):
-                    moyenne = statistics.mean(ss_liste)
-                else:
-                    moyenne = np.nan
+                moyenne = statistics.mean(ss_liste)
                 liste_moyennes.append(moyenne)
             for i in range(pas/2):
                 liste_moyennes.append(np.nan)  # pour les dernières valeurs

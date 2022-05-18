@@ -3,6 +3,8 @@ from table.tabledonnees import TableDonnees
 from table.donneescsv import DonneesCsv
 import os
 import numpy as np
+import statistics
+
 
 ma_table = TableDonnees(nom="t1",
                         donnees_avec_entete=[["id", "dnais", "taille", "poids"],
@@ -56,3 +58,7 @@ ma_table_csv.afficher(nb_lignes=10,
 print([1,2]+[3])
 
 print(np.isnan(ma_table.donnees[0,2]))
+
+#moyenne avec NA
+liste=[5,3,5,10,9,np.nan]
+print(statistics.mean(liste))

@@ -74,6 +74,6 @@ ma_table_csv.afficher(nb_lignes=10, nb_colonnes=7)
 # -------------------------------------------------------------------
 # Moyennes glissantes d'une table
 # -------------------------------------------------------------------
-#MoyenneGlissante().appliquer(ma_table_csv) ne fonctionne pas, ni avec ma_table3 TODO à debugger
+MoyenneGlissante().appliquer(ma_table_csv) #ne fonctionne pas, ni avec ma_table3 TODO à debugger
 ma_table_csv.afficher(nb_lignes=10,
                       nb_colonnes=12)
