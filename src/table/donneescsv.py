@@ -51,7 +51,7 @@ class DonneesCsv(TableDonnees):
             indique par quelle chaine de caractères sont représentées les valeurs manquantes
             na par défaut
         '''
-        super().__init__(nom=nom, donnees=[], identifiants=identifiants)
+        super().__init__(nom=nom, donnees_avec_entete=[], identifiants=identifiants)
 
         self.chemin_complet = chemin_complet
         self.delimiteur = delimiteur

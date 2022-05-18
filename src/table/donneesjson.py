@@ -52,7 +52,7 @@ class DonneesJson(TableDonnees):
             indique par quelle chaine de caractères sont représentées les valeurs manquantes
             na par défaut
         '''
-        super().__init__(nom=nom, donnees=[], identifiants=identifiants)
+        super().__init__(nom = nom, donnees_avec_entete = [], identifiants = identifiants )
 
         self.chemin_complet = chemin_complet
         self.delimiteur = delimiteur
@@ -86,9 +86,9 @@ class DonneesJson(TableDonnees):
                 ma_ligne.append(dico[item].get('fields').get(variable))
             donnees_json.append(ma_ligne)
 
-        self.donnees = np.array(donnees_json, dtype=object)
+        self.donnees_avec_entete = np.array(donnees_json, dtype=object)
 
-        self.donnees[self.donnees == valeur_manquante] = np.nan
+        self.donnees_avec_entete[self.donnees_avec_entete == valeur_manquante] = np.nan
 
         self.type_var = self.determiner_formats()
         self.appliquer_formats()

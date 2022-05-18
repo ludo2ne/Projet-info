@@ -8,7 +8,7 @@ Version : 1.0
 
 import doctest
 from typing_extensions import Concatenate
-
+import numpy as np
 from numpy import concatenate
 from src.table.tabledonnees import TableDonnees
 from transformation.transformation import Transformation
@@ -48,7 +48,7 @@ class JointureInterne(Transformation):
             for j in range(len(self.autre_table.donnees)):
                 if table.donnees[i,cle1] == self.autre_table.donnees[j,cle2]:
                     list_concat = table.donnees[i] + self.autre_table.donnees[j]
-                    #list_concat.pop(col_cle[0]) dans l'idée de supprimer les colonnes en double, mais pop() attend un seul entier pas une liste
+                    #list_concat.pop(cle1) dans l'idée de supprimer les colonnes en double, mais pop() attend un seul entier pas une liste
                     table_donnees.append(list_concat)
         #finir par transformer table_donnee en array ?
         # supprimer les colonnes (de la nouvelle table jointe) dont les numeros sont contenus dans cle1 (car en double) TODO
@@ -56,3 +56,5 @@ class JointureInterne(Transformation):
         table.variables = list_var
         table.donnees = table_donnees
         table.type_var = list_type
+
+        print(np.delete(table.donnees, cle1, 1))

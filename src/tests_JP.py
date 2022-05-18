@@ -16,7 +16,7 @@ from transformation.centrage import Centrage
 from transformation.selectionvariables import SelectionVariables
 from transformation.normalisation import Normalisation
 from lien2var.coefficientcorrelation import CoefficientCorrelation
-
+from transformation.supprimena import SupprimeNA
 # -------------------------------------------------------------------
 # Creation a partir d un fichier csv
 # -------------------------------------------------------------------
@@ -25,18 +25,13 @@ ma_table_csv = DonneesCsv(nom="table_csv",
                           identifiants=['numer_sta', 'date'],
                           valeur_manquante="mq")
 
-ma_table_csv.afficher(nb_lignes=10,
-                      nb_colonnes=12)
+
 
 # -------------------------------------------------------------------
-# Creation et lancement du pipeline
+# Supprimer les lignes d'une table qui contiennent au moins une valeur manquante pour une liste de variables données
 # -------------------------------------------------------------------
-mon_premier_pipeline = Pipeline(nom="pipo",
-                                liste_transformations=[Centrage(),
-                                                       SelectionVariables(['numer_sta', 'date', 'ff', 'w1', 'sw'])],
-                                exporter_table=True)
-mon_premier_pipeline.lancer(ma_table_csv)
 
+SupprimeNA(["vv","ww"]).appliquer(ma_table_csv)
 ma_table_csv.afficher(nb_lignes=10,
                       nb_colonnes=12)
 
@@ -58,28 +53,11 @@ ma_table2 = TableDonnees(nom="t2",
                                 ["id2", "20060920", 180, 85],
                                 ["id3", "20060921", 170, 70]],
                         identifiants=["id"])
-ma_table2.determiner_formats
-print(ma_table2.type_var)
-
+#ma_table2.determiner_formats ne fonctionne pas
+#print(ma_table2.type_var)
 
 # -------------------------------------------------------------------
 # Normaliser une table
 # -------------------------------------------------------------------
 Normalisation().appliquer(ma_table)
 ma_table.afficher(nb_lignes=10, nb_colonnes=7)
-
-#test de la methode index_variable() sur une liste
-ma_table.index_variable("taille")
-
-# -------------------------------------------------------------------
-# Etude du lien entre 2 variables quantitatives
-# -------------------------------------------------------------------
-CoefficientCorrelation().representation(ma_table_csv,"pmer","tend")
-CoefficientCorrelation().etude_lien(ma_table_csv,"pmer","tend")
-
-# -------------------------------------------------------------------
-# Moyennes glissantes d'une table
-# -------------------------------------------------------------------
-MoyenneGlissante().appliquer(ma_table_csv)
-ma_table_csv.afficher(nb_lignes=10,
-                      nb_colonnes=12)
