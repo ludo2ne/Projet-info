@@ -75,7 +75,7 @@ class DonneesJson(TableDonnees):
                 if cle not in variables_tmp:
                     variables_tmp.append(cle)
 
-        self.variables = np.array(variables_tmp, dtype=object)
+        self.variables = np.array(variables_tmp, dtype=object) #TODO pourquoi avoir définie la liste des variables en array plutot qu'en liste ??
 
         # Etape 2 conversion du dictionnaire en numpy array
         donnees_json = []
