@@ -6,7 +6,6 @@ Licence : Domaine public
 Version : 1.0
 '''
 
-from matplotlib.pyplot import table
 from transformation.transformation import Transformation
 from transformation.reduction import Reduction
 from transformation.centrage import Centrage
@@ -14,7 +13,8 @@ from transformation.centrage import Centrage
 
 class Normalisation(Transformation):
     '''Normalisation (ou standardisation) d'une table de données,
-    ne prend en compte que les variables numériques "float" sans modifier les autres'''
+       ne prend en compte que les variables numériques "float" sans modifier les autres
+    '''
 
     def __init__(self):
         '''Constructeur de l'objet
@@ -22,7 +22,7 @@ class Normalisation(Transformation):
         pass
 
     def appliquer(self, table):
-        '''Appliquer la transformation à toutes les variables numériques de la table
+        '''Appliquer la normalisation à toutes les variables numériques de la table
 
         Parameters
         ----------

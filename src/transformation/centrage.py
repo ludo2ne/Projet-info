@@ -17,14 +17,8 @@ class Centrage(Transformation):
 
     def __init__(self):
         '''Constructeur de l'objet
-
-        Attributes
-        ----------
-        liste_colonnes : list[str]
-            liste des noms des colonnes auxquelles appliquer la transformation (colonnes de type "float")
         '''
         pass
-# est-ce que la liste_colonnes est vraiment un attribut la classe de Centrage ? si oui l'ajouter sur l'UML, sinon le supprimer de la documentation TODO
 
     def appliquer_variable(self, table, numero_colonne):
         '''Appliquer le centrage à une variable de la table
@@ -36,9 +30,6 @@ class Centrage(Transformation):
         numero_colonne : int
             numéro de la colonne sur laquelle appliquer
         '''
-
-        #colx = table.donnees[:, numero_colonne].astype(float)
-        # print(type(colx))
 
         # Calcul de la moyenne
         moyenne = Moyenne.estim1var(table, numero_colonne)

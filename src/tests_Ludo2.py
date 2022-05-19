@@ -1,6 +1,7 @@
 import os
 import numpy as np
 from estimateur.moyenne import Moyenne
+from estimateur.ecarttype import EcartType
 from table.tabledonnees import TableDonnees
 from transformation.concatenation import ConcatanationLignes
 from transformation.moyenneglissante import MoyenneGlissante
@@ -29,18 +30,24 @@ ma_table_csv.afficher(nb_lignes=10,
 
 
 # -------------------------------------------------------------------
+# Creation et lancement du pipeline
+# -------------------------------------------------------------------
+mon_premier_pipeline = Pipeline(nom="pipo",
+                                liste_transformations=[SelectionVariables(['numer_sta', 'date', 'pmer', 'w1', 'sw']),
+                                                       Normalisation()],
+                                exporter_table=True)
+mon_premier_pipeline.lancer(ma_table_csv)
+
+
+print(Moyenne.estim1var(ma_table_csv, 2))
+print(EcartType.estim1var(ma_table_csv, 2))
+
+# -------------------------------------------------------------------
 # tests tranformations
 # -------------------------------------------------------------------
 
-SupprimeNA(["vv", "numer_sta"]).appliquer(ma_table_csv)
-# TODO ajouter un test si la colonne n'est pas de type float
+# SupprimeNA(["vv", "numer_sta"]).appliquer(ma_table_csv)
+
 
 ma_table_csv.afficher(nb_lignes=10,
                       nb_colonnes=12)
-
-
-# Normalisation().appliquer(ma_table_csv)
-#print(Moyenne.estim1var(ma_table_csv, 2))
-#
-# ma_table_csv.afficher(nb_lignes=10,
-#                      nb_colonnes=12)

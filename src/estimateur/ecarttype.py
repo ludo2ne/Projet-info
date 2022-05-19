@@ -56,18 +56,20 @@ class EcartType(AbstractEstimateur):
                 nb += 1
             else:
                 nb_na += 1
-        if nb!=0:
+        if nb != 0:
             ecart_type = round(math.sqrt(somme / nb), 5)
         else:
             ecart_type = np.nan
-            print("Toutes les valeurs de {} sont manquantes".format(table.variables[numero_colonne]))
+            print("Toutes les valeurs de {} sont manquantes".format(
+                table.variables[numero_colonne]))
 
-        print("------------------------------------------------------")
-        print("Calcul de l'écart-type de la variable " +
-              table.variables[numero_colonne] + " : " + str(ecart_type) +
-              " (sur " + str(nb) + " valeurs renseignées et " + str(nb_na) + " valeurs manquantes)")
+#        print("------------------------------------------------------")
+#        print("Calcul de l'écart-type de la variable " +
+#              table.variables[numero_colonne] + " : " + str(ecart_type) +
+#              " (sur " + str(nb) + " valeurs renseignées et " + str(nb_na) + " valeurs manquantes)")
 
         if ecart_type == 0:
-            print("Attention, l'écart-type de {} est nul".format(table.variables[numero_colonne]))
+            print(
+                "Attention, l'écart-type de {} est nul".format(table.variables[numero_colonne]))
 
         return ecart_type
