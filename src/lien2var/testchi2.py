@@ -12,7 +12,7 @@ import numpy as np
 #from table.tabledonnees import TableDonnees
 
 
-class Testchi2(Lien2var):
+class Testchi2(Lien2varV2):
     '''Test d'indépendance du X² de deux variables qualitatives d'une table de données
 
     Attributes
