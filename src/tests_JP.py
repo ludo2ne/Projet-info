@@ -84,7 +84,7 @@ ma_table_csv.afficher(nb_lignes=10,
 SupprimeNA(["ff","tend"]).appliquer(ma_table_csv)
 
 
-CoefficientCorrelationV2("ff","tend").etude_lien(ma_table_csv)
+CoefficientCorrelationV2("ff","tend").etude_lien(ma_table_csv) #TODO à debugger
 
 
 
