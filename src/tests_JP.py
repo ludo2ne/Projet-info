@@ -7,6 +7,7 @@ Version : 1.0
 '''
 import os
 import numpy as np
+from lien2var.coefficientcorrelation_v2 import CoefficientCorrelationV2
 from transformation.moyenneglissante import MoyenneGlissante
 from table.tabledonnees import TableDonnees
 from table.donneescsv import DonneesCsv
@@ -81,14 +82,20 @@ ma_table_csv.afficher(nb_lignes=10,
 # Etude du lien entre 2 variables quantitatives
 # -------------------------------------------------------------------
 SupprimeNA(["ff","tend"]).appliquer(ma_table_csv)
-CoefficientCorrelation(ma_table_csv,"ff","tend").representation(ma_table_csv,"ff","tend")
-CoefficientCorrelation(ma_table_csv,"ff","tend").etude_lien(ma_table_csv,"ff","tend") #TODO à débugger
+
+
+CoefficientCorrelationV2("ff","tend").etude_lien(ma_table_csv)
+
+
+
+#CoefficientCorrelation(ma_table_csv,"ff","tend").representation(ma_table_csv,"ff","tend")
+#CoefficientCorrelation(ma_table_csv,"ff","tend").etude_lien(ma_table_csv,"ff","tend") #TODO à débugger
 
 # -------------------------------------------------------------------
 # Creation manuelle d une table TODO à debugger
 # -------------------------------------------------------------------
 
-ma_table2 = TableDonnees(nom="t2",donnees_avec_entete=[["id", "dnais", "taille", "poids"],["id1", "20120101", "160", "68"], ["id2", "20060920", 180, 85], ["id3", "20060921", 170, 70]],identifiants=["id"])
+#ma_table2 = TableDonnees(nom="t2",donnees_avec_entete=[["id", "dnais", "taille", "poids"],["id1", "20120101", "160", "68"], ["id2", "20060920", 180, 85], ["id3", "20060921", 170, 70]],identifiants=["id"])
 #bug pour ma_table2 à cause de appliquer.format() TODO ne fonctionne pas si type_var n'est pas prédéfinie, ou sil les variables sont déjà en partie de type float ?
 #ma_table2.determiner_formats ne fonctionne pas
-print(ma_table2.type_var)
+#print(ma_table2.type_var)

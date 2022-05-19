@@ -16,6 +16,10 @@ from transformation.concatenation import ConcatanationLignes
 from transformation.selectionvariables import SelectionVariables
 from transformation.normalisation import Normalisation
 
+from transformation.moyenneglissante import MoyenneGlissante
+from lien2var.coefficientcorrelation import CoefficientCorrelation
+from transformation.supprimena import SupprimeNA
+
 # -------------------------------------------------------------------
 # Creation a partir d un fichier csv
 # -------------------------------------------------------------------
