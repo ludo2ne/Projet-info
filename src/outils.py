@@ -49,8 +49,8 @@ ma_table_csv.afficher(nb_lignes=10,
 
 
 ma_table_csv.donnees = np.delete(ma_table_csv.donnees, 7, 0) #supprime la 8ème ligne
-ma_table_csv.afficher(nb_lignes=54,
-                      nb_colonnes=60)
+ma_table_csv.afficher(nb_lignes=7,
+                      nb_colonnes=12) #ça aurait été intéressant d'afficher les 5 dernieres colonnes par exemple : "hnuage4" est de type str ?
 print(ma_table_csv.type_var)
 print(ma_table_csv.variables)
 
@@ -82,6 +82,7 @@ plt.show()
 #for i in enumerate(tab):
 #    globals()["liste%s"%i]=[]
 
+#autre méthode sans générer de nom de variable (utile pour anova)
 matrice=[]
 matrice.append([])
 matrice[0].append(2)
