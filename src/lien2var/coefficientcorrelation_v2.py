@@ -10,6 +10,7 @@ import doctest
 from lien2var.lien2var_v2 import Lien2varV2
 import matplotlib.pyplot as plt
 import numpy as np
+#from table.tabledonnees import TableDonnees
 
 
 class CoefficientCorrelationV2(Lien2varV2):
@@ -24,7 +25,7 @@ class CoefficientCorrelationV2(Lien2varV2):
 
     def __init__(self, var1, var2):
         '''Constructeur de l'objet'''
-        super().__init__(var1, var2)
+        super().__init__(var1, var2) #comment on note dans l'UML ? j'ai oublié TODO
 
     def determine_etude(self, table):
         Lien2varV2(self.var1,self.var2).determine_etude(table)

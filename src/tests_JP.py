@@ -8,6 +8,7 @@ Version : 1.0
 import os
 import numpy as np
 from lien2var.coefficientcorrelation_v2 import CoefficientCorrelationV2
+from lien2var.anova import Anova
 from transformation.moyenneglissante import MoyenneGlissante
 from table.tabledonnees import TableDonnees
 from table.donneescsv import DonneesCsv
@@ -81,9 +82,9 @@ ma_table_csv.afficher(nb_lignes=10,
 # -------------------------------------------------------------------
 # Etude du lien entre 2 variables quantitatives
 # -------------------------------------------------------------------
-SupprimeNA(["ff","tend"]).appliquer(ma_table_csv)
+SupprimeNA(["ff","tend","hnuage4"]).appliquer(ma_table_csv)
 
-
+Anova("tend","hnuage4").representation(ma_table_csv)
 CoefficientCorrelationV2("ff","tend").etude_lien(ma_table_csv) #TODO à debugger
 
 
