@@ -51,3 +51,15 @@ print(EcartType.estim1var(ma_table_csv, 2))
 
 ma_table_csv.afficher(nb_lignes=10,
                       nb_colonnes=12)
+
+
+ma_table = TableDonnees(nom="t1",
+                        donnees_avec_entete=[["id", "dnais", "taille"],
+                                             ["id1", "20120101", "160"],
+                                             ["id2", "20060920", "180"],
+                                             ["id3", "20060920", "na"]],
+                        identifiants=["id"],
+                        type_var=["str", "date", "float"],
+                        valeur_manquante="na")
+
+ma_table.afficher(nb_lignes=10, nb_colonnes=7)

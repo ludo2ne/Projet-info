@@ -5,7 +5,6 @@ Date    : 05/05/2022
 Licence : Domaine public
 Version : 1.0
 '''
-import doctest
 import gzip
 import csv
 import warnings
@@ -80,7 +79,3 @@ class DonneesCsv(TableDonnees):
         self.type_var = self.determiner_formats()
         self.appliquer_formats()
         self.bilan_chargement()
-
-
-if __name__ == '__main__':
-    doctest.testmod(verbose=True)

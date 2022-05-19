@@ -44,22 +44,24 @@ class TableDonnees:
         valeur_manquante : str
             indique par quelle chaine de caractères sont représentées les valeurs manquantes
             na par défaut
-
-        Examples
-        --------
         '''
         self.nom = nom
         self.identifiants = identifiants
 
         if self.__class__.__name__ == "TableDonnees":
-            self.type_var = np.array(type_var, dtype=object)
-            if donnees_avec_entete != []:  # Lau : ajouté pour enlever le pbm rencontré avec donneesJSON et liste vide..?
+            if donnees_avec_entete != []:
                 self.variables = np.array(donnees_avec_entete[0], dtype=object)
                 self.donnees = np.array(donnees_avec_entete[1:], dtype=object)
             else:
                 self.variables = []
                 self.donnees = []
-            # TODO : si type_var = [] déterminer format
+            if type_var != []:
+                self.type_var = np.array(type_var, dtype=object)
+            else:
+                self.type_var = self.determiner_formats()
+
+            self.donnees[self.donnees == valeur_manquante] = np.nan
+
             self.appliquer_formats()
             self.bilan_chargement()
 
@@ -70,7 +72,7 @@ class TableDonnees:
         print("   nombre de variables : " + str(len(self.variables)))
         print("------------------------------------------------------")
 
-    def afficher(self, nb_lignes = None, nb_colonnes = None):
+    def afficher(self, nb_lignes=None, nb_colonnes=None):
         '''Affiche sous forme de tableau un extrait de la table
 
         Parameters
@@ -93,7 +95,7 @@ class TableDonnees:
         # Pour eviter de tout refaire je reconverti le numpy array en liste de liste
         listes_donnees = self.donnees.tolist()
 
-        # Si les parametres sont resenignes???TODO a None ou si leur valeur est trop grande
+        # Si les parametres sont renseignes???TODO a None ou si leur valeur est trop grande
         # ils prennent simplement la valeur maximum possible
         if nb_lignes == None or nb_lignes > len(listes_donnees):
             nb_lignes = len(listes_donnees)
@@ -124,6 +126,11 @@ class TableDonnees:
         Si la variable contient le mot date, le format de cette variable sera date
         Si la variable fait parti de la liste des identifiants, celle-ci reste de type str
         Si toutes les données d'une variable sont de type float, la variable sera de type float
+
+        Returns
+        -------
+        liste_formats : list[str]
+            liste de formats pour alimenter ensuite l'attribut type_var
         '''
 
         liste_formats = []
