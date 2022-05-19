@@ -6,11 +6,8 @@ Licence : Domaine public
 Version : 1.0
 '''
 
-import doctest
-from typing_extensions import Concatenate
 import numpy as np
-from numpy import concatenate
-from src.table.tabledonnees import TableDonnees
+from table.tabledonnees import TableDonnees
 from transformation.transformation import Transformation
 
 
@@ -23,38 +20,49 @@ class JointureInterne(Transformation):
 
         Attributes
         ----------
-        cle : list [ liste [] ] ou array
-            matrice à deux lignes où la 1ère ligne est la liste de clés de table, et la 2ème ligne est la liste de clés de autre_table (dans le même ordre de correspondance)
+        cle : list [tuple(str)]
+            Liste de tuples contenant chacun un attribut de chaque table permettant de faire la jointure
         autre_table : TableDonnees
         '''
         self.autre_table = autre_table
         self.cle = cle
 
     def appliquer(self, table):
-        '''Appliquer la transformation à la table
+        '''Appliquer la jointure à la table
 
         Parameters
         ----------
         table : TableDonnees
             table de données
         '''
-        nom_tb_joint = "{}_{}".format(table.nom, self.autre_table.nom)
-        cle1=[TableDonnees.index_variable(var) for var in self.cle[0]]
-        cle2=[TableDonnees.index_variable(var) for var in self.cle[1]]
-        table_donnees=[]
-        list_var = table.variables + self.autre_table.variables #concaténation
-        list_type = table.type_var + self.autre_table.type_var
-        for i in range(len(table.donnees)):
-            for j in range(len(self.autre_table.donnees)):
-                if table.donnees[i,cle1] == self.autre_table.donnees[j,cle2]:
-                    list_concat = table.donnees[i] + self.autre_table.donnees[j]
-                    #list_concat.pop(cle1) dans l'idée de supprimer les colonnes en double, mais pop() attend un seul entier pas une liste
-                    table_donnees.append(list_concat)
-        #finir par transformer table_donnee en array ?
-        # supprimer les colonnes (de la nouvelle table jointe) dont les numeros sont contenus dans cle1 (car en double) TODO
-        table.nom = nom_tb_joint
-        table.variables = list_var
-        table.donnees = table_donnees
-        table.type_var = list_type
 
-        print(np.delete(table.donnees, cle1, 1))
+        index_cles_table = [table.index_variable(
+            var[0]) for var in self.cle]
+        index_cles_autre_table = [self.autre_table.index_variable(
+            var[1]) for var in self.cle]
+
+        index_lignes_a_supprimer = []
+        donnees_jointes = []
+
+        for i in range(len(table.donnees)):
+            match_found = False
+            for j in range(len(self.autre_table.donnees)):
+                it_is_a_match = True
+                for k in range(len(self.cle)):
+                    if table.donnees[i, index_cles_table[k]] != self.autre_table.donnees[j, index_cles_autre_table[k]]:
+                        it_is_a_match = False
+                        break
+                if it_is_a_match:
+                    match_found = True
+                    donnees_jointes.append(np.concatenate((
+                        table.donnees[i], np.delete(self.autre_table.donnees[j], index_cles_autre_table[k]))))
+                    break
+            if not match_found:
+                index_lignes_a_supprimer.append(i)
+
+        table.donnees = np.array(donnees_jointes)
+        #table.donnees = np.delete(table.donnees, index_lignes_a_supprimer, 0)
+        table.variables = np.concatenate((
+            table.variables, self.autre_table.variables))
+        table.type_var = np.concatenate((
+            table.type_var, self.autre_table.type_var))

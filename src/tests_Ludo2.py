@@ -12,6 +12,7 @@ from pipeline.pipeline import Pipeline
 from transformation.centrage import Centrage
 from transformation.selectionvariables import SelectionVariables
 from transformation.normalisation import Normalisation
+from transformation.jointureinterne import JointureInterne
 from lien2var.coefficientcorrelation import CoefficientCorrelation
 from transformation.supprimena import SupprimeNA
 from lien2var.coefficientcorrelation_v2 import CoefficientCorrelationV2
@@ -54,12 +55,26 @@ ma_table_csv.afficher(nb_lignes=10,
 
 
 ma_table = TableDonnees(nom="t1",
-                        donnees_avec_entete=[["id", "dnais", "taille"],
+                        donnees_avec_entete=[["id",  "dnais", "taille"],
                                              ["id1", "20120101", "160"],
                                              ["id2", "20060920", "180"],
-                                             ["id3", "20060920", "na"]],
+                                             ["id3", "20060920", "na"],
+                                             ["id4", "20010525", "165"]],
                         identifiants=["id"],
                         type_var=["str", "date", "float"],
                         valeur_manquante="na")
+
+ma_table_emploi = TableDonnees(nom="t1",
+                               donnees_avec_entete=[["ident", "emploi"],
+                                                    ["id2", "statisticien"],
+                                                    ["id1", "informaticien"],
+                                                    ["id3", "prof"]],
+                               identifiants=["ident"],
+                               type_var=["str", "str"],
+                               valeur_manquante="na")
+
+JointureInterne(autre_table=ma_table_emploi,
+                cle=[("id", "ident")]).appliquer(ma_table)
+
 
 ma_table.afficher(nb_lignes=10, nb_colonnes=7)

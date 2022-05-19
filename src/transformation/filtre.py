@@ -6,8 +6,6 @@ Licence : Domaine public
 Version : 1.0
 '''
 
-import doctest
-from src.table.tabledonnees import TableDonnees
 from transformation.transformation import Transformation
 #from lien2var.lien2var import Lien2var  #pour la méthode num_col() à déplacer ?
 
@@ -40,7 +38,7 @@ class Filtre(Transformation):
         self.variable_date = variable_date
 
     def appliquer(self, table):
-        '''Appliquer la transformation à la table
+        '''Appliquer le filtre à la table
 
         Parameters
         ----------
