@@ -6,12 +6,13 @@ Licence : Domaine public
 Version : 1.0
 '''
 
-import doctest
 from transformation.transformation import Transformation
 import numpy as np
+import warnings
+
 
 class SupprimeNA(Transformation):
-    '''Suppression des lignes de table.donnees où il y a des valeurs manquantes pour la liste de variables saisie
+    '''Suppression des lignes de table.donnees où il y a des valeurs manquantes pour la liste de variables saisies
 
     Attributes
         ----------
@@ -39,16 +40,28 @@ class SupprimeNA(Transformation):
         table : TableDonnees
             table de données
         '''
-        liste_numero_col=[]
-        for var in self.liste_var:
-            liste_numero_col.append(table.index_variable(var)) #génère la liste des indices de colonne correspondant à la liste des variable données
 
-        indice_NA=[]
+        print("------------------------------------------------------")
+        print("Suppression des na des variables " + str(self.liste_var))
+
+        liste_numero_col = []
+        for var in self.liste_var:
+            # génère la liste des indices de colonne correspondant à la liste des variable données
+            liste_numero_col.append(table.index_variable(var))
+
+        indice_NA = []
         for i in liste_numero_col:
+            if table.type_var[i] not in ["float", "int"]:
+                warnings.warn("Impossible de supprimer les na sur la variable " +
+                              table.variables[i] + " qui n'est pas de type int ou float")
+                continue
+
             for j in range(len(table.donnees)):
-                if np.isnan(table.donnees[j][i]): #test de valeur manquante
+                # Test de valeur manquante
+                if np.isnan(table.donnees[j][i]):
                     indice_NA.append(j)
 
-        table.donnees = np.delete(table.donnees, indice_NA, 0) #supprime toutes les lignes dont l'indice est dans la liste indice_NA
+        # Supprime toutes les lignes dont l indice est dans la liste indice_NA
+        table.donnees = np.delete(table.donnees, indice_NA, 0)
         table.variables = np.delete(table.variables, indice_NA, 0)
         table.type_var = np.delete(table.type_var, indice_NA, 0)

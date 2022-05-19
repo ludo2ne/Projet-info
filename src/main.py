@@ -23,6 +23,7 @@ from transformation.supprimena import SupprimeNA
 # -------------------------------------------------------------------
 # Creation a partir d un fichier csv
 # -------------------------------------------------------------------
+
 ma_table_csv_01 = DonneesCsv(nom="table_csv",
                              chemin_complet=os.getcwd() + "/donnees/test/synop.201301.csv.gz",
                              identifiants=['numer_sta', 'date'],
