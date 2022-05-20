@@ -45,7 +45,7 @@ class SelectionVariables(Transformation):
 
         index_conserves = []
 
-        # On parcourt la liste des colonnes de SelectionVariables
+        # On parcourt la liste des variables de SelectionVariables
         for col in self.liste_var:
             try:
                 index_conserves.append(table.variables.tolist().index(col))
