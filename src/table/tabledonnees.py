@@ -182,11 +182,6 @@ class TableDonnees:
                     self.donnees[num_ligne, num_colonne] = float(
                         self.donnees[num_ligne, num_colonne])
 
-    def __str__(self):
-        '''Conversion de l'objet en chaîne de caractères
-        '''
-        return "Table de données : {}".format(self.nom)
-
     def index_variable(self, nom_variable):
         return np.where(self.variables == nom_variable)[0][0]
 
