@@ -201,17 +201,17 @@ m2=*
 +appliquer(table : TableDonnees)
 
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>410</x><y>570</y><w>140</w><h>100</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>120;10;120;80;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>550</x><y>1040</y><w>540</w><h>90</h></coordinates><panel_attributes>lt=-
-</panel_attributes><additional_attributes>520;70;500;70;500;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>550</x><y>1060</y><w>90</w><h>200</h></coordinates><panel_attributes>lt=-
-</panel_attributes><additional_attributes>70;180;10;180;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>550</x><y>1030</y><w>540</w><h>220</h></coordinates><panel_attributes>lt=-
-</panel_attributes><additional_attributes>520;200;500;200;500;20;10;20;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>550</x><y>1030</y><w>90</w><h>380</h></coordinates><panel_attributes>lt=-
-</panel_attributes><additional_attributes>70;360;10;360;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>50</x><y>1040</y><w>530</w><h>110</h></coordinates><panel_attributes>lt=-
+</panel_attributes><additional_attributes>520;70;500;70;500;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>550</x><y>1000</y><w>90</w><h>260</h></coordinates><panel_attributes>lt=-
+</panel_attributes><additional_attributes>70;240;10;240;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>550</x><y>1020</y><w>540</w><h>230</h></coordinates><panel_attributes>lt=-
+</panel_attributes><additional_attributes>520;210;500;210;500;30;10;30;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>550</x><y>1000</y><w>90</w><h>410</h></coordinates><panel_attributes>lt=-
+</panel_attributes><additional_attributes>70;390;10;390;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>50</x><y>1040</y><w>530</w><h>110</h></coordinates><panel_attributes>lt=-
 </panel_attributes><additional_attributes>60;90;10;90;10;10;510;10</additional_attributes></element><element><id>Relation</id><coordinates><x>50</x><y>1040</y><w>530</w><h>520</h></coordinates><panel_attributes>lt=-
-</panel_attributes><additional_attributes>40;500;10;500;10;10;510;10</additional_attributes></element><element><id>Relation</id><coordinates><x>550</x><y>1030</y><w>90</w><h>520</h></coordinates><panel_attributes>lt=-
-</panel_attributes><additional_attributes>70;500;10;500;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>550</x><y>1030</y><w>90</w><h>110</h></coordinates><panel_attributes>lt=-
-</panel_attributes><additional_attributes>70;90;10;90;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1070</x><y>1360</y><w>380</w><h>60</h></coordinates><panel_attributes>Export
+</panel_attributes><additional_attributes>40;500;10;500;10;10;510;10</additional_attributes></element><element><id>Relation</id><coordinates><x>550</x><y>1000</y><w>90</w><h>550</h></coordinates><panel_attributes>lt=-
+</panel_attributes><additional_attributes>70;530;10;530;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>550</x><y>1010</y><w>90</w><h>130</h></coordinates><panel_attributes>lt=-
+</panel_attributes><additional_attributes>70;110;10;110;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1070</x><y>1360</y><w>380</w><h>60</h></coordinates><panel_attributes>Export
 --
 --
 appliquer(table : TableDonnees, format : str = "csv")
 
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>550</x><y>1030</y><w>540</w><h>400</h></coordinates><panel_attributes>lt=-
-</panel_attributes><additional_attributes>520;380;500;380;500;20;10;20;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>405</x><y>997</y><w>180</w><h>230</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>160;10;160;50;10;50;10;210</additional_attributes></element><element><id>Relation</id><coordinates><x>515</x><y>997</y><w>70</w><h>360</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>50;10;50;50;10;50;10;340</additional_attributes></element></diagram>
+</panel_attributes><additional_attributes>520;380;500;380;500;20;10;20;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>470</x><y>1000</y><w>110</w><h>230</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>90;10;90;50;10;50;10;210</additional_attributes></element><element><id>Relation</id><coordinates><x>510</x><y>1000</y><w>70</w><h>360</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>50;10;50;50;10;50;10;340</additional_attributes></element></diagram>
