@@ -15,8 +15,11 @@ ma_table = TableDonnees(nom="t1",
                         type_var=["str", "date", "float", "float"])
 
 
-date_time_str = '18/09/19 01:55:19'
-
-date_time_obj = datetime.strptime(date_time_str, '%d/%m/%y %H:%M:%S')
+date_time_str = '20170921085519'
+date_time_obj = datetime.strptime(date_time_str, '%Y%m%d%H%M%S')
+date_time_str_new = datetime.strftime(date_time_obj, '%Y%m%d%H%M%S')
 
 print(date_time_obj)
+print(type(date_time_obj))
+print(date_time_str_new)
+print(type(date_time_str_new))

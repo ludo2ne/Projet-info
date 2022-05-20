@@ -5,12 +5,12 @@ Date    : 05/05/2022
 Licence : Domaine public
 Version : 1.0
 '''
-import doctest
 import warnings
 import gzip
 import json
 import numpy as np
 
+from datetime import datetime
 from table.tabledonnees import TableDonnees
 
 
@@ -31,8 +31,7 @@ class DonneesJson(TableDonnees):
         liste des noms de variables étant des identifiants
     '''
 
-    # ?valeur_manquante à enlever ? TODO
-    def __init__(self, nom, chemin_complet, identifiants=None, valeur_manquante="mq"):
+    def __init__(self, nom, chemin_complet, identifiants=None, valeur_manquante=None):
         '''Constructeur de l'objet
 
         Parameters
@@ -52,8 +51,7 @@ class DonneesJson(TableDonnees):
             indique par quelle chaine de caractères sont représentées les valeurs manquantes
             na par défaut
         '''
-        super().__init__(nom=nom, donnees_avec_entete=[],
-                         identifiants=identifiants)  # finelement on ne se sert pas de donnees_avec_entete pour json ? TODO
+        super().__init__(nom=nom, donnees_avec_entete=[], identifiants=identifiants)
 
         dico = None
 
@@ -66,14 +64,13 @@ class DonneesJson(TableDonnees):
         else:
             warnings.warn("Le fichier doit être un json ou un json.gz")
 
-            # Etape 1 recherche de toutes les variables
+        # Etape 1 recherche de toutes les variables
         variables_tmp = []
         for item in range(len(dico)):
             for cle in dico[item].get('fields').keys():
                 if cle not in variables_tmp:
                     variables_tmp.append(cle)
 
-        # TODO pourquoi avoir définie la liste des variables en array plutot qu'en liste ??
         self.variables = np.array(variables_tmp, dtype=object)
 
         # Etape 2 conversion du dictionnaire en numpy array
@@ -85,7 +82,6 @@ class DonneesJson(TableDonnees):
                 ma_ligne.append(dico[item].get('fields').get(variable))
             donnees_json.append(ma_ligne)
 
-        # vérifier si données est bien l'attribut sans entête ?
         self.donnees = np.array(donnees_json, dtype=object)
 
         self.donnees[self.donnees == valeur_manquante] = np.nan
@@ -94,6 +90,15 @@ class DonneesJson(TableDonnees):
         self.appliquer_formats()
         self.bilan_chargement()
 
+    def appliquer_formats(self):
+        super().appliquer_formats()
 
-if __name__ == '__main__':
-    doctest.testmod(verbose=True)
+        # transformation des dates specifiquement pour la colonne date_heure
+        for num_colonne in range(len(self.donnees[0])):
+            if self.variables[num_colonne] == "date_heure":
+                for num_ligne in range(len(self.donnees)):
+                    date_time_obj = datetime.strptime(
+                        self.donnees[num_ligne, num_colonne], '%Y-%m-%dT%H:%M:%S+01:00')
+                    date_time_str_new = datetime.strftime(
+                        date_time_obj, '%Y%m%d%H%M%S')
+                    self.donnees[num_ligne, num_colonne] = date_time_str_new

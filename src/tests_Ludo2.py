@@ -14,9 +14,8 @@ from transformation.filtre import Filtre
 from transformation.selectionvariables import SelectionVariables
 from transformation.normalisation import Normalisation
 from transformation.jointureinterne import JointureInterne
-from lien2var.coefficientcorrelation import CoefficientCorrelation
 from transformation.supprimena import SupprimeNA
-from lien2var.coefficientcorrelation_v2 import CoefficientCorrelationV2
+from lienvar.coefficientcorrelation import CoefficientCorrelation
 
 # -------------------------------------------------------------------
 # Creation a partir d un fichier csv
