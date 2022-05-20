@@ -124,7 +124,7 @@ class TableDonnees:
         '''Méthode qui détermine le format de chaque colonne à partir des données
 
         Si la variable contient le mot date, le format de cette variable sera date
-        Si la variable fait parti de la liste des identifiants, celle-ci reste de type str
+        Si la variable fait partie de la liste des identifiants, celle-ci reste de type str
         Si toutes les données d'une variable sont de type float, la variable sera de type float
 
         Returns
