@@ -20,30 +20,34 @@ class Filtre(Transformation):
         fenetrage : bool
             True si on souhaite appliquer un fêtrage temporel, False sinon
         debut : date
+            Date de début
         fin : date
+            Date de fin
         variable_date : str
             nom de la variable donnant l'horodatage
 
     '''
 
-    def __init__(self, var, debut=0, fin=0, variable_date="date", modalite=[], fenetrage=False):
+    def __init__(self, var, debut=0, fin=0, variable_date="date", modalites=[], fenetrage=False):
         '''Constructeur de l'objet
 
         Parameters
         ----------
         var : str
             variable sur laquelle appliquer le filtre par modalités
-        modalite : list[str] = []
+        modalite : list[str]
             liste des modalités à conserver
         fenetrage : bool = False
             True si on souhaite appliquer un fêtrage temporel, False sinon
-        debut : date = 0
-        fin : date = 0
+        debut : date
+            Date de début
+        fin : date
+            Date de fin
         variable_date : str = "date"
             nom de la variable donnant l'horodatage
         '''
         self.var = var
-        self.modalite = modalite
+        self.modalites = modalites
         self.fenetrage = fenetrage
         self.debut = debut
         self.fin = fin
@@ -60,20 +64,20 @@ class Filtre(Transformation):
         numero_colonne = table.index_variable(self.var)  # syntaxe ?
         print("------------------------------------------------------")
         liste_indice = []
-        if self.modalite != []:
-            print("Liste des modalités selectionnées",
-                  self.modalite, "pour la variable", self.var)
+        if self.modalites != []:
+            print("Liste des modalités selectionnées ",
+                  self.modalites, " pour la variable ", self.var)
             for i in range(len(table.donnees)):
-                if table.donnees[i][numero_colonne] not in self.modalite:
+                if table.donnees[i][numero_colonne] not in self.modalites:
                     liste_indice.append(i)
 
         if self.fenetrage == True:
-            print("Fenétrage temporel de : ", self.debut, "à", self.fin)
+            print("Fenétrage temporel de : ", self.debut, " à ", self.fin)
             num_col_date = table.index_variable(self.variable_date)
-            if self.modalite != None:
+            if self.modalites != None:
                 for i in range(len(table.donnees)):
                     # vérifier format date (float ou str) TODO
-                    if (table.donnees[i][num_col_date] < self.debut) or (table.donnees[i][num_col_date] > self.fin):
+                    if (int(table.donnees[i][num_col_date]) < self.debut) or (int(table.donnees[i][num_col_date]) > self.fin):
                         liste_indice.append(i)
 
         table.donnees = np.delete(table.donnees, liste_indice, 0)

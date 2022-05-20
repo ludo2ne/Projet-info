@@ -27,3 +27,9 @@ ma_table_json = DonneesJson(nom="table_json",
 
 ma_table_json.afficher(nb_lignes=10,
                        nb_colonnes=7)
+
+Filtre(var="code_insee_region", modalites=[
+       "24", "75"]).appliquer(ma_table_json)
+
+ma_table_json.afficher(nb_lignes=10,
+                       nb_colonnes=7)
