@@ -102,14 +102,12 @@ fin : date
 --
 &lt;&lt;Create&gt;&gt; __init__(nom : str, chemin_complet : str, identifiants : list[str]=None,
                              delimiteur=";")
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>630</x><y>660</y><w>440</w><h>140</h></coordinates><panel_attributes>Pipeline
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>630</x><y>660</y><w>440</w><h>100</h></coordinates><panel_attributes>Pipeline
 --
 +nom : str
 +liste_operations : list[Transformation, Estimateur, LienVar]
 --
 &lt;&lt;Create&gt;&gt; __init__( nom : str ,list[Transformation, Estimateur, LienVar])
-+ajouter_oper(operation : Transformation or Estimateur or LienVar)
-+supprimer_transfo(rang : int)
 +lancer(table : TableDonnees)
 
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>930</x><y>410</y><w>440</w><h>110</h></coordinates><panel_attributes>&lt;&lt;Abstract&gt;&gt;
@@ -191,7 +189,7 @@ ou générée par
 </panel_attributes><additional_attributes>70;110;10;110;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1070</x><y>1360</y><w>380</w><h>60</h></coordinates><panel_attributes>Export
 --
 --
-appliquer(table : TableDonnees, format : str = "csv")
+appliquer(table : TableDonnees, format : str = "csv")  
 
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>550</x><y>1030</y><w>540</w><h>400</h></coordinates><panel_attributes>lt=-
 </panel_attributes><additional_attributes>520;380;500;380;500;20;10;20;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>500</x><y>1000</y><w>80</w><h>430</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>60;10;60;50;30;50;30;410;10;410</additional_attributes></element><element><id>Relation</id><coordinates><x>1035</x><y>510</y><w>30</w><h>170</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-&gt;
@@ -200,7 +198,7 @@ m2=*
 </panel_attributes><additional_attributes>10;150;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>745</x><y>570</y><w>30</w><h>110</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-&gt;
 m2=*
 
-</panel_attributes><additional_attributes>10;90;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>755</x><y>790</y><w>30</w><h>140</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-&gt;
+</panel_attributes><additional_attributes>10;90;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>755</x><y>750</y><w>30</w><h>180</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-&gt;
 m2=*
 
-</panel_attributes><additional_attributes>10;10;10;120</additional_attributes></element><element><id>Relation</id><coordinates><x>500</x><y>1000</y><w>80</w><h>290</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>60;10;60;50;30;50;30;270;10;270</additional_attributes></element></diagram>
+</panel_attributes><additional_attributes>10;10;10;160</additional_attributes></element><element><id>Relation</id><coordinates><x>500</x><y>1000</y><w>80</w><h>290</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>60;10;60;50;30;50;30;270;10;270</additional_attributes></element></diagram>
