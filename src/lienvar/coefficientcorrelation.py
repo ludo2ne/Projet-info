@@ -3,7 +3,7 @@ Module coefficientcorrelation_v2
 Auteurs : Deneuville Ludovic, Trotta Jean-Philippe et Villacampa Laurene
 Date    : 19/05/2022
 Licence : Domaine public
-Version : 2.0
+Version : 1.0
 '''
 
 from lienvar.lienvar import LienVar
@@ -18,27 +18,31 @@ class CoefficientCorrelation(LienVar):
     Attributes
     -----------
     var1 : str
+        nom de la variable qualitative
     var2 : str
+        nom de la variable qualitative
     etude : str
+        champs d'étude ("quanti/quanti" à vérifier)
     '''
 
     def __init__(self, var1, var2):
-        '''Constructeur de l'objet'''
+        '''Constructeur de l'objet
+        Parameters
+        ----------
+        var1 : str
+        var2 : str
+        '''
         super().__init__(var1, var2)  # comment on note dans l'UML ? j'ai oublié TODO
 
-#    def determine_etude(self, table):
-#        Lien2varV2(self.var1, self.var2).determine_etude(table)
-#        assert self.etude == "quanti/quanti"  # ça bug TODO problème à résoudre
-#        print(self.etude, "etude")
-#        if self.etude != "quanti/quanti":  # TODO problème à résoudre
-#            print("type de variable non quantitatif")  # warning TODO
-
     def representation(self, table):
-        '''Nuage de points'''
-
-        print("méthode representation")
-
+        '''Nuage de points et export de ce graphique
+        Parameters
+        ----------
+        table : TableDonnees
+        '''
         super().determine_etude(table)
+        print("méthode representation")
+        assert self.etude == "quanti/quanti"  # ça bug TODO problème à résoudre
         numcol_var1 = table.index_variable(self.var1)
         numcol_var2 = table.index_variable(self.var2)
         plt.scatter(table.donnees[:, numcol_var1],
@@ -52,7 +56,13 @@ class CoefficientCorrelation(LienVar):
         plt.show()
 
     def appliquer(self, table):
-        '''étude de la corrélation entre les variables'''
+        '''étude de la corrélation entre les variables
+        et appel à representation du nuage de points & export du graphique
+
+        Parameters
+        ----------
+        table : TableDonnees
+        '''
         self.representation(table)  # syntaxe à vérifier TODO
         print("Etude du lien entre", self.var1, "et", self.var2)
         numcol_var1 = table.index_variable(self.var1)

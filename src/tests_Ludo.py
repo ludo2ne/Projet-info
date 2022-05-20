@@ -10,9 +10,8 @@ from pipeline.pipeline import Pipeline
 from transformation.centrage import Centrage
 from transformation.selectionvariables import SelectionVariables
 from transformation.normalisation import Normalisation
-from lien2var.coefficientcorrelation import CoefficientCorrelation
 from transformation.supprimena import SupprimeNA
-from lien2var.coefficientcorrelation_v2 import CoefficientCorrelationV2
+from lienvar.coefficientcorrelation import CoefficientCorrelation
 
 # -------------------------------------------------------------------
 # Creation a partir d un fichier csv
@@ -52,12 +51,9 @@ print(ma_liste[3:5])
 # Etude du lien entre 2 variables quantitatives
 # -------------------------------------------------------------------
 SupprimeNA(["ff", "tend"]).appliquer(ma_table_csv)
-CoefficientCorrelation(ma_table_csv, "ff", "tend").representation(
-    ma_table_csv, "ff", "tend")
-CoefficientCorrelation(ma_table_csv, "ff", "tend").etude_lien(
-    ma_table_csv, "ff", "tend")  # TODO à débugger
 
-CoefficientCorrelationV2("ff", "tend").etude_lien(
+
+CoefficientCorrelation("ff", "tend").appliquer(
     ma_table_csv)  # TODO à debugger (autre version)
 
 # -------------------------------------------------------------------

@@ -13,16 +13,22 @@ from transformation.transformation import Transformation
 
 class AgregationSpatiale(Transformation):
     '''Agrégation vers un échelon plus vaste
-    '''
-
-    def __init__(self, echelon):
-        '''Constructeur de l'objet
-
-        Attributes
+    Attributes
         ----------
         echelon : str
+        table_correspondance : TableDonnees
+    '''
+
+    def __init__(self, echelon, table_correspondance):
+        '''Constructeur de l'objet
+
+        Parameters
+        ----------
+        echelon : str
+        table_correspondance : TableDonnees
         '''
         self.echelon = echelon
+        self.table_correspondance = table_correspondance
 
     def appliquer(self, table):
         '''Appliquer la transformation à la table

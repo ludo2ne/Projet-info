@@ -63,3 +63,7 @@ class LienVar:
     @abstractmethod
     def representation(self, table):
         pass
+
+    @abstractmethod
+    def appliquer(self, table):
+        pass

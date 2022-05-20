@@ -7,8 +7,8 @@ Version : 1.0
 '''
 import os
 import numpy as np
-from lien2var.coefficientcorrelation_v2 import CoefficientCorrelationV2
-from lien2var.anova import Anova
+from lienvar.coefficientcorrelation import CoefficientCorrelation
+from lienvar.anova import Anova
 from transformation.moyenneglissante import MoyenneGlissante
 from table.tabledonnees import TableDonnees
 from table.donneescsv import DonneesCsv
@@ -17,7 +17,7 @@ from pipeline.pipeline import Pipeline
 from transformation.centrage import Centrage
 from transformation.selectionvariables import SelectionVariables
 from transformation.normalisation import Normalisation
-from lien2var.coefficientcorrelation import CoefficientCorrelation
+from lienvar.coefficientcorrelation import CoefficientCorrelation
 from transformation.supprimena import SupprimeNA
 # -------------------------------------------------------------------
 # Creation a partir d un fichier csv
@@ -77,13 +77,12 @@ SupprimeNA(["ff", "tend", "hnuage4"]).appliquer(ma_table_csv)
 ma_table_csv.afficher(nb_colonnes=7)
 
 
-# Anova("tend","hnuage4").representation(ma_table_csv)
-CoefficientCorrelationV2("ff", "tend").etude_lien(
+Anova("tend","hnuage4").appliquer(ma_table_csv) #TODO à debugger
+CoefficientCorrelation("ff", "tend").appliquer(
     ma_table_csv)  # TODO à debugger
 
 
-# CoefficientCorrelation(ma_table_csv,"ff","tend").representation(ma_table_csv,"ff","tend")
-# CoefficientCorrelation(ma_table_csv,"ff","tend").etude_lien(ma_table_csv,"ff","tend") #TODO à débugger
+
 
 # -------------------------------------------------------------------
 # Creation manuelle d une table TODO à debugger

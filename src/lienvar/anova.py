@@ -24,17 +24,23 @@ class Anova(LienVar):
     '''
 
     def __init__(self,var1,var2):
-        '''Constructeur de l'objet'''
+        '''Constructeur de l'objet
+        Parameters
+        ----------
+        var1 : str
+        var2 : str
+        '''
         super().__init__(var1,var2)
 
-    def determine_etude(self, table):
-        LienVar(self.var1,self.var2).determine_etude(table)
-        assert self.etude == "quali/quanti" #ça bug TODO problème à résoudre
-        if self.etude != "quali/quanti": #TODO problème à résoudre
-            print("erreur de type de variable") #warning TODO
 
     def representation(self, table):
-        Anova(self.var1,self.var2).determine_etude(table) #TODO à debugger
+        '''Boxplot et export de ce graphique
+        Parameters
+        ----------
+        table : TableDonnees
+        '''
+        super().determine_etude(table)
+        #assert self.etude == "quali/quanti"  # ça bug TODO problème à résoudre
         liste_modalites = []
         numcol_var_quali = table.index_variable(self.var1)
         numcol_var_quanti = table.index_variable(self.var2)
@@ -42,16 +48,28 @@ class Anova(LienVar):
             if table.donnees[i,numcol_var_quali] not in liste_modalites:
                 liste_modalites.append(table.donnees[i,numcol_var_quali])
         matrice_boxplot=[]
-        nb=0
+        nb_lignes=0
         for modalite in liste_modalites:
             matrice_boxplot.append([])
             for i in len(table.donnees):
                 if table.donnees[i,numcol_var_quali] == modalite:
-                    matrice_boxplot[nb].append(table.donnees[i,numcol_var_quanti])
-            nb+=1
+                    matrice_boxplot[nb_lignes].append(table.donnees[i,numcol_var_quanti])
+            nb_lignes+=1
         plt.boxplot(matrice_boxplot)
         plt.title('Boxplot')
         plt.xlabel('{}//{}'.format(self.var1,liste_modalites))
         plt.ylabel('{}'.format(self.var2))
         plt.savefig('BoxPlot_{}_{}_{}.png'.format(self.var1, self.var2, table.nom))
         plt.show()
+
+    def appliquer(self, table):
+        '''analyse de variance : étude du rapport de corrélation
+        et appel à representation du Boxplot & export du graphique
+
+        Parameters
+        ----------
+        table : TableDonnees
+        '''
+        self.representation(table)
+        print("Etude du lien entre", self.var1, "et", self.var2)
+        #TODO inachevé

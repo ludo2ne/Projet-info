@@ -11,12 +11,7 @@ from transformation.transformation import Transformation
 
 class Filtre(Transformation):
     '''Appliation d'un ou plusieurs filtres (par modalité ou fenétrage temporel)
-    '''
-
-    def __init__(self, var, debut=0, fin=0, variable_date="date", modalite=[], fenetrage=False):
-        '''Constructeur de l'objet
-
-        Attributes
+    Attributes
         ----------
         var : str
             variable sur laquelle appliquer le filtre par modalités
@@ -27,6 +22,24 @@ class Filtre(Transformation):
         debut : date
         fin : date
         variable_date : str
+            nom de la variable donnant l'horodatage
+
+    '''
+
+    def __init__(self, var, debut=0, fin=0, variable_date="date", modalite=[], fenetrage=False):
+        '''Constructeur de l'objet
+
+        Parameters
+        ----------
+        var : str
+            variable sur laquelle appliquer le filtre par modalités
+        modalite : list[str] = []
+            liste des modalités à conserver
+        fenetrage : bool = False
+            True si on souhaite appliquer un fêtrage temporel, False sinon
+        debut : date = 0
+        fin : date = 0
+        variable_date : str = "date"
             nom de la variable donnant l'horodatage
         '''
         self.var = var

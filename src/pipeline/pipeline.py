@@ -17,10 +17,14 @@ class Pipeline:
         Nom du pipeline
     liste_transformations : list[Transformation]
         liste des transformations qui seront appliquées
-    estimateur_final : EstimateurFinal
+    estimateur : Estimateur
         estimateur final à appliquer
     '''
-
+    #proposition : remplacer l'attribut liste_transformation par liste_operation (où la dernière? opération est un estimateur ou lienvar)
+    #si estimateur et lienvar ne modifie pas la table initiale, inutile qu'ils soient en dernier d'ailleurs
+    # supprimer l'attibut estimateur en conséquent, idemem pour les paramètres de init
+    # supprimer aussi le paramètre exporter_table TODO
+    # question : et si on veut exporter la table du return de estimateur (pas celle sur laquelle le pipeline est appliqué), que faire ?
     def __init__(self, nom, liste_transformations, estimateur=None, exporter_table=False):
         '''Constructeur de l'objet
 
@@ -30,7 +34,7 @@ class Pipeline:
             Nom du pipeline
         liste_transformations : list[Transformation]
             liste des transformations qui seront appliquées
-        estimateur_final : EstimateurFinal
+        estimateur: Estimateur
             estimateur final à appliquer
             None par défaut
         exporter_table : bool
