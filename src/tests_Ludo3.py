@@ -28,8 +28,11 @@ ma_table_json = DonneesJson(nom="table_json",
 ma_table_json.afficher(nb_lignes=10,
                        nb_colonnes=7)
 
-Filtre(var="code_insee_region", modalites=[
+Filtre(variable="code_insee_region", modalites=[
        "24", "75"]).appliquer(ma_table_json)
 
-ma_table_json.afficher(nb_lignes=10,
+Filtre(variable="date_heure", debut=20130101020000,
+       fin=20130101033000).appliquer(ma_table_json)
+
+ma_table_json.afficher(nb_lignes=15,
                        nb_colonnes=7)
