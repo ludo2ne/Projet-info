@@ -29,10 +29,13 @@ ma_table_json.afficher(nb_lignes=10,
                        nb_colonnes=7)
 
 Filtre(variable="code_insee_region", modalites=[
-       "24", "75"]).appliquer(ma_table_json)
+    "24", "75"]).appliquer(ma_table_json)
 
 Filtre(variable="date_heure", debut=20130101020000,
        fin=20130101033000).appliquer(ma_table_json)
+
+Filtre(variable="consommation_brute_gaz_teraga",
+       modalites=[1760.0]).appliquer(ma_table_json)
 
 ma_table_json.afficher(nb_lignes=15,
                        nb_colonnes=7)

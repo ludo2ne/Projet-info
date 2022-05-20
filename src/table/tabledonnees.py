@@ -178,7 +178,11 @@ class TableDonnees:
                         self.donnees[num_ligne, num_colonne])
 
     def index_variable(self, nom_variable):
-        return np.where(self.variables == nom_variable)[0][0]
+        '''Retourne l'index de la colonne de la variable
+           None si la variable n'a pas été trouvée 
+        '''
+        liste_index = np.where(self.variables == nom_variable)[0]
+        return None if len(liste_index) == 0 else liste_index[0]
 
 
 if __name__ == '__main__':
