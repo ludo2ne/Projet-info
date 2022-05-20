@@ -4,13 +4,9 @@ from abc import ABC, abstractmethod
 from table.tabledonnees import TableDonnees
 
 
-class AbstractEstimateur(ABC): # est-ce qu'il faut modifier par AbstractEstimateur(Operation) et mettre tous les dossiers (transformation, estimateur, lien2var) dans un dossier operation ?
+# est-ce qu'il faut modifier par AbstractEstimateur(Operation) et mettre tous les dossiers (transformation, estimateur, lien2var) dans un dossier operation ?
+class AbstractEstimateur(ABC):
     '''Classe abstraite implémentant un estimateur
-
-    Attributes
-    ----------
-    nom : 'str'
-        nom de l'estimateur
     '''
 
 # ajout pour pouvoir utiliser le nom de l'estimateur dans la table de sortie finale
@@ -20,7 +16,8 @@ class AbstractEstimateur(ABC): # est-ce qu'il faut modifier par AbstractEstimate
         pass
 
     @abstractmethod
-    def estim1var(table, numero_colonne): #attention, ne pas changer en "appliquer" (déjà utilisé pour l'application à la table complete , cf methode suivante)
+    # attention, ne pas changer en "appliquer" (déjà utilisé pour l'application à la table complete , cf methode suivante)
+    def estim1var(table, numero_colonne):
         '''Calcul d'un estimateur sur la colonne d'index numero_colonne de la table
         Parameters
         ----------
@@ -32,9 +29,6 @@ class AbstractEstimateur(ABC): # est-ce qu'il faut modifier par AbstractEstimate
         Returns
         -------
         float : écart-type des valeurs de la colonne
-
-        Examples
-        --------
         '''
         pass
 
@@ -49,14 +43,12 @@ class AbstractEstimateur(ABC): # est-ce qu'il faut modifier par AbstractEstimate
         Returns
         -------
         TableDonnees : les variables et la valeur donnée par l'estimateur
-
-        Examples
-        --------
         '''
         liste_estim = []
         for i in len(table.variables):
             liste_estim.append(self.estim1var(table, i))
-        return TableDonnees(nom = table.nom + "_" + self.nom,
-                            donnees = [liste_estim],
-                            variables = table.variables,
-                            type_var = table.type_var)
+
+        return TableDonnees(nom=table.nom + "_" + self.nom,
+                            donnees=[liste_estim],
+                            variables=table.variables,
+                            type_var=table.type_var)

@@ -8,23 +8,19 @@ Version : 1.0
 import math
 from estimateur.moyenne import Moyenne
 from estimateur.estimateur import AbstractEstimateur
-from table.tabledonnees import TableDonnees
 import numpy as np
 
 
 class EcartType(AbstractEstimateur):
     '''Ecart-type calculé sur chaque variable d'une table
-
-    Attributes
-    ----------
-    nom : str = 'ecart_type'
     '''
 
     def __init__(self):
-        self.nom = 'ecart_type'
+        pass
 
     @staticmethod
-    def estim1var(table, numero_colonne): #attention, ne pas changer en "appliquer" (déjà utilisé pour l'application à la table complete dans Estimateur)
+    # attention, ne pas changer en "appliquer" (déjà utilisé pour l'application à la table complete dans Estimateur)
+    def estim1var(table, numero_colonne):
         '''Calculer l'écart-type d'une colonne de la table
 
         Parameters
@@ -37,10 +33,6 @@ class EcartType(AbstractEstimateur):
         Returns
         -------
         float : écart-type des valeurs de la colonne
-
-        Examples
-        --------
-
         '''
         assert (table.type_var[numero_colonne] == 'float')
 

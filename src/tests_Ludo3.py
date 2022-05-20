@@ -15,7 +15,35 @@ from transformation.selectionvariables import SelectionVariables
 from transformation.normalisation import Normalisation
 from transformation.jointureinterne import JointureInterne
 from transformation.supprimena import SupprimeNA
+from transformation.export import Export
 from lienvar.coefficientcorrelation import CoefficientCorrelation
+
+
+# -------------------------------------------------------------------
+# Creation a partir d un fichier csv
+# -------------------------------------------------------------------
+
+
+ma_table_csv_01 = DonneesCsv(nom="table_csv",
+                             chemin_complet=os.getcwd() + "/donnees/test/synop.201301.csv.gz",
+                             identifiants=['numer_sta', 'date'],
+                             valeur_manquante="mq")
+
+ma_table_csv_01.afficher(nb_lignes=10,
+                         nb_colonnes=12)
+
+
+# -------------------------------------------------------------------
+# Creation et lancement du pipeline
+# -------------------------------------------------------------------
+mon_premier_pipeline = Pipeline(nom="pipo",
+                                liste_operations=[Centrage(),
+                                                  SelectionVariables(
+                                                      ['numer_sta', 'date', 'ff', 'w1', 'sw']),
+                                                  Export()])
+mon_premier_pipeline.lancer(ma_table_csv_01)
+
+ma_table_csv_01.afficher(nb_colonnes=12)
 
 
 # -------------------------------------------------------------------
@@ -34,7 +62,7 @@ Filtre(variable="code_insee_region", modalites=[
 Filtre(variable="date_heure", debut=20130101020000,
        fin=20130101033000).appliquer(ma_table_json)
 
-Filtre(variable="consommation_brute_gaz_teraga",
+Filtre(variable="consommation_brute_gaz_terega",
        modalites=[1760.0]).appliquer(ma_table_json)
 
 ma_table_json.afficher(nb_lignes=15,

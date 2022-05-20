@@ -15,6 +15,7 @@ from transformation.centrage import Centrage
 from transformation.concatenation import ConcatanationLignes
 from transformation.selectionvariables import SelectionVariables
 from transformation.normalisation import Normalisation
+from transformation.export import Export
 
 from transformation.moyenneglissante import MoyenneGlissante
 from lienvar.coefficientcorrelation import CoefficientCorrelation
@@ -41,12 +42,12 @@ ma_table_csv_02 = DonneesCsv(nom="table_csv",
 # Creation et lancement du pipeline
 # -------------------------------------------------------------------
 mon_premier_pipeline = Pipeline(nom="pipo",
-                                liste_transformations=[Centrage(),
-                                                       ConcatanationLignes(
-                                                           ma_table_csv_02),
-                                                       SelectionVariables(
-                                                           ['numer_sta', 'date', 'ff', 'w1', 'sw'])],
-                                exporter_table=True)
+                                liste_operations=[Centrage(),
+                                                  ConcatanationLignes(
+                                    ma_table_csv_02),
+                                    SelectionVariables(
+                                    ['numer_sta', 'date', 'ff', 'w1', 'sw']),
+                                    Export()])
 mon_premier_pipeline.lancer(ma_table_csv_01)
 
 ma_table_csv_01.afficher(nb_colonnes=12)

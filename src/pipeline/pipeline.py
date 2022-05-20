@@ -23,9 +23,8 @@ class Pipeline:
     # DONE    supprimer l'attibut estimateur en conséquent, idemem pour les paramètres de init
     # DONE    supprimer aussi le paramètre exporter_table
     # question : et si on veut exporter la table du return de estimateur (pas celle sur laquelle le pipeline est appliqué), que faire ?
-    # TODO cf UML : méthodes ajouter_oper et supprimer_oper ? (pas sûre que ce soit nécessaire ? -> manipulation de listes ?)
 
-    def __init__(self, nom, liste_transformations):
+    def __init__(self, nom, liste_operations):
         '''Constructeur de l'objet
 
         Parameters
@@ -34,12 +33,9 @@ class Pipeline:
             Nom du pipeline
         liste_transformations : list[Transformation]
             liste des transformations qui seront appliquées
-        exporter_table : bool
-            Si True le fichier est exporté dans donnees/export
-            False par défaut
         '''
         self.nom = nom
-        self.liste_transformations = liste_transformations
+        self.liste_operations = liste_operations
 
     def lancer(self, table):
         '''Lancement du pipeline
@@ -50,17 +46,11 @@ class Pipeline:
         ----------
         table : tableDonnees
             table de données à transformer
-
-        Returns 
-        -------
-        table
-            table de données mise à jour
         '''
-        # TODO Question : y a-t-il vraiment un "Returns" ?
 
         print("------------------------------------------------------")
         print("Lancement du pipeline " + self.nom)
 
         # Pour chaque transformation de la liste
-        for i in range(len(self.liste_transformations)):
-            self.liste_transformations[i].appliquer(table)
+        for i in range(len(self.liste_operations)):
+            self.liste_operations[i].appliquer(table)

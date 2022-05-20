@@ -7,21 +7,16 @@ Version : 1.0
 '''
 
 import numpy as np
-from table.tabledonnees import TableDonnees
 from estimateur.estimateur import AbstractEstimateur
 
 
 class Moyenne(AbstractEstimateur):
     '''Moyenne calculée sur chaque variable d'une table
-
-    Attributes
-    ----------
-    nom : str = 'moyenne'
     '''
 
     def __init__(self):
         '''Constructeur'''
-        self.nom = 'moyenne'
+        pass
 
     @staticmethod
     def estim1var(table, numero_colonne):
@@ -37,10 +32,6 @@ class Moyenne(AbstractEstimateur):
         Returns
         -------
         float : moyenne des valeurs de la colonne
-
-        Examples
-        --------
-
         '''
         if table.type_var[numero_colonne] != "float":
             return None
@@ -64,12 +55,3 @@ class Moyenne(AbstractEstimateur):
 #              " (sur " + str(nb) + " valeurs renseignées et " + str(nb_na) + " valeurs manquantes)")
 
         return moyenne
-
-
-# à enlever si la classe abstraite vous convient :
-#    @staticmethod
-#    def table_moyenne(table):
-#        liste_moyenne = []
-#        for i in len(table.liste_var):
-#            liste_moyenne.append(estim1var(table, i))
-#        return TableDonnees(nom=table.nom + "_moyenne", variables=table.variables, type_var=table.type_var, donnee=[liste_moyenne])
