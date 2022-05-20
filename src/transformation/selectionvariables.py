@@ -17,19 +17,19 @@ class SelectionVariables(Transformation):
     '''Sélection d'une ou plusieurs variables
     Attributes :
     ----------
-        liste_colonnes : list[str]
+        liste_var : list[str]
             liste des noms des colonnes à conserver
     '''
 
-    def __init__(self, liste_colonnes):
+    def __init__(self, liste_var):
         '''Constructeur de l'objet
 
         Parameters :
         ----------
-        liste_colonnes : list[str]
+        liste_var : list[str]
             liste des noms des colonnes à conserver
         '''
-        self.liste_colonnes = liste_colonnes
+        self.liste_var = liste_var
 
     def appliquer(self, table):
         '''Appliquer la transformation à plusieurs variables de la table
@@ -41,12 +41,12 @@ class SelectionVariables(Transformation):
         '''
 
         print("------------------------------------------------------")
-        print("Sélection des variables : " + str(self.liste_colonnes))
+        print("Sélection des variables : " + str(self.liste_var))
 
         index_conserves = []
 
         # On parcourt la liste des colonnes de SelectionVariables
-        for col in self.liste_colonnes:
+        for col in self.liste_var:
             try:
                 index_conserves.append(table.variables.tolist().index(col))
             except:
