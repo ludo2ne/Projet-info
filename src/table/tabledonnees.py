@@ -174,13 +174,19 @@ class TableDonnees:
         return np.array(liste_formats)
 
     def appliquer_formats(self):
-        '''Transforme en float les données des variables de type float
+        '''Transforme les données des variables en fonction du type
+               date => YYYYMMDD
+               "float" (float au format str) => float
         '''
+
         for num_colonne in range(len(self.donnees[0])):
+            # transformation des float
             if self.type_var[num_colonne] == "float":
                 for num_ligne in range(len(self.donnees)):
                     self.donnees[num_ligne, num_colonne] = float(
                         self.donnees[num_ligne, num_colonne])
+
+            # transformation des dates
 
     def index_variable(self, nom_variable):
         return np.where(self.variables == nom_variable)[0][0]
