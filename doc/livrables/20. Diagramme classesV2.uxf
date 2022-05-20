@@ -87,7 +87,7 @@ fin : date
 +type_var :  numpy array 1D
 --
 &lt;&lt;Create&gt;&gt; __init__(nom : str , donnees_avec_entete : array  , type_var : array = [ ] ,
-                              identifiants : str =None , valeur_manquante : str ="na" )
+                              identifiants : list[str] =[] , valeur_manquante : str ="na" )
 +bilan_chargement() : str
 +afficher(nb_lignes : int=None, nb_colonnes : int=None )
 +determiner_formats() : numpy array 1D
