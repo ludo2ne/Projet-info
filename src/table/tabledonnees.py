@@ -186,7 +186,7 @@ class TableDonnees:
                     self.donnees[num_ligne, num_colonne] = float(
                         self.donnees[num_ligne, num_colonne])
 
-            # transformation des dates
+            # transformation des dates TODO
 
     def index_variable(self, nom_variable):
         return np.where(self.variables == nom_variable)[0][0]
