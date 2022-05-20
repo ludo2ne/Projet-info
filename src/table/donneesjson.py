@@ -10,6 +10,7 @@ import gzip
 import json
 import numpy as np
 
+from datetime import datetime
 from table.tabledonnees import TableDonnees
 
 
@@ -88,3 +89,16 @@ class DonneesJson(TableDonnees):
         self.type_var = self.determiner_formats()
         self.appliquer_formats()
         self.bilan_chargement()
+
+    def appliquer_formats(self):
+        super().appliquer_formats()
+
+        # transformation des dates specifiquement pour la colonne date_heure
+        for num_colonne in range(len(self.donnees[0])):
+            if self.variables[num_colonne] == "date_heure":
+                for num_ligne in range(len(self.donnees)):
+                    date_time_obj = datetime.strptime(
+                        self.donnees[num_ligne, num_colonne], '%Y-%m-%dT%H:%M:%S+01:00')
+                    date_time_str_new = datetime.strftime(
+                        date_time_obj, '%Y%m%d%H%M%S')
+                    self.donnees[num_ligne, num_colonne] = date_time_str_new

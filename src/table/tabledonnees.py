@@ -177,12 +177,6 @@ class TableDonnees:
                     self.donnees[num_ligne, num_colonne] = float(
                         self.donnees[num_ligne, num_colonne])
 
-            # transformation des dates
-            if self.type_var[num_colonne] == "date":
-                for num_ligne in range(len(self.donnees)):
-                    pass
-                # TODO
-
     def index_variable(self, nom_variable):
         return np.where(self.variables == nom_variable)[0][0]
 

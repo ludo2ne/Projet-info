@@ -17,5 +17,9 @@ ma_table = TableDonnees(nom="t1",
 
 date_time_str = '20170921085519'
 date_time_obj = datetime.strptime(date_time_str, '%Y%m%d%H%M%S')
+date_time_str_new = datetime.strftime(date_time_obj, '%Y%m%d%H%M%S')
 
 print(date_time_obj)
+print(type(date_time_obj))
+print(date_time_str_new)
+print(type(date_time_str_new))
