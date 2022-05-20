@@ -48,8 +48,8 @@ class MoyenneGlissante(Transformation):
 
             for i in range(demi_pas):
                 liste_moyennes.append(np.nan)  # pour les premières valeurs
-            for i in range(demi_pas, len(table.donnees)-demi_pas+1):
-                ss_liste = liste_valeurs[i-demi_pas: i+demi_pas]
+            for i in range(demi_pas, len(table.donnees) - demi_pas + 1):
+                ss_liste = liste_valeurs[i - demi_pas : i + demi_pas]
                 #if not np.isnan(ss_liste):   #
                 #    moyenne = statistics.mean(ss_liste)
                 # else:
@@ -61,10 +61,11 @@ class MoyenneGlissante(Transformation):
                 liste_moyennes.append(np.nan)  # pour les dernières valeurs
 
         if pas % 2 == 0:  # cas pair
-            for i in range(pas/2):
+            demi_pas = int(pas / 2)
+            for i in range(demi_pas):
                 liste_moyennes.append(np.nan)  # pour les premières valeurs
-            for i in range(pas/2, len(table.donnees)-pas/2+1):
-                ss_liste = liste_valeurs[i-pas/2: i+pas/2]
+            for i in range(demi_pas, len(table.donnees)-demi_pas+1):
+                ss_liste = liste_valeurs[i - demi_pas : i+  demi_pas]
                 ss_liste.pop(i)
                 moyenne = statistics.mean(ss_liste)
                 liste_moyennes.append(moyenne)
@@ -73,7 +74,7 @@ class MoyenneGlissante(Transformation):
 
         return liste_moyennes
 
-    def appliquer_variable(self, table, numero_colonne, pas=3):
+    def appliquer_variable(self, table, numero_colonne, pas = 3):
         '''Appliquer la moyenne glissante à une variable de la table
 
         Parameters

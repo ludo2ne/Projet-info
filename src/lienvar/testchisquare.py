@@ -22,21 +22,32 @@ class TestChiSquare(LienVar):
     var2 : str
         nom de la variable qualitative
     etude : str
-        champs d'étude ("quali/quanti" à vérifier)
+        champs d'étude ("quali/quali" à vérifier)
     '''
 
     def __init__(self,var1,var2):
-        '''Constructeur de l'objet'''
+        '''Constructeur de l'objet
+        Parameters
+        ----------
+        var1 : str
+        var2 : str
+        '''
         super().__init__(var1,var2)
 
-    def determine_etude(self, table):
-        LienVar(self.var1,self.var2).determine_etude(table)
-        assert self.etude == "quali/quali" #ça bug TODO problème à résoudre
-        if self.etude != "quali/quali": #TODO problème à résoudre
-            print("erreur de type de variable") #warning TODO
+   # def determine_etude(self, table):
+    #    LienVar(self.var1,self.var2).determine_etude(table)
+     #   assert self.etude == "quali/quali" #ça bug TODO problème à résoudre
+      #  if self.etude != "quali/quali": #TODO problème à résoudre
+       #     print("erreur de type de variable") #warning TODO
 
     def representation(self, table):
-        TestChiSquare(self.var1,self.var2).determine_etude(table) #TODO à debugger
+        '''Tableau de contignence
+        Parameters
+        ----------
+        table : TableDonnees
+        '''
+        super().determine_etude(table)
+        assert self.etude == "quali/quali" #ça bug TODO problème à résoudre
         liste_modalites1 = []
         liste_modalites2 = []
         numcol_var1 = table.index_variable(self.var1)
@@ -58,3 +69,16 @@ class TestChiSquare(LienVar):
                 tb_contingence[ligne].append(nb)
             ligne+=1
         print(tb_contingence)
+        return tb_contingence
+
+    def appliquer(self, table):
+        '''étude de la corrélation entre les variables
+        et appel à representation du nuage de points & export du graphique
+
+        Parameters
+        ----------
+        table : TableDonnees
+        '''
+        self.representation(table)  # syntaxe à vérifier TODO
+        print("Etude du lien entre", self.var1, "et", self.var2)
+        #TODO inachevé
