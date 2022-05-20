@@ -77,3 +77,5 @@ class ConcatanationLignes(Transformation):
             # Concatenation des donnees
             table.donnees = np.concatenate(
                 (table.donnees, self.autre_table.donnees))
+            print('Les tables ' + table.nom + ' et ' +
+                  self.autre_table.nom + ' ont été concaténées')
