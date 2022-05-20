@@ -24,7 +24,7 @@ class EcartType(AbstractEstimateur):
         self.nom = 'ecart_type'
 
     @staticmethod
-    def estim1var(table, numero_colonne):
+    def estim1var(table, numero_colonne): #attention, ne pas changer en "appliquer" (déjà utilisé pour l'application à la table complete dans Estimateur)
         '''Calculer l'écart-type d'une colonne de la table
 
         Parameters
