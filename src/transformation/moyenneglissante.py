@@ -26,23 +26,9 @@ class MoyenneGlissante(Transformation):
         pass
 # est-ce que la liste_colonnes est vraiment un attribut la classe de MoyenneGlissante ? si oui l'ajouter sur l'UML, sinon le supprimer de la documentation TODO
 
-    # table.donnees[:, numero_colonne]  ça ne fonctionne pas pour les listes de listes sauf si converties au format np.array
-    #def liste_colonne(self, table, numero_colonne):
-      #  '''converti les données d'une colonne de la table en une liste'''
-       # liste = []
-       # for i in range(len(table.donnees)):
-        #    liste.append(table.donnees[i][numero_colonne])
-        #return liste  # cette méthode sera utile pour la classe Lien2Var : est-ce qu'il vaut mieux la  mettre en méthode de TableDonnées ? #TODO
-
-    # liste[debut:fin] OK
-    #def sous_liste(self, liste, debut, fin):
-     #   '''extrait une sous liste'''
-      #  ss_list = []
-       # for i in range(debut, fin+1):
-        #    ss_list.append(liste[i])
-        #return ss_list
-
-    def moyenne_glissante(self, table, numero_colonne, pas): #est-ce que ça pourrait être une staticmethode en se dispençant de self ? TODO
+    @staticmethod
+    # est-ce que ça pourrait être une staticmethode en se dispençant de self ? TODO
+    def moyenne_glissante(table, numero_colonne, pas):
         '''Calculer la liste des moyennes glissantes à d'une variable de la table
 
         Parameters
@@ -51,6 +37,7 @@ class MoyenneGlissante(Transformation):
             table de données
         numero_colonne : int
             numéro de la colonne sur laquelle appliquer
+        pas : int
         '''
         liste_valeurs = table.donnees[:, numero_colonne]
         liste_moyennes = []
@@ -62,12 +49,13 @@ class MoyenneGlissante(Transformation):
             for i in range(demi_pas):
                 liste_moyennes.append(np.nan)  # pour les premières valeurs
             for i in range(demi_pas, len(table.donnees)-demi_pas+1):
-                ss_liste = liste_valeurs[i-demi_pas : i+demi_pas]
+                ss_liste = liste_valeurs[i-demi_pas: i+demi_pas]
                 #if not np.isnan(ss_liste):   #
                 #    moyenne = statistics.mean(ss_liste)
-                #else:
+                # else:
                 #    moyenne = np.nan
-                moyenne = statistics.mean(ss_liste) # cette fonction renvoie une valeur manquante si la liste en contient au moins une
+                # cette fonction renvoie une valeur manquante si la liste en contient au moins une
+                moyenne = statistics.mean(ss_liste)
                 liste_moyennes.append(moyenne)
             for i in range(demi_pas):
                 liste_moyennes.append(np.nan)  # pour les dernières valeurs
@@ -76,7 +64,7 @@ class MoyenneGlissante(Transformation):
             for i in range(pas/2):
                 liste_moyennes.append(np.nan)  # pour les premières valeurs
             for i in range(pas/2, len(table.donnees)-pas/2+1):
-                ss_liste = liste_valeurs[i-pas/2 : i+pas/2]
+                ss_liste = liste_valeurs[i-pas/2: i+pas/2]
                 ss_liste.pop(i)
                 moyenne = statistics.mean(ss_liste)
                 liste_moyennes.append(moyenne)
@@ -95,7 +83,7 @@ class MoyenneGlissante(Transformation):
         numero_colonne : int
             numéro de la colonne sur laquelle appliquer
         '''
-        liste_moyennes = self.moyenne_glissante(table, numero_colonne, pas) #je crois que ça plante : la méthode n'est pas reconnue TODO à vérifier
+        liste_moyennes = MoyenneGlissante.moyenne_glissante(table, numero_colonne, pas)  # je crois que ça plante : la méthode n'est pas reconnue TODO à vérifier
         for i in range(len(table.donnees)):
             table.donnees[i][numero_colonne] = liste_moyennes[i]
 

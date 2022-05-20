@@ -10,6 +10,7 @@ from table.donneescsv import DonneesCsv
 from table.donneesjson import DonneesJson
 from pipeline.pipeline import Pipeline
 from transformation.centrage import Centrage
+from transformation.filtre import Filtre
 from transformation.selectionvariables import SelectionVariables
 from transformation.normalisation import Normalisation
 from transformation.jointureinterne import JointureInterne
@@ -73,8 +74,12 @@ ma_table_emploi = TableDonnees(nom="t1bis",
                                type_var=["str", "str", "str"],
                                valeur_manquante="na")
 
-JointureInterne(autre_table=ma_table_emploi,
-                cle=[("id", "ident"), ("matricule", "code")]).appliquer(ma_table)
+
+Filtre(var="emploi", modalite=["statisticien",
+       "informaticien"]).appliquer(ma_table_emploi)
+
+# JointureInterne(autre_table=ma_table_emploi,
+#                cle=[("id", "ident"), ("matricule", "code")]).appliquer(ma_table)
 
 
-ma_table.afficher(nb_lignes=10, nb_colonnes=7)
+ma_table_emploi.afficher(nb_lignes=10, nb_colonnes=7)

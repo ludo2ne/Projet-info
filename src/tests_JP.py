@@ -68,12 +68,6 @@ ma_table3.afficher(nb_lignes=10, nb_colonnes=7)
 Normalisation().appliquer(ma_table_csv)
 ma_table_csv.afficher(nb_lignes=10, nb_colonnes=7)
 
-# -------------------------------------------------------------------
-# Moyennes glissantes d'une table
-# -------------------------------------------------------------------
-# MoyenneGlissante().appliquer(ma_table_csv)
-# ma_table_csv.afficher(nb_lignes=10,                      nb_colonnes=7)
-
 
 # -------------------------------------------------------------------
 # Etude du lien entre 2 variables quantitatives
@@ -82,9 +76,6 @@ SupprimeNA(["ff", "tend", "hnuage4"]).appliquer(ma_table_csv)
 
 ma_table_csv.afficher(nb_colonnes=7)
 
-SelectionVariables(["ff", "tend", "hnuage4"]).appliquer(ma_table_csv)
-
-ma_table_csv.afficher(nb_colonnes=7)
 
 # Anova("tend","hnuage4").representation(ma_table_csv)
 CoefficientCorrelationV2("ff", "tend").etude_lien(
@@ -102,3 +93,9 @@ CoefficientCorrelationV2("ff", "tend").etude_lien(
 # bug pour ma_table2 à cause de appliquer.format() TODO ne fonctionne pas si type_var n'est pas prédéfinie, ou sil les variables sont déjà en partie de type float ?
 # ma_table2.determiner_formats ne fonctionne pas
 # print(ma_table2.type_var)
+
+# -------------------------------------------------------------------
+# Moyennes glissantes d'une table
+# -------------------------------------------------------------------
+MoyenneGlissante().appliquer(ma_table_csv)
+ma_table_csv.afficher(nb_lignes=10, nb_colonnes=7)
