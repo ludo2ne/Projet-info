@@ -147,25 +147,16 @@ class TableDonnees:
                 liste_formats.append('str')
                 continue
 
-            # on va maintenant tester si la variable est un int, un float ou aucun des deux
-#            isInt = True
+            # on va maintenant tester si la variable est un float
             isFloat = True
 
             for num_ligne in range(len(self.donnees)):
-                #                try:
-                #                    int(self.donnees[num_ligne, num_colonne])
-                #                except:
-                #                    if not np.isnan(self.donnees[num_ligne, num_colonne]):
-                #                        isInt = False
-
                 try:
                     float(self.donnees[num_ligne, num_colonne])
                 except:
                     isFloat = False
                     break
 
-#            if isInt:
-#                liste_formats.append('int')
             if isFloat:
                 liste_formats.append('float')
             else:
@@ -187,6 +178,10 @@ class TableDonnees:
                         self.donnees[num_ligne, num_colonne])
 
             # transformation des dates
+            if self.type_var[num_colonne] == "date":
+                for num_ligne in range(len(self.donnees)):
+                    pass
+                # TODO
 
     def index_variable(self, nom_variable):
         return np.where(self.variables == nom_variable)[0][0]

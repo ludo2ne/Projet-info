@@ -17,7 +17,7 @@ from transformation.selectionvariables import SelectionVariables
 from transformation.normalisation import Normalisation
 
 from transformation.moyenneglissante import MoyenneGlissante
-from lien2var.coefficientcorrelation_v2 import CoefficientCorrelationV2
+from lienvar.coefficientcorrelation import CoefficientCorrelation
 from transformation.supprimena import SupprimeNA
 
 # -------------------------------------------------------------------
@@ -50,3 +50,14 @@ mon_premier_pipeline = Pipeline(nom="pipo",
 mon_premier_pipeline.lancer(ma_table_csv_01)
 
 ma_table_csv_01.afficher(nb_colonnes=12)
+
+
+# -------------------------------------------------------------------
+# Creation a partir d un fichier json
+# -------------------------------------------------------------------
+ma_table_json = DonneesJson(nom="table_json",
+                            chemin_complet=os.getcwd() + "/donnees/test/2013-01.json.gz",
+                            identifiants=["code_insee_region", "date", "heure"])
+
+ma_table_json.afficher(nb_lignes=10,
+                       nb_colonnes=7)
