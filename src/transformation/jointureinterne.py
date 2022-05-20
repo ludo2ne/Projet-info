@@ -13,12 +13,18 @@ from transformation.transformation import Transformation
 
 class JointureInterne(Transformation):
     '''Joiinture entre deux tables selon une clé (liste de variables)
+        Attributes
+        ----------
+        cle : list [tuple(str)]
+            Liste de tuples contenant chacun un attribut de chaque table permettant de faire la jointure
+        autre_table : TableDonnees
+
     '''
 
     def __init__(self, autre_table, cle):
         '''Constructeur de l'objet
 
-        Attributes
+        Parameters
         ----------
         cle : list [tuple(str)]
             Liste de tuples contenant chacun un attribut de chaque table permettant de faire la jointure

@@ -15,22 +15,26 @@ from transformation.transformation import Transformation
 
 class SelectionVariables(Transformation):
     '''Sélection d'une ou plusieurs variables
+    Attributes :
+    ----------
+        liste_colonnes : list[str]
+            liste des noms des colonnes à conserver
     '''
 
     def __init__(self, liste_colonnes):
         '''Constructeur de l'objet
 
-        Attributes
+        Parameters :
         ----------
         liste_colonnes : list[str]
-            liste des noms des colonnes auquelles appliquer la transformation
+            liste des noms des colonnes à conserver
         '''
         self.liste_colonnes = liste_colonnes
 
     def appliquer(self, table):
         '''Appliquer la transformation à plusieurs variables de la table
 
-        Parameters
+        Parameters :
         ----------
         table : TableDonnees
             table de données

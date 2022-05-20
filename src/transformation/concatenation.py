@@ -11,10 +11,18 @@ from table.tabledonnees import TableDonnees
 
 
 class ConcatanationLignes(Transformation):
-    '''Concaténation des lignes de deux tables de données'''
+    '''Concaténation des lignes de deux tables de données
+    Attributes
+    ----------
+    autre_table : TableDonnees
+    '''
 
     def __init__(self, autre_table):
-        '''Constructeur'''
+        '''Constructeur de l'objet
+        Parameters
+        ----------
+        autre_table : TableDonnees
+        '''
         self.autre_table = autre_table
 
     def appliquer(self, table):
@@ -24,15 +32,8 @@ class ConcatanationLignes(Transformation):
         ----------
         table : TableDonnees
             une table de données
-        autre_table : TableDonnees
-            une autre table de données
 
-        Returns
-        -------
-        TableDonnees : Contenant les données des deux tables
 
-        Examples
-        --------
         '''
         # assert(table.variables == self.autre_table.variables)
         # assert(table.type_var == self.autre_table.type_var)
