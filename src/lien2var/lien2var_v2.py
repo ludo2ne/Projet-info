@@ -36,6 +36,8 @@ class Lien2varV2:
 
     def determine_etude(self, table):
         '''détermine le champ d'étude selon le type de variables'''
+
+        print("détermination de l'étude")
         numcol_var1 = table.index_variable(self.var1)
         numcol_var2 = table.index_variable(self.var2)
 

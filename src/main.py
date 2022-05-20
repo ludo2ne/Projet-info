@@ -61,6 +61,11 @@ ma_table_json = DonneesJson(nom="table_json",
 ma_table_json.afficher(nb_lignes=10,
                        nb_colonnes=7)
 
+mon_2e_pipeline = Pipeline(nom="pipo2",
+                           liste_transformations=[],
+                           exporter_table=True)
+mon_2e_pipeline.lancer(ma_table_json)
+
 
 # -------------------------------------------------------------------
 # Creation manuelle d une table

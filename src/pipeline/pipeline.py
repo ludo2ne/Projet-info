@@ -21,7 +21,7 @@ class Pipeline:
         estimateur final à appliquer
     '''
 
-    def __init__(self, nom, liste_transformations, estimateur_final=None, exporter_table=False):
+    def __init__(self, nom, liste_transformations, estimateur=None, exporter_table=False):
         '''Constructeur de l'objet
 
         Parameters
@@ -39,7 +39,7 @@ class Pipeline:
         '''
         self.nom = nom
         self.liste_transformations = liste_transformations
-        self.estimateur_final = estimateur_final
+        self.estimateur = estimateur
         self.exporter_table = exporter_table
 
     def lancer(self, table):

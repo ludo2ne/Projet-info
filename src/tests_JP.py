@@ -28,12 +28,11 @@ ma_table_csv = DonneesCsv(nom="table_csv",
                           valeur_manquante="mq")
 
 
-
 # -------------------------------------------------------------------
 # Supprimer les lignes d'une table qui contiennent au moins une valeur manquante pour une liste de variables données
 # -------------------------------------------------------------------
 
-SupprimeNA(["vv","ww"]).appliquer(ma_table_csv)
+SupprimeNA(["vv", "ww"]).appliquer(ma_table_csv)
 ma_table_csv.afficher(nb_lignes=10,
                       nb_colonnes=12)
 
@@ -42,13 +41,12 @@ ma_table_csv.afficher(nb_lignes=10,
 # -------------------------------------------------------------------
 ma_table = TableDonnees(nom="t1",
                         donnees_avec_entete=[["id", "dnais", "taille"],
-                                 ["id1", "20120101", "160"],
-                                 ["id2", "20060920", "180"]],
+                                             ["id1", "20120101", "160"],
+                                             ["id2", "20060920", "180"]],
                         identifiants=["id"],
                         type_var=["str", "date", "float"])
 
 ma_table.afficher(nb_lignes=10, nb_colonnes=7)
-
 
 
 # -------------------------------------------------------------------
@@ -58,11 +56,11 @@ Normalisation().appliquer(ma_table)
 ma_table.afficher(nb_lignes=10, nb_colonnes=7)
 
 ma_table3 = TableDonnees(nom="t3",
-                        donnees_avec_entete=[["id", "dnais", "taille", "poids"],
-                                 ["id1", "20120101", "160", "63"],
-                                 ["id2", "20060920", "180","90"],["id3", "20060921", "170","75"],["id4", "20061020", "183","85"]],
-                        identifiants=["id"],
-                        type_var=["str", "date", "float","float"])
+                         donnees_avec_entete=[["id", "dnais", "taille", "poids"],
+                                              ["id1", "20120101", "160", "63"],
+                                              ["id2", "20060920", "180", "90"], ["id3", "20060921", "170", "75"], ["id4", "20061020", "183", "85"]],
+                         identifiants=["id"],
+                         type_var=["str", "date", "float", "float"])
 
 Normalisation().appliquer(ma_table3)
 ma_table3.afficher(nb_lignes=10, nb_colonnes=7)
@@ -73,30 +71,34 @@ ma_table_csv.afficher(nb_lignes=10, nb_colonnes=7)
 # -------------------------------------------------------------------
 # Moyennes glissantes d'une table
 # -------------------------------------------------------------------
-MoyenneGlissante().appliquer(ma_table_csv)
-ma_table_csv.afficher(nb_lignes=10,
-                      nb_colonnes=7)
-
+# MoyenneGlissante().appliquer(ma_table_csv)
+# ma_table_csv.afficher(nb_lignes=10,                      nb_colonnes=7)
 
 
 # -------------------------------------------------------------------
 # Etude du lien entre 2 variables quantitatives
 # -------------------------------------------------------------------
-SupprimeNA(["ff","tend","hnuage4"]).appliquer(ma_table_csv)
+SupprimeNA(["ff", "tend", "hnuage4"]).appliquer(ma_table_csv)
 
-Anova("tend","hnuage4").representation(ma_table_csv)
-CoefficientCorrelationV2("ff","tend").etude_lien(ma_table_csv) #TODO à debugger
+ma_table_csv.afficher(nb_colonnes=7)
+
+SelectionVariables(["ff", "tend", "hnuage4"]).appliquer(ma_table_csv)
+
+ma_table_csv.afficher(nb_colonnes=7)
+
+# Anova("tend","hnuage4").representation(ma_table_csv)
+CoefficientCorrelationV2("ff", "tend").etude_lien(
+    ma_table_csv)  # TODO à debugger
 
 
-
-#CoefficientCorrelation(ma_table_csv,"ff","tend").representation(ma_table_csv,"ff","tend")
-#CoefficientCorrelation(ma_table_csv,"ff","tend").etude_lien(ma_table_csv,"ff","tend") #TODO à débugger
+# CoefficientCorrelation(ma_table_csv,"ff","tend").representation(ma_table_csv,"ff","tend")
+# CoefficientCorrelation(ma_table_csv,"ff","tend").etude_lien(ma_table_csv,"ff","tend") #TODO à débugger
 
 # -------------------------------------------------------------------
 # Creation manuelle d une table TODO à debugger
 # -------------------------------------------------------------------
 
 #ma_table2 = TableDonnees(nom="t2",donnees_avec_entete=[["id", "dnais", "taille", "poids"],["id1", "20120101", "160", "68"], ["id2", "20060920", 180, 85], ["id3", "20060921", 170, 70]],identifiants=["id"])
-#bug pour ma_table2 à cause de appliquer.format() TODO ne fonctionne pas si type_var n'est pas prédéfinie, ou sil les variables sont déjà en partie de type float ?
-#ma_table2.determiner_formats ne fonctionne pas
-#print(ma_table2.type_var)
+# bug pour ma_table2 à cause de appliquer.format() TODO ne fonctionne pas si type_var n'est pas prédéfinie, ou sil les variables sont déjà en partie de type float ?
+# ma_table2.determiner_formats ne fonctionne pas
+# print(ma_table2.type_var)
