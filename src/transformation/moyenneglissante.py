@@ -13,15 +13,23 @@ import statistics
 
 class MoyenneGlissante(Transformation):
     '''Moyenne glissante d'une ou plusieurs variables
-    '''
-
-    def __init__(self):
-        '''Constructeur de l'objet
-
-        Attributes
+    Attributes
         ----------
         liste_colonnes : list[str]
             liste des noms des colonnes auxquelles appliquer la transformation (colonnes de type "float")
+        pas : int
+            taille des sous-listes sur lesquelles on calcule la moyenne
+    '''
+
+    def __init__(self, liste_colonnes, pas=3):
+        '''Constructeur de l'objet
+
+        Parameters
+        ----------
+        liste_colonnes : list[str]
+            liste des noms des colonnes auxquelles appliquer la transformation (colonnes de type "float")
+        pas : int = 3
+            taille des sous-listes sur lesquelles on calcule la moyenne
         '''
         pass
 # est-ce que la liste_colonnes est vraiment un attribut la classe de MoyenneGlissante ? si oui l'ajouter sur l'UML, sinon le supprimer de la documentation TODO
@@ -74,7 +82,7 @@ class MoyenneGlissante(Transformation):
 
         return liste_moyennes
 
-    def appliquer_variable(self, table, numero_colonne, pas = 3):
+    def appliquer_variable(self, table, numero_colonne, pas):
         '''Appliquer la moyenne glissante à une variable de la table
 
         Parameters
@@ -83,6 +91,7 @@ class MoyenneGlissante(Transformation):
             table de données
         numero_colonne : int
             numéro de la colonne sur laquelle appliquer
+        pas : int
         '''
         liste_moyennes = MoyenneGlissante.moyenne_glissante(table, numero_colonne, pas)  # je crois que ça plante : la méthode n'est pas reconnue TODO à vérifier
         for i in range(len(table.donnees)):

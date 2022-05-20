@@ -8,10 +8,11 @@
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>90</x><y>1480</y><w>460</w><h>120</h></coordinates><panel_attributes>MoyenneGlissante
 --
 +liste_colonnes : list[str]
++pas : int
 --
-&lt;&lt;Create&gt;&gt; __init__()
+&lt;&lt;Create&gt;&gt; __init__(liste_colonnes : list[str] , pas : int=3 )
 +moyenne_glissante(table : TableDonnees, numero_colonne : int, pas : int ) &lt;&lt;static&gt;&gt;
-appliquer_variable( table : TableDonnees, numero_colonne : int, pas=3)
++appliquer_variable( table : TableDonnees, numero_colonne : int, pas=3)
 +appliquer(table : TableDonnees)
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>150</x><y>1210</y><w>360</w><h>110</h></coordinates><panel_attributes>Centrage
 --
