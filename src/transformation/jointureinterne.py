@@ -36,6 +36,10 @@ class JointureInterne(Transformation):
             table de données
         '''
 
+        print("------------------------------------------------------")
+        print("Jointure de la table " +
+              table.nom + ' avec la table ' + self.autre_table.nom)
+
         index_cles_table = [table.index_variable(
             var[0]) for var in self.cle]
         index_cles_autre_table = [self.autre_table.index_variable(
@@ -55,14 +59,17 @@ class JointureInterne(Transformation):
                 if it_is_a_match:
                     match_found = True
                     donnees_jointes.append(np.concatenate((
-                        table.donnees[i], np.delete(self.autre_table.donnees[j], index_cles_autre_table[k]))))
+                        table.donnees[i], np.delete(self.autre_table.donnees[j], index_cles_autre_table))))
                     break
-            if not match_found:
-                index_lignes_a_supprimer.append(i)
+            # if not match_found:
+            #    index_lignes_a_supprimer.append(i)
 
         table.donnees = np.array(donnees_jointes)
+
+        # inutile
         #table.donnees = np.delete(table.donnees, index_lignes_a_supprimer, 0)
+
         table.variables = np.concatenate((
-            table.variables, self.autre_table.variables))
+            table.variables, np.delete(self.autre_table.variables, index_cles_autre_table)))
         table.type_var = np.concatenate((
-            table.type_var, self.autre_table.type_var))
+            table.type_var, np.delete(self.autre_table.type_var, index_cles_autre_table)))

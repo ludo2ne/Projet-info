@@ -55,26 +55,26 @@ ma_table_csv.afficher(nb_lignes=10,
 
 
 ma_table = TableDonnees(nom="t1",
-                        donnees_avec_entete=[["id",  "dnais", "taille"],
-                                             ["id1", "20120101", "160"],
-                                             ["id2", "20060920", "180"],
-                                             ["id3", "20060920", "na"],
-                                             ["id4", "20010525", "165"]],
-                        identifiants=["id"],
-                        type_var=["str", "date", "float"],
+                        donnees_avec_entete=[["id",  "matricule", "dnais",    "taille"],
+                                             ["id1", "A",         "20120101", "160"],
+                                             ["id2", "B",         "20060920", "180"],
+                                             ["id3", "C",         "20060920", "na"],
+                                             ["id4", "D",         "20010525", "165"]],
+                        identifiants=["id", "matricule"],
+                        type_var=["str", "str", "date", "float"],
                         valeur_manquante="na")
 
-ma_table_emploi = TableDonnees(nom="t1",
-                               donnees_avec_entete=[["ident", "emploi"],
-                                                    ["id2", "statisticien"],
-                                                    ["id1", "informaticien"],
-                                                    ["id3", "prof"]],
-                               identifiants=["ident"],
-                               type_var=["str", "str"],
+ma_table_emploi = TableDonnees(nom="t1bis",
+                               donnees_avec_entete=[["ident", "code", "emploi"],
+                                                    ["id2", "B", "statisticien"],
+                                                    ["id1", "Z", "informaticien"],
+                                                    ["id3", "C", "prof"]],
+                               identifiants=["ident", "code"],
+                               type_var=["str", "str", "str"],
                                valeur_manquante="na")
 
 JointureInterne(autre_table=ma_table_emploi,
-                cle=[("id", "ident")]).appliquer(ma_table)
+                cle=[("id", "ident"), ("matricule", "code")]).appliquer(ma_table)
 
 
 ma_table.afficher(nb_lignes=10, nb_colonnes=7)
