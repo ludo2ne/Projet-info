@@ -17,7 +17,7 @@ from transformation.selectionvariables import SelectionVariables
 from transformation.normalisation import Normalisation
 
 from transformation.moyenneglissante import MoyenneGlissante
-from lien2var.coefficientcorrelation import CoefficientCorrelation
+from lien2var.coefficientcorrelation_v2 import CoefficientCorrelationV2
 from transformation.supprimena import SupprimeNA
 
 # -------------------------------------------------------------------
@@ -44,44 +44,9 @@ mon_premier_pipeline = Pipeline(nom="pipo",
                                 liste_transformations=[Centrage(),
                                                        ConcatanationLignes(
                                                            ma_table_csv_02),
-                                                       SelectionVariables(['numer_sta', 'date', 'ff', 'w1', 'sw'])],
+                                                       SelectionVariables(
+                                                           ['numer_sta', 'date', 'ff', 'w1', 'sw'])],
                                 exporter_table=True)
 mon_premier_pipeline.lancer(ma_table_csv_01)
 
 ma_table_csv_01.afficher(nb_colonnes=12)
-
-
-# -------------------------------------------------------------------
-# Creation a partir d un fichier json
-# -------------------------------------------------------------------
-ma_table_json = DonneesJson(nom="table_json",
-                            chemin_complet=os.getcwd() + "/donnees/test/2013-01.json.gz",
-                            identifiants=["code_insee_region", "date", "heure"])
-
-ma_table_json.afficher(nb_lignes=10,
-                       nb_colonnes=7)
-
-mon_2e_pipeline = Pipeline(nom="pipo2",
-                           liste_transformations=[],
-                           exporter_table=True)
-mon_2e_pipeline.lancer(ma_table_json)
-
-
-# -------------------------------------------------------------------
-# Creation manuelle d une table
-# -------------------------------------------------------------------
-ma_table = TableDonnees(nom="t1",
-                        donnees_avec_entete=[["id", "dnais", "taille"],
-                                             ["id1", "20120101", "160"],
-                                             ["id2", "20060920", "180"]],
-                        identifiants=["id"],
-                        type_var=["str", "date", "float"])
-
-ma_table.afficher(nb_lignes=10, nb_colonnes=7)
-
-
-# -------------------------------------------------------------------
-# Normaliser une table
-# -------------------------------------------------------------------
-Normalisation().appliquer(ma_table)
-ma_table.afficher(nb_lignes=10, nb_colonnes=7)
