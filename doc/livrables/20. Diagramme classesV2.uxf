@@ -102,10 +102,9 @@ fin : date
 --
 &lt;&lt;Create&gt;&gt; __init__(nom : str, chemin_complet : str, identifiants : list[str]=None,
                              delimiteur=";")
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>580</x><y>650</y><w>560</w><h>180</h></coordinates><panel_attributes>Pipeline
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>580</x><y>660</y><w>560</w><h>150</h></coordinates><panel_attributes>Pipeline
 --
 +nom : str
-+table : TableDonnees
 +liste_operations : list[Transformation, Estimateur, LienVar]
 --
 &lt;&lt;Create&gt;&gt; __init__( nom : str ,list[Transformation, Estimateur, LienVar])
@@ -195,13 +194,13 @@ ou générée par
 appliquer(table : TableDonnees, format : str = "csv")
 
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>550</x><y>1030</y><w>540</w><h>400</h></coordinates><panel_attributes>lt=-
-</panel_attributes><additional_attributes>520;380;500;380;500;20;10;20;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>470</x><y>1000</y><w>110</w><h>230</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>90;10;90;50;10;50;10;210</additional_attributes></element><element><id>Relation</id><coordinates><x>510</x><y>1000</y><w>70</w><h>360</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>50;10;50;50;10;50;10;340</additional_attributes></element><element><id>Relation</id><coordinates><x>1035</x><y>530</y><w>30</w><h>140</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-&gt;
+</panel_attributes><additional_attributes>520;380;500;380;500;20;10;20;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>470</x><y>1000</y><w>110</w><h>230</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>90;10;90;50;10;50;10;210</additional_attributes></element><element><id>Relation</id><coordinates><x>510</x><y>1000</y><w>70</w><h>360</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>50;10;50;50;10;50;10;340</additional_attributes></element><element><id>Relation</id><coordinates><x>1035</x><y>530</y><w>30</w><h>150</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-&gt;
 m2=*
 
-</panel_attributes><additional_attributes>10;120;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>745</x><y>570</y><w>30</w><h>100</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-&gt;
+</panel_attributes><additional_attributes>10;130;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>745</x><y>570</y><w>30</w><h>110</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-&gt;
 m2=*
 
-</panel_attributes><additional_attributes>10;80;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>755</x><y>820</y><w>30</w><h>110</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-&gt;
+</panel_attributes><additional_attributes>10;90;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>755</x><y>800</y><w>30</w><h>130</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-&gt;
 m2=*
 
-</panel_attributes><additional_attributes>10;10;10;90</additional_attributes></element></diagram>
+</panel_attributes><additional_attributes>10;10;10;110</additional_attributes></element></diagram>
