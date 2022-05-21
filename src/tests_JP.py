@@ -19,6 +19,7 @@ from transformation.selectionvariables import SelectionVariables
 from transformation.normalisation import Normalisation
 from lienvar.coefficientcorrelation import CoefficientCorrelation
 from transformation.supprimena import SupprimeNA
+from lienvar.testchisquare import TestChiSquare
 # -------------------------------------------------------------------
 # Creation a partir d un fichier csv
 # -------------------------------------------------------------------
@@ -77,9 +78,11 @@ SupprimeNA(["ff", "tend", "hnuage4"]).appliquer(ma_table_csv)
 ma_table_csv.afficher(nb_colonnes=7)
 
 
-Anova("tend","hnuage4").appliquer(ma_table_csv) #TODO à debugger
+
 CoefficientCorrelation("ff", "tend").appliquer(
     ma_table_csv)  # TODO à debugger
+
+Anova("tend","hnuage4").appliquer(ma_table_csv) #TODO à debugger
 
 
 

@@ -43,10 +43,10 @@
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1070</x><y>1050</y><w>380</w><h>110</h></coordinates><panel_attributes>JointureInterne
 --
 +autre_table : TableDonnees
-+cles : list[ tuple[str] ]
++cle : list[ tuple[str] ]
 
 --
-&lt;&lt;Create&gt;&gt; __init__(autre_table : TableDonnees, cles : list[ tuple[str] ] )
+&lt;&lt;Create&gt;&gt; __init__(autre_table : TableDonnees, cle : list[ tuple[str] ] )
 +appliquer(table : TableDonnees)
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>620</x><y>1480</y><w>390</w><h>90</h></coordinates><panel_attributes>AgregatitonSpatiale
 --
@@ -86,7 +86,7 @@ fin : int
 +type_var :  numpy array 1D
 --
 &lt;&lt;Create&gt;&gt; __init__(nom : str , donnees_avec_entete : array  , type_var : array = [ ] ,
-                              identifiants : list[str] =[] , valeur_manquante : str ="na" )
+                              identifiants : list[str] =[ ] , valeur_manquante : str ="na" )
 +bilan_chargement() : str
 +afficher(nb_lignes : int=None, nb_colonnes : int=None )
 +determiner_formats() : numpy array 1D
@@ -188,7 +188,7 @@ ou générée par
 </panel_attributes><additional_attributes>70;110;10;110;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1070</x><y>1360</y><w>380</w><h>60</h></coordinates><panel_attributes>Export
 --
 --
-appliquer(table : TableDonnees, format : str = "csv")  
+appliquer(table : TableDonnees, format : str = "csv")
 
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>550</x><y>1030</y><w>540</w><h>400</h></coordinates><panel_attributes>lt=-
 </panel_attributes><additional_attributes>520;380;500;380;500;20;10;20;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>500</x><y>1000</y><w>80</w><h>430</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>60;10;60;50;30;50;30;410;10;410</additional_attributes></element><element><id>Relation</id><coordinates><x>1035</x><y>510</y><w>30</w><h>170</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-&gt;

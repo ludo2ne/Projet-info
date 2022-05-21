@@ -6,6 +6,7 @@ Licence : Domaine public
 Version : 1.0
 '''
 
+from ast import Break
 from lienvar.lienvar import LienVar
 import matplotlib.pyplot as plt
 import numpy as np
@@ -41,19 +42,22 @@ class CoefficientCorrelation(LienVar):
         table : TableDonnees
         '''
         super().determine_etude(table)
-        print("méthode representation")
-        assert self.etude == "quanti/quanti"  # ça bug TODO problème à résoudre
-        numcol_var1 = table.index_variable(self.var1)
-        numcol_var2 = table.index_variable(self.var2)
-        plt.scatter(table.donnees[:, numcol_var1],
-                    table.donnees[:, numcol_var2])
-        plt.title('Nuage de points')
-        plt.xlabel('{}'.format(self.var1))
-        plt.ylabel('{}'.format(self.var2))
-        # comment l'enregistrer dans donnees.exports.graphique ? TODO
-        plt.savefig('ScatterPlot_{}_{}_{}.png'.format(
-            self.var1, self.var2, table.nom))
-        plt.show()
+
+        if self.etude == "quanti/quanti" :  # ça bug TODO problème à résoudre
+            numcol_var1 = table.index_variable(self.var1)
+            numcol_var2 = table.index_variable(self.var2)
+            plt.scatter(table.donnees[:, numcol_var1],
+                        table.donnees[:, numcol_var2])
+            plt.title('Nuage de points')
+            plt.xlabel('{}'.format(self.var1))
+            plt.ylabel('{}'.format(self.var2))
+            # comment l'enregistrer dans donnees.exports.graphique ? TODO
+            plt.savefig('ScatterPlot_{}_{}_{}.png'.format(
+                self.var1, self.var2, table.nom))
+            plt.show()
+        else :
+            print("erreur de type de variable")
+            Break
 
     def appliquer(self, table):
         '''étude de la corrélation entre les variables
@@ -76,7 +80,7 @@ class CoefficientCorrelation(LienVar):
         coeff_corr = np.corrcoef(
             table.donnees[:, numcol_var1].astype(float), table.donnees[:, numcol_var2].astype(float))[1, 0]
         print("Le coefficient de corrélation de ces variables est : {} ".format(coeff_corr))
-        if coeff_corr < 0.4:
+        if abs(coeff_corr) < 0.4:
             print("La relation entre ces variables est assez faible.")
-        if coeff_corr > 0.6:
+        if abs(coeff_corr) > 0.6:
             print("La relation entre ces variables est assez forte.")
