@@ -95,11 +95,11 @@ fin : int
 +index_variables(nom_variable : str) : int</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1180</x><y>630</y><w>430</w><h>70</h></coordinates><panel_attributes>DonneesCSV
 --
 --
-&lt;&lt;Create&gt;&gt; __init__(nom : str, chemin_complet : str, identifiants : list[str] =None,
+&lt;&lt;Create&gt;&gt; __init__(nom : str, chemin_complet : str, identifiants : list[str] = [],
                              delimiteur : str =";", valeur_manquante : str ="mq")</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1130</x><y>580</y><w>230</w><h>120</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>210;10;210;40;10;40;10;100;50;100</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1180</x><y>730</y><w>430</w><h>70</h></coordinates><panel_attributes>DonneesJSON
 --
 --
-&lt;&lt;Create&gt;&gt; __init__(nom : str, chemin_complet : str, identifiants : list[str]=None,
+&lt;&lt;Create&gt;&gt; __init__(nom : str, chemin_complet : str, identifiants : list[str]=[],
                              delimiteur=";")
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>560</x><y>440</y><w>440</w><h>100</h></coordinates><panel_attributes>Pipeline
 --
