@@ -17,11 +17,14 @@ class LienVar:
     Attributes
     -----------
     var1 : str
+        nom de la première variable
     var2 : str
+        nom de la deuxième variable
     etude : str
+
     '''
 
-    def __init__(self, var1, var2, etude = None): # autre version, à comparer TODO
+    def __init__(self, var1, var2, etude=None):  # autre version, à comparer TODO
         '''Constructeur de l'objet
 
         Parameters :
@@ -32,7 +35,6 @@ class LienVar:
         self.var1 = var1
         self.var2 = var2
         self.etude = etude
-
 
     def determine_etude(self, table):
         '''détermine le champ d'étude selon le type de variables'''
@@ -57,8 +59,8 @@ class LienVar:
             if table.type_var[numcol_var1] == "float":
                 transfert_var = self.var1
                 self.var1 = self.var2
-                self.var2 = transfert_var #pour placer par défaut la variable numérique en 2ème (pour faciliter ensuite la méthode de représentation graphique)
-
+                # pour placer par défaut la variable numérique en 2ème (pour faciliter ensuite la méthode de représentation graphique)
+                self.var2 = transfert_var
 
     @abstractmethod
     def representation(self, table):

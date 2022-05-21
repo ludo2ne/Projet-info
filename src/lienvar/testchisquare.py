@@ -25,14 +25,14 @@ class TestChiSquare(LienVar):
         champs d'étude ("quali/quali" à vérifier)
     '''
 
-    def __init__(self,var1,var2):
+    def __init__(self, var1, var2):
         '''Constructeur de l'objet
         Parameters
         ----------
         var1 : str
         var2 : str
         '''
-        super().__init__(var1,var2)
+        super().__init__(var1, var2)
 
    # def determine_etude(self, table):
     #    LienVar(self.var1,self.var2).determine_etude(table)
@@ -47,27 +47,27 @@ class TestChiSquare(LienVar):
         table : TableDonnees
         '''
         super().determine_etude(table)
-        if self.etude == "quali/quali": #ça bug TODO problème à résoudre
+        if self.etude == "quali/quali":  # ça bug TODO problème à résoudre
             liste_modalites1 = []
             liste_modalites2 = []
             numcol_var1 = table.index_variable(self.var1)
             numcol_var2 = table.index_variable(self.var2)
             for i in len(table.donnees):
-                if table.donnees[i,numcol_var1] not in liste_modalites1:
-                    liste_modalites1.append(table.donnees[i,numcol_var1])
-                if table.donnees[i,numcol_var2] not in liste_modalites2:
-                    liste_modalites2.append(table.donnees[i,numcol_var2])
-            tb_contingence=[["modalités"]+liste_modalites2]
-            ligne=1
+                if table.donnees[i, numcol_var1] not in liste_modalites1:
+                    liste_modalites1.append(table.donnees[i, numcol_var1])
+                if table.donnees[i, numcol_var2] not in liste_modalites2:
+                    liste_modalites2.append(table.donnees[i, numcol_var2])
+            tb_contingence = [["modalités"]+liste_modalites2]
+            ligne = 1
             for modalite1 in liste_modalites1:
                 tb_contingence.append([modalite1])
                 for modalite2 in liste_modalites2:
-                    nb=0
+                    nb = 0
                     for i in len(table.donnee):
-                        if table.donnees[i,numcol_var1] == modalite1 and table.donnees[i,numcol_var2] == modalite2:
-                            nb+=1
+                        if table.donnees[i, numcol_var1] == modalite1 and table.donnees[i, numcol_var2] == modalite2:
+                            nb += 1
                     tb_contingence[ligne].append(nb)
-                ligne+=1
+                ligne += 1
             print(tb_contingence)
         else:
             print("erreur de type de variable")
@@ -83,4 +83,4 @@ class TestChiSquare(LienVar):
         '''
         self.representation(table)  # syntaxe à vérifier TODO
         print("Etude du lien entre", self.var1, "et", self.var2)
-        #TODO inachevé
+        # TODO inachevé
