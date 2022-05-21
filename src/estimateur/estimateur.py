@@ -4,19 +4,16 @@ from abc import ABC, abstractmethod
 from table.tabledonnees import TableDonnees
 
 
-# est-ce qu'il faut modifier par AbstractEstimateur(Operation) et mettre tous les dossiers (transformation, estimateur, lien2var) dans un dossier operation ?
 class AbstractEstimateur(ABC):
     '''Classe abstraite implémentant un estimateur
     '''
 
-# ajout pour pouvoir utiliser le nom de l'estimateur dans la table de sortie finale
     @abstractmethod
     def __init__(self):
-        '''Constructeur pour donner un nom à l'estimateur'''
+        '''Constructeur'''
         pass
 
     @abstractmethod
-    # attention, ne pas changer en "appliquer" (déjà utilisé pour l'application à la table complete , cf methode suivante)
     def estim1var(table, numero_colonne):
         '''Calcul d'un estimateur sur la colonne d'index numero_colonne de la table
         Parameters
