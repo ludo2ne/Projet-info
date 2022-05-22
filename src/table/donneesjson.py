@@ -31,7 +31,7 @@ class DonneesJson(TableDonnees):
         liste des noms de variables étant des identifiants
     '''
 
-    def __init__(self, nom, chemin_complet, identifiants=None, valeur_manquante=None):
+    def __init__(self, nom, chemin_complet, identifiants=[], valeur_manquante=None):
         '''Constructeur de l'objet
 
         Parameters
