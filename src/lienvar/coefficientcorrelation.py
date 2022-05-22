@@ -8,7 +8,7 @@ Version : 1.0
 
 from ast import Break
 from lienvar.lienvar import LienVar
-import matplotlib.pyplot as plt
+import matplotlib as plt
 import numpy as np
 #from table.tabledonnees import TableDonnees
 
@@ -43,7 +43,7 @@ class CoefficientCorrelation(LienVar):
         '''
         super().determine_etude(table)
 
-        if self.etude == "quanti/quanti" :  # ça bug TODO problème à résoudre
+        if self.etude == "quanti/quanti":  # ça bug TODO problème à résoudre
             numcol_var1 = table.index_variable(self.var1)
             numcol_var2 = table.index_variable(self.var2)
             plt.scatter(table.donnees[:, numcol_var1],
@@ -55,7 +55,7 @@ class CoefficientCorrelation(LienVar):
             plt.savefig('ScatterPlot_{}_{}_{}.png'.format(
                 self.var1, self.var2, table.nom))
             plt.show()
-        else :
+        else:
             print("erreur de type de variable")
             Break
 

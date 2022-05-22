@@ -55,9 +55,8 @@ ma_table.afficher()
 # -------------------------------------------------------------------
 # Creation a partir d un fichier json
 # -------------------------------------------------------------------
-# ma_table_json = DonneesJson(nom="table_json",
-#                            chemin_complet=os.getcwd() + "/donnees/test/2013-01.json.gz",
-#                            identifiants=["code_insee_region", "date", "heure"])
-#
-# ma_table_json.afficher(nb_lignes=10,
-#                       nb_colonnes=7)
+ma_table_json = DonneesJson(nom="table_json",
+                            chemin_complet=os.getcwd() + "/donnees/test/2013-01.json.gz",
+                            identifiants=["code_insee_region", "date", "heure"])
+ma_table_json.afficher(nb_lignes=10,
+                       nb_colonnes=7)
