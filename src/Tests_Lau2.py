@@ -30,29 +30,37 @@ from lienvar.coefficientcorrelation import CoefficientCorrelation
 table_lien = DonneesCsv(nom="table_posteSynopAvecRegion",
                         chemin_complet=os.getcwd() + "/donnees/geographiques/postesSynopAvecRegions.csv")
 # print(table_lien.variables)
-# table_posteSynopAvecRegion.afficher()
+#table_lien.afficher(nb_lignes=10, nb_colonnes=10)
+
 
 # Etape 2 :
 # table météo :
 table_meteo = DonneesCsv(nom="table_meteo",
                          chemin_complet=os.getcwd() + "/donnees/meteo/synop.201301.csv.gz")
+
 # print(table_meteo.variables)
-#table_meteo.afficher(nb_lignes=10, nb_colonnes=15)
+#table_meteo.afficher(nb_lignes=100, nb_colonnes=10)
+# print(table_meteo.index_variable('date'))
 
 # table electricité:
-# table_elec = DonneesJson(nom="table_elec",
-#                         chemin_complet=os.getcwd() + "/donnees/electricite/2013-01.json.gz")
+table_elec = DonneesJson(nom="table_elec",
+                         chemin_complet=os.getcwd() + "/donnees/electricite/2013-01.json.gz")
 
 #table_elec.afficher(nb_lignes=10, nb_colonnes=7)
+# print(table_meteo.index_variable('date'))
 
 # Etape 3:
 
-# Jointure table_lien avec table_meteo
+# Jointure table_lien avec table_meteo (clé [("ID", "numer_sta")]) et table_elec (clé [("Region", "region")])
 
-jointure_lien_meteo = JointureInterne(table_lien, [("numer_sta", "ID")])
-jointure_lien_meteo.appliquer(table=table_meteo)
-#table_meteo.afficher(nb_lignes=10, nb_colonnes=10)
-print(table_meteo.variables)
-# ? je ne comprends pas
+# pour ne pas modifier table_meteo : attention deep.copy ? ou OSEF de garder table_meteo
+table_jointe = table_lien
+jointure1 = JointureInterne(table_meteo, [("ID", "numer_sta")])
+jointure1.appliquer(table_jointe)
+jointure2 = JointureInterne(
+    table_elec, [("Region", "region"), ("date", "date")])
+jointure2.appliquer(table_jointe)
 
-# déjà : on change la table_meteo c'est bof ? pourquoi ne pas retourner un nouvel objet de type TableDonnees en définissant ses attributs plutot qu'en changeant ceux de la table_meteo?
+print(table_jointe.variables)
+# table_jointe.afficher(nb_lignes=10, nb_colonnes=10)
+# ne marche pas TODO à corriger
