@@ -30,7 +30,7 @@ class DonneesCsv(TableDonnees):
         liste des noms de variables étant des identifiants
     '''
 
-    def __init__(self, nom, chemin_complet, identifiants=None, delimiteur=";", valeur_manquante="mq"):
+    def __init__(self, nom, chemin_complet, identifiants=[], delimiteur=";", valeur_manquante="mq"):
         # Lau : deux remarques :
         # à mon sens il manque des éléments dans __init__(...) : donnees_avec_entete ?
         # Il me semblait que chemin_complet et delimiteur n'étaient pas des attributs mais des paramètres donc je ne comprends pas pourquoi ils sont définis via self.chemin_complet et self.delimiteur
