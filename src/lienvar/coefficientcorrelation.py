@@ -8,7 +8,7 @@ Version : 1.0
 
 from ast import Break
 from lienvar.lienvar import LienVar
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import numpy as np
 #from table.tabledonnees import TableDonnees
 

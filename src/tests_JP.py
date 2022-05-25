@@ -82,7 +82,7 @@ ma_table_csv.afficher(nb_colonnes=7)
 CoefficientCorrelation("ff", "tend").appliquer(
     ma_table_csv)  # TODO à debugger
 
-Anova("tend","hnuage4").appliquer(ma_table_csv) #TODO à debugger
+#Anova("tend","hnuage4").appliquer(ma_table_csv) #TODO à debugger
 
 
 
