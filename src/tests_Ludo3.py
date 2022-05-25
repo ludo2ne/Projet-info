@@ -29,6 +29,10 @@ ma_table_csv_01 = DonneesCsv(nom="table_csv",
                              identifiants=['numer_sta', 'date'],
                              valeur_manquante="mq")
 
+Export().appliquer(ma_table_csv_01)
+
+SupprimeNA(["ff", "tend"]).appliquer(ma_table_csv_01)
+
 ma_table_csv_01.afficher(nb_lignes=10,
                          nb_colonnes=12)
 
