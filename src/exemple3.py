@@ -9,8 +9,10 @@ from transformation.export import Export
 
 # -------------------------------------------------------------------
 # Import d une table a partir d un fichier json
+# Mise en forme de 2 tables puis concatentation
 # Filtre
 # Selection de variables
+# Concatenation avec la 2e table
 # Export
 # -------------------------------------------------------------------
 
@@ -34,8 +36,7 @@ mon_premier_pipeline = Pipeline(nom="pipo",
                                                   Filtre(
                                                       variable="date_heure", debut=20130101020000, fin=20130101040000),
                                                   SelectionVariables(
-                                                      ['region', 'date', 'heure', 'conso_gaz', 'conso_elec']),
-                                                  Export()])
+                                                      ['region', 'date', 'heure', 'conso_gaz', 'conso_elec'])])
 
 mon_premier_pipeline.lancer(ma_table_json_01)
 
@@ -45,7 +46,6 @@ ma_table_json_01.afficher(nb_lignes=20,
 
 # -------------------------------------------------------------------
 # Import d une seconde table a partir d un fichier json
-# Application
 # -------------------------------------------------------------------
 ma_table_json_02 = DonneesJson(nom="table_json_02",
                                chemin_complet=os.getcwd() + "/donnees/electricite/2013-02.json.gz",
