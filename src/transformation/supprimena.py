@@ -51,11 +51,10 @@ class SupprimeNA(Transformation):
 
         indice_NA = []
 
-        print(liste_numero_col)
         for i in liste_numero_col:
-            if table.type_var[i] != "float": #à tester
+            if table.type_var[i] != "float":
                 warnings.warn("Impossible de supprimer les na sur la variable " +
-                              table.variables[i] + " qui n'est pas de type int ou float")
+                              table.variables[i] + " qui n'est pas de type float")
                 continue
 
             for j in range(len(table.donnees)):
@@ -65,5 +64,3 @@ class SupprimeNA(Transformation):
 
         # Supprime toutes les lignes dont l indice est dans la liste indice_NA
         table.donnees = np.delete(table.donnees, indice_NA, 0)
-        table.variables = np.delete(table.variables, indice_NA, 0)
-        table.type_var = np.delete(table.type_var, indice_NA, 0)

@@ -54,10 +54,10 @@ class EcartType(AbstractEstimateur):
             print("Toutes les valeurs de {} sont manquantes".format(
                 table.variables[numero_colonne]))
 
-        print("------------------------------------------------------")
-        print("Calcul de l'écart-type de la variable " +
-              table.variables[numero_colonne] + " : " + str(ecart_type) +
-              " (sur " + str(nb) + " valeurs renseignées et " + str(nb_na) + " valeurs manquantes)")
+        # print("------------------------------------------------------")
+        # print("Calcul de l'écart-type de la variable " +
+        #      table.variables[numero_colonne] + " : " + str(ecart_type) +
+        #      " (sur " + str(nb) + " valeurs renseignées et " + str(nb_na) + " valeurs manquantes)")
 
         if ecart_type == 0:
             print(
