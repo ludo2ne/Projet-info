@@ -58,12 +58,13 @@ class TableDonnees:
             else:
                 self.variables = []
                 self.donnees = []
+
+            self.donnees[self.donnees == valeur_manquante] = np.nan
+
             if type_var != []:
                 self.type_var = np.array(type_var, dtype=object)
             else:
                 self.type_var = self.determiner_formats()
-
-            self.donnees[self.donnees == valeur_manquante] = np.nan
 
             self.appliquer_formats()
             self.bilan_chargement()
@@ -133,7 +134,7 @@ class TableDonnees:
 
         Returns
         -------
-        liste_formats : list[str]
+        liste_formats : numpy array 1D
             liste de formats pour alimenter ensuite l'attribut type_var
         '''
 
