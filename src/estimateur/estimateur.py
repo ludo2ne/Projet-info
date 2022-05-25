@@ -42,10 +42,12 @@ class AbstractEstimateur(ABC):
         TableDonnees : les variables et la valeur donnée par l'estimateur
         '''
         liste_estim = []
-        for i in len(table.variables):
-            liste_estim.append(self.estim1var(table, i))
+        for i in range(len(table.variables)):
+            if table.type_var[i] != "float":
+                liste_estim.append("na")
+            else:
+                liste_estim.append(self.estim1var(table, i))
 
-        return TableDonnees(nom=table.nom + "_" + self.nom,
-                            donnees=[liste_estim],
-                            variables=table.variables,
+        return TableDonnees(nom=table.nom,
+                            donnees_avec_entete=[table.variables, liste_estim],
                             type_var=table.type_var)

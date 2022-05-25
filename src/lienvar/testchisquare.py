@@ -34,11 +34,6 @@ class TestChiSquare(LienVar):
         '''
         super().__init__(var1, var2)
 
-   # def determine_etude(self, table):
-    #    LienVar(self.var1,self.var2).determine_etude(table)
-     #   assert self.etude == "quali/quali" #ça bug TODO problème à résoudre
-      #  if self.etude != "quali/quali": #TODO problème à résoudre
-       #     print("erreur de type de variable") #warning TODO
 
     def representation(self, table):
         '''Tableau de contignence
@@ -52,7 +47,7 @@ class TestChiSquare(LienVar):
             liste_modalites2 = []
             numcol_var1 = table.index_variable(self.var1)
             numcol_var2 = table.index_variable(self.var2)
-            for i in len(table.donnees):
+            for i in range(len(table.donnees)):
                 if table.donnees[i, numcol_var1] not in liste_modalites1:
                     liste_modalites1.append(table.donnees[i, numcol_var1])
                 if table.donnees[i, numcol_var2] not in liste_modalites2:
@@ -63,7 +58,7 @@ class TestChiSquare(LienVar):
                 tb_contingence.append([modalite1])
                 for modalite2 in liste_modalites2:
                     nb = 0
-                    for i in len(table.donnee):
+                    for i in range(len(table.donnees)):
                         if table.donnees[i, numcol_var1] == modalite1 and table.donnees[i, numcol_var2] == modalite2:
                             nb += 1
                     tb_contingence[ligne].append(nb)
@@ -81,6 +76,6 @@ class TestChiSquare(LienVar):
         ----------
         table : TableDonnees
         '''
-        self.representation(table)  # syntaxe à vérifier TODO
+        self.representation(table)
         print("Etude du lien entre", self.var1, "et", self.var2)
         # TODO inachevé

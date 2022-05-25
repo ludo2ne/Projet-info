@@ -50,8 +50,10 @@ class SupprimeNA(Transformation):
             liste_numero_col.append(table.index_variable(var))
 
         indice_NA = []
+
+        print(liste_numero_col)
         for i in liste_numero_col:
-            if table.type_var[i] not in ["float", "int"]:
+            if table.type_var[i] != "float": #à tester
                 warnings.warn("Impossible de supprimer les na sur la variable " +
                               table.variables[i] + " qui n'est pas de type int ou float")
                 continue

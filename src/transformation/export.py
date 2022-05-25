@@ -17,7 +17,7 @@ from estimateur.moyenne import Moyenne
 class Export(Transformation):
     '''Export de la table
 
-    cette classe ne contient qu'une seule méthode statique qui exporte une table de données
+    Cette classe ne contient qu'une seule méthode statique qui exporte une table de données au format csv
     '''
 
     @staticmethod

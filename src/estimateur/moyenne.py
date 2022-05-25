@@ -11,7 +11,7 @@ from estimateur.estimateur import AbstractEstimateur
 
 
 class Moyenne(AbstractEstimateur):
-    '''Moyenne calculée sur chaque variable d'une table
+    '''CLasse permettant de calculer la moyenne des variables d'une table
     '''
 
     def __init__(self):
@@ -49,9 +49,9 @@ class Moyenne(AbstractEstimateur):
 
         moyenne = round(somme / nb, 2) if nb != 0 else np.nan
 
-#        print("------------------------------------------------------")
-#        print("Calcul de la moyenne de la variable " +
-#              table.variables[numero_colonne] + " : " + str(round(moyenne, 2)) +
-#              " (sur " + str(nb) + " valeurs renseignées et " + str(nb_na) + " valeurs manquantes)")
+        print("------------------------------------------------------")
+        print("Calcul de la moyenne de la variable " +
+              table.variables[numero_colonne] + " : " + str(round(moyenne, 2)) +
+              " (sur " + str(nb) + " valeurs renseignées et " + str(nb_na) + " valeurs manquantes)")
 
         return moyenne
