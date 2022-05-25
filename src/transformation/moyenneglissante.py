@@ -21,7 +21,7 @@ class MoyenneGlissante(Transformation):
             taille des sous-listes sur lesquelles on calcule la moyenne
     '''
 
-    def __init__(self, liste_colonnes, pas=3):
+    def __init__(self, liste_colonnes = "all", pas = 3):
         '''Constructeur de l'objet
 
         Parameters
@@ -31,11 +31,11 @@ class MoyenneGlissante(Transformation):
         pas : int = 3
             taille des sous-listes sur lesquelles on calcule la moyenne
         '''
-        pass
-# est-ce que la liste_colonnes est vraiment un attribut la classe de MoyenneGlissante ? si oui l'ajouter sur l'UML, sinon le supprimer de la documentation TODO
+        self.liste_colonnes = liste_colonnes
+        self.pas = pas
+
 
     @staticmethod
-    # est-ce que ça pourrait être une staticmethode en se dispençant de self ? TODO
     def moyenne_glissante(table, numero_colonne, pas):
         '''Calculer la liste des moyennes glissantes d'une variable de la table
 
@@ -111,5 +111,5 @@ class MoyenneGlissante(Transformation):
         print("Moyenne glissante de la table " + table.nom)
 
         for num_col in range(len(table.variables)):
-            if table.type_var[num_col] == "float":
-                self.appliquer_variable(table, num_col)
+            if table.type_var[num_col] == "float" and ( (table.variables[num_col] in self.liste_colonnes) or self.liste_colonnes == "all" )  :
+                self.appliquer_variable(table, num_col, self.pas)

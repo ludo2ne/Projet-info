@@ -29,3 +29,9 @@ ma_table_csv = DonneesCsv(nom="table_csv",
                           valeur_manquante="mq")
 
 print(ma_table_csv.type_var)
+
+# -------------------------------------------------------------------
+# Moyennes glissantes d'une table
+# -------------------------------------------------------------------
+MoyenneGlissante().appliquer(ma_table_csv)
+ma_table_csv.afficher(nb_lignes=10, nb_colonnes=7)
