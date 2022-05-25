@@ -34,7 +34,6 @@ class TestChiSquare(LienVar):
         '''
         super().__init__(var1, var2)
 
-
     def representation(self, table):
         '''Tableau de contignence
         Parameters
