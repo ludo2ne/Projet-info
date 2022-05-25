@@ -21,7 +21,8 @@ class Reduction(Transformation):
         '''
         pass
 
-    def appliquer_variable(self, table, numero_colonne): # cob=vertir en staticmethode ?
+    @staticmethod
+    def appliquer_variable(table, numero_colonne):
         '''Appliquer la réduction à une variable de la table
 
         Parameters

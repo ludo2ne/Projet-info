@@ -15,10 +15,11 @@ from transformation.transformation import Transformation
 
 class SelectionVariables(Transformation):
     '''Sélection d'une ou plusieurs variables
+
     Attributes :
     ----------
-        liste_var : list[str]
-            liste des noms des colonnes à conserver
+    liste_var : list[str]
+        liste des noms des colonnes à conserver
     '''
 
     def __init__(self, liste_var):
