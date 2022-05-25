@@ -12,22 +12,22 @@ from transformation.transformation import Transformation
 class Filtre(Transformation):
     '''Application d'un filtre ou d'un fenétrage temporel
 
-    Deux possibilités :
-    - Dans le cas où la variable est de type date, le filtre ne va conserver 
-      que les valeurs de cette variables comprises entre debut et fin.
-    - Dans le cas où la variable est de type str ou float, le filtre va conserver 
-      les valeurs présentes dans la liste des modalités
+    Deux cas :
+    - La variable est de type date : le filtre ne conserve 
+        que les valeurs de cette variables comprises entre debut et fin.
+    - La variable est de type str ou float : le filtre ne conserve que 
+         les valeurs présentes dans la liste des modalités
 
     Attributes
     ----------
     variable : str
         variable sur laquelle appliquer le filtre
-    modalite : list[str]
-        liste des modalités à conserver
     debut : int
         Entier représentant une date au format YYYYMMDDHHMMSS
     fin : int
         Entier représentant une date au format YYYYMMDDHHMMSS
+    modalite : list[str]
+        liste des modalités à conserver
     '''
 
     def __init__(self, variable, debut=None, fin=None, modalites=[]):
@@ -37,15 +37,15 @@ class Filtre(Transformation):
         ----------
         variable : str
             variable sur laquelle appliquer le filtre
-        modalite : list[str]
-            liste des modalités à conserver
-            Valeur par défaut : []
         debut : int
             Entier représentant une date au format YYYYMMDDHHMMSS
             Valeur par défaut : None
         fin : int
             Entier représentant une date au format YYYYMMDDHHMMSS
             Valeur par défaut : None
+        modalite : list[str]
+            liste des modalités à conserver
+            Valeur par défaut : []
         '''
         self.variable = variable
         self.modalites = modalites
@@ -66,7 +66,7 @@ class Filtre(Transformation):
         index_lignes_a_supprimer = []
         numero_colonne = table.index_variable(self.variable)
 
-        # Erreur si la variable n est pas trouvee
+        # Erreur si la variable n est pas trouvée
         if numero_colonne == None:
             raise Exception("Variable " + self.variable +
                             " non trouvée dans la table " + table.nom)
@@ -77,7 +77,7 @@ class Filtre(Transformation):
                   " - Début : " + str(self.debut) + " - Fin : " + str(self.fin))
 
             for i in range(len(table.donnees)):
-                # si debut est renseigne on supprime toutes les dates inferieure a debut
+                # si debut est renseigné on supprime toutes les dates inferieure a debut
                 if self.debut != None and int(table.donnees[i][numero_colonne]) < self.debut:
                     index_lignes_a_supprimer.append(i)
                 if self.fin != None and int(table.donnees[i][numero_colonne]) > self.fin:

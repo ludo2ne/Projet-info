@@ -11,7 +11,6 @@ from abc import abstractmethod
 class Transformation:
     '''Transformation d'une ou plusieurs variables
     '''
-    # peut-être l'enlever si pas besoin
     @abstractmethod
     def __init__(self):
         '''Constructeur de l'objet'''

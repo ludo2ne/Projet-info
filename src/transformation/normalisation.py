@@ -12,8 +12,9 @@ from transformation.centrage import Centrage
 
 
 class Normalisation(Transformation):
-    '''Normalisation (ou standardisation) d'une table de données,
-       ne prend en compte que les variables numériques "float" sans modifier les autres
+    '''Normalisation (ou standardisation) d'une table de données
+
+       Ne prend en compte que les variables numériques "float" sans modifier les autres
     '''
 
     def __init__(self):
