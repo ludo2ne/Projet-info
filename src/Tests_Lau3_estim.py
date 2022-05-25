@@ -23,10 +23,17 @@ print(ma_table.index_variable("taille"))  # index : 2
 # application de la méthode 1var
 Moyenne.estim1var(ma_table, 2)  # OK
 
+# application de la méthode appliquer()
+table_moyenne = Moyenne().appliquer(table=ma_table)
+table_moyenne.afficher()
+
 # Calcul de l'écart-type de "taille"
 # détermination de l'index de la variable
 print(ma_table.index_variable("poids"))  # index : 3
 
 # application de l'index de la variable
 EcartType.estim1var(ma_table, 3)
-# 2 valeurs renseignées ??
+
+# application de la méthode appliquer ()
+table_ecarttype = EcartType().appliquer(ma_table)
+table_ecarttype.afficher()
