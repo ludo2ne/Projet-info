@@ -29,6 +29,8 @@ ma_table_csv = DonneesCsv(nom="table_csv",
                           valeur_manquante="mq")
 
 
+
+
 # -------------------------------------------------------------------
 # Supprimer les lignes d'une table qui contiennent au moins une valeur manquante pour une liste de variables données
 # -------------------------------------------------------------------
@@ -36,6 +38,11 @@ ma_table_csv = DonneesCsv(nom="table_csv",
 SupprimeNA(["vv", "ww"]).appliquer(ma_table_csv)
 ma_table_csv.afficher(nb_lignes=10,
                       nb_colonnes=12)
+
+SelectionVariables(["numer_sta","date,""ff", "tend", "hnuage4"]).appliquer(ma_table_csv)
+ma_table_csv.afficher(nb_lignes=10, nb_colonnes=7)
+print(ma_table_csv.variables)
+print(ma_table_csv.type_var)
 
 # -------------------------------------------------------------------
 # Creation manuelle d une table
@@ -80,9 +87,17 @@ ma_table_csv.afficher(nb_colonnes=7)
 
 
 CoefficientCorrelation("ff", "tend").appliquer(
-    ma_table_csv)  # TODO à debugger
+    ma_table_csv)
 
-#Anova("tend","hnuage4").appliquer(ma_table_csv) #TODO à debugger
+
+SelectionVariables(["numer_sta","date,""ff", "tend", "hnuage4",""]).appliquer(ma_table_csv)
+ma_table_csv.afficher(nb_lignes=10, nb_colonnes=7)
+print(ma_table_csv.variables)
+print(ma_table_csv.type_var)
+
+Anova("tend","").appliquer(ma_table_csv) #TODO à debugger
+
+TestChiSquare("numer_sta","").appliquer(ma_table_csv) #TODO à debugger
 
 
 

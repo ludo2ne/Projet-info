@@ -45,14 +45,14 @@ class Anova(LienVar):
             liste_modalites = []
             numcol_var_quali = table.index_variable(self.var1)
             numcol_var_quanti = table.index_variable(self.var2)
-            for i in len(table.donnees):
+            for i in range(len(table.donnees)):
                 if table.donnees[i,numcol_var_quali] not in liste_modalites:
                     liste_modalites.append(table.donnees[i,numcol_var_quali])
             matrice_boxplot=[]
             nb_lignes=0
             for modalite in liste_modalites:
                 matrice_boxplot.append([])
-                for i in len(table.donnees):
+                for i in range(len(table.donnees)):
                     if table.donnees[i,numcol_var_quali] == modalite:
                         matrice_boxplot[nb_lignes].append(table.donnees[i,numcol_var_quanti])
                 nb_lignes+=1
