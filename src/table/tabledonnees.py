@@ -17,12 +17,12 @@ class TableDonnees:
     ----------
     nom : str
         Nom de la table
-    donnees : numpy array
+    donnees : numpy array 2D
         données rangées dans un numpy array
-    variables : numpy array
+    variables : numpy array 1D
         liste des variables
-    type_var : numpy array
-        type des variables
+    type_var : numpy array 1D
+        liste des types des variables
     identifiants : list[str]
         liste des noms de variables étant des identifiants
     '''
@@ -36,14 +36,17 @@ class TableDonnees:
             nom de la table
         donnees_avec_entete : numpy array
             données rangées dans un numpy array
-            la première ligne contient les entêtes de colonnes (variables)
+            la première ligne contient les entêtes de colonnes (attribut variables)
+            le reste du tableau comporte les données (attribut donnees)
         identifiants : list[str]
             liste des noms de variables étant des identifiants
+            [] par défaut
         type_var : numpy array
             type des variables
+            [] par défaut
         valeur_manquante : str
             indique par quelle chaine de caractères sont représentées les valeurs manquantes
-            na par défaut
+            None par défaut
         '''
         self.nom = nom
         self.identifiants = identifiants
@@ -92,11 +95,12 @@ class TableDonnees:
         print("------------------------------------------------------")
         print("Affichage de la table " + self.nom)
 
-        # Pour eviter de tout refaire je reconverti le numpy array en liste de liste
+        # Codé initialement pour des listes : Pour eviter de tout refaire conversion du numpy array en liste de listes
         listes_donnees = self.donnees.tolist()
 
-        # Si les parametres sont renseignes???TODO a None ou si leur valeur est trop grande
-        # ils prennent simplement la valeur maximum possible
+        # Si nb_lignes ou nb_colonnes ne sont pas précisés
+        # OU si est demandé moins de lignes/colonnes qu'existant
+        # ==> affichage de toutes les lignes/colonnes
         if nb_lignes == None or nb_lignes > len(listes_donnees):
             nb_lignes = len(listes_donnees)
         if nb_colonnes == None or nb_colonnes > len(listes_donnees[0]):

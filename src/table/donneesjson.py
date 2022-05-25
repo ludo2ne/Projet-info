@@ -21,12 +21,12 @@ class DonneesJson(TableDonnees):
     ----------
     nom : str
         Nom de la table
-    donnees : numpy array
+    donnees : numpy array 2D
         données rangées dans un numpy array
-    variables : numpy array
+    variables : numpy array 1D
         liste des variables
-    type_var : list[str]
-        type des variables
+    type_var : numpy array 1D
+        liste des types des variables
     identifiants : list[str]
         liste des noms de variables étant des identifiants
     '''
@@ -42,14 +42,14 @@ class DonneesJson(TableDonnees):
             liste des variables
         identifiants : list[str]
             liste des noms de variables étant des identifiants
-            aucun par défaut
+            [] par défaut
         chemin_complet : str
             Chemin complet du fichier à charger
         delimiteur : str
             delimiteur utilisé dans le fichier, point virgule par défaut
         valeur_manquante : str
             indique par quelle chaine de caractères sont représentées les valeurs manquantes
-            na par défaut
+            None par défaut
         '''
         super().__init__(nom=nom, donnees_avec_entete=[], identifiants=identifiants)
 

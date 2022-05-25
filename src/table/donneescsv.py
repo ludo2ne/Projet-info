@@ -14,7 +14,7 @@ from table.tabledonnees import TableDonnees
 
 
 class DonneesCsv(TableDonnees):
-    '''Classe représentant une table de données
+    '''Classe représentant une table de données extrait d'un fichier csv
 
     Attributes
     ----------
@@ -25,16 +25,12 @@ class DonneesCsv(TableDonnees):
     variables : numpy array 1D
         liste des variables
     type_var : numpy array 1D
-        type des variables
+        liste des types des variables
     identifiants : list[str]
         liste des noms de variables étant des identifiants
     '''
 
     def __init__(self, nom, chemin_complet, identifiants=[], delimiteur=";", valeur_manquante="mq"):
-        # Lau : deux remarques :
-        # à mon sens il manque des éléments dans __init__(...) : donnees_avec_entete ?
-        # Il me semblait que chemin_complet et delimiteur n'étaient pas des attributs mais des paramètres donc je ne comprends pas pourquoi ils sont définis via self.chemin_complet et self.delimiteur
-        # ==> ce n'est pas cohérent avec la classe JSON ?
         '''Constructeur de l'objet
 
         Parameters
@@ -52,8 +48,9 @@ class DonneesCsv(TableDonnees):
             indique par quelle chaine de caractères sont représentées les valeurs manquantes
             na par défaut
         '''
-        super().__init__(nom=nom, donnees_avec_entete=[],
-                         identifiants=identifiants)  # il manque aussi des paramètres ?
+        super().__init__(nom=nom,
+                         donnees_avec_entete=[],
+                         identifiants=identifiants)
 
         donnees_csv = []
 
