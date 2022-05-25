@@ -21,7 +21,7 @@ class MoyenneGlissante(Transformation):
             taille des sous-listes sur lesquelles on calcule la moyenne
     '''
 
-    def __init__(self, liste_colonnes = "all", pas = 3):
+    def __init__(self, liste_colonnes="all", pas=3):
         '''Constructeur de l'objet
 
         Parameters
@@ -33,7 +33,6 @@ class MoyenneGlissante(Transformation):
         '''
         self.liste_colonnes = liste_colonnes
         self.pas = pas
-
 
     @staticmethod
     def moyenne_glissante(table, numero_colonne, pas):
@@ -94,7 +93,7 @@ class MoyenneGlissante(Transformation):
         pas : int
         '''
         liste_moyennes = MoyenneGlissante.moyenne_glissante(
-            table, numero_colonne, pas)  # je crois que ça plante : la méthode n'est pas reconnue TODO à vérifier
+            table, numero_colonne, pas)
         for i in range(len(table.donnees)):
             table.donnees[i][numero_colonne] = liste_moyennes[i]
 
@@ -111,5 +110,5 @@ class MoyenneGlissante(Transformation):
         print("Moyenne glissante de la table " + table.nom)
 
         for num_col in range(len(table.variables)):
-            if table.type_var[num_col] == "float" and ( (table.variables[num_col] in self.liste_colonnes) or self.liste_colonnes == "all" )  :
+            if table.type_var[num_col] == "float" and ((table.variables[num_col] in self.liste_colonnes) or self.liste_colonnes == "all"):
                 self.appliquer_variable(table, num_col, self.pas)
