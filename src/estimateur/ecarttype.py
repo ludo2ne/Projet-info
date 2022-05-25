@@ -12,14 +12,13 @@ import numpy as np
 
 
 class EcartType(AbstractEstimateur):
-    '''Ecart-type calculé sur chaque variable d'une table
+    '''CLasse permettant de calculer l'écart-type des variables d'une table
     '''
 
     def __init__(self):
         pass
 
     @staticmethod
-    # attention, ne pas changer en "appliquer" (déjà utilisé pour l'application à la table complete dans Estimateur)
     def estim1var(table, numero_colonne):
         '''Calculer l'écart-type d'une colonne de la table
 
@@ -41,7 +40,7 @@ class EcartType(AbstractEstimateur):
         nb_na = 0
         moyenne = Moyenne.estim1var(table, numero_colonne)
 
-        for i in range(1, len(table.donnees)):
+        for i in range(len(table.donnees)):
             if not np.isnan(table.donnees[i][numero_colonne]):
                 somme += (float(table.donnees[i]
                           [numero_colonne]) - moyenne) ** 2
@@ -55,10 +54,10 @@ class EcartType(AbstractEstimateur):
             print("Toutes les valeurs de {} sont manquantes".format(
                 table.variables[numero_colonne]))
 
-#        print("------------------------------------------------------")
-#        print("Calcul de l'écart-type de la variable " +
-#              table.variables[numero_colonne] + " : " + str(ecart_type) +
-#              " (sur " + str(nb) + " valeurs renseignées et " + str(nb_na) + " valeurs manquantes)")
+        print("------------------------------------------------------")
+        print("Calcul de l'écart-type de la variable " +
+              table.variables[numero_colonne] + " : " + str(ecart_type) +
+              " (sur " + str(nb) + " valeurs renseignées et " + str(nb_na) + " valeurs manquantes)")
 
         if ecart_type == 0:
             print(

@@ -53,14 +53,15 @@ table_elec = DonneesJson(nom="table_elec",
 
 # Jointure table_lien avec table_meteo (clé [("ID", "numer_sta")]) et table_elec (clé [("Region", "region")])
 
-# pour ne pas modifier table_meteo : attention deep.copy ? ou OSEF de garder table_meteo
 table_jointe = table_lien
 jointure1 = JointureInterne(table_meteo, [("ID", "numer_sta")])
 jointure1.appliquer(table_jointe)
+table_jointe.bilan_chargement()
 jointure2 = JointureInterne(
     table_elec, [("Region", "region"), ("date", "date")])
 jointure2.appliquer(table_jointe)
 
 print(table_jointe.variables)
-# table_jointe.afficher(nb_lignes=10, nb_colonnes=10)
+table_jointe.bilan_chargement()
+#table_jointe.afficher(nb_lignes=10, nb_colonnes=10)
 # ne marche pas TODO à corriger
