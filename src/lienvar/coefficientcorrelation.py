@@ -10,7 +10,6 @@ from ast import Break
 from lienvar.lienvar import LienVar
 import matplotlib.pyplot as plt
 import numpy as np
-#from table.tabledonnees import TableDonnees
 
 
 class CoefficientCorrelation(LienVar):
@@ -33,7 +32,7 @@ class CoefficientCorrelation(LienVar):
         var1 : str
         var2 : str
         '''
-        super().__init__(var1, var2)  # comment on note dans l'UML ? j'ai oublié TODO
+        super().__init__(var1, var2)
 
     def representation(self, table):
         '''Nuage de points et export de ce graphique
@@ -43,7 +42,7 @@ class CoefficientCorrelation(LienVar):
         '''
         super().determine_etude(table)
 
-        if self.etude == "quanti/quanti":  # ça bug TODO problème à résoudre
+        if self.etude == "quanti/quanti":
             numcol_var1 = table.index_variable(self.var1)
             numcol_var2 = table.index_variable(self.var2)
             plt.scatter(table.donnees[:, numcol_var1],
@@ -51,7 +50,6 @@ class CoefficientCorrelation(LienVar):
             plt.title('Nuage de points')
             plt.xlabel('{}'.format(self.var1))
             plt.ylabel('{}'.format(self.var2))
-            # comment l'enregistrer dans donnees.exports.graphique ? TODO
             plt.savefig('ScatterPlot_{}_{}_{}.png'.format(
                 self.var1, self.var2, table.nom))
             plt.show()
@@ -67,7 +65,7 @@ class CoefficientCorrelation(LienVar):
         ----------
         table : TableDonnees
         '''
-        self.representation(table)  # syntaxe à vérifier TODO
+        self.representation(table)
         print("Etude du lien entre", self.var1, "et", self.var2)
         numcol_var1 = table.index_variable(self.var1)
         numcol_var2 = table.index_variable(self.var2)
