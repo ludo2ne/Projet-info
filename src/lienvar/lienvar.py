@@ -7,8 +7,6 @@ Version : 2.0
 '''
 
 from abc import abstractmethod
-import doctest
-from table.tabledonnees import TableDonnees
 
 
 class LienVar:
@@ -24,7 +22,7 @@ class LienVar:
 
     '''
 
-    def __init__(self, var1, var2, etude = None):
+    def __init__(self, var1, var2, etude=None):
         '''Constructeur de l'objet
 
         Parameters :

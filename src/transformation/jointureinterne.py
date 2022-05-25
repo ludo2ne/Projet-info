@@ -28,6 +28,7 @@ class JointureInterne(Transformation):
         cle : list [tuple(str)]
             Liste de tuples contenant chacun un attribut de chaque table permettant de faire la jointure
         autre_table : TableDonnees
+            La table à joindre
         '''
         self.autre_table = autre_table
         self.cle = cle
@@ -52,13 +53,18 @@ class JointureInterne(Transformation):
 
         donnees_jointes = []
 
+        # on commence par une double boucle pour tester toutes les combinaisons possibles
+        # entre les donnees des deux tables
         for i in range(len(table.donnees)):
             for j in range(len(self.autre_table.donnees)):
                 it_is_a_match = True
+                # on parcourt la liste des cles pour comparer les valeurs
                 for k in range(len(self.cle)):
+                    # des qu il y a une difference entre deux cles, on sort de la boucle
                     if table.donnees[i, index_cles_table[k]] != self.autre_table.donnees[j, index_cles_autre_table[k]]:
                         it_is_a_match = False
                         break
+                # si toutes les cles sont egales, on fait la jointure
                 if it_is_a_match:
                     donnees_jointes.append(np.concatenate((
                         table.donnees[i], np.delete(self.autre_table.donnees[j], index_cles_autre_table))))

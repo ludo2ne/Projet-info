@@ -5,7 +5,6 @@ Date    : 05/05/2022
 Licence : Domaine public
 Version : 1.0
 '''
-import doctest
 import numpy as np
 from tabulate import tabulate
 
@@ -188,7 +187,3 @@ class TableDonnees:
         '''
         liste_index = np.where(self.variables == nom_variable)[0]
         return None if len(liste_index) == 0 else liste_index[0]
-
-
-if __name__ == '__main__':
-    doctest.testmod(verbose=True)

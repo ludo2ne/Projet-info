@@ -5,7 +5,6 @@ Date    : 05/05/2022
 Licence : Domaine public
 Version : 1.0
 '''
-from transformation.export import Export
 
 
 class Pipeline:
@@ -46,6 +45,6 @@ class Pipeline:
         print("------------------------------------------------------")
         print("Lancement du pipeline " + self.nom)
 
-        # Pour chaque transformation de la liste
+        # Pour chaque operation de la liste
         for i in range(len(self.liste_operations)):
             self.liste_operations[i].appliquer(table)

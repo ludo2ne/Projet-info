@@ -6,10 +6,8 @@ Licence : Domaine public
 Version : 1.0
 '''
 
-import doctest
 from lienvar.lienvar import LienVar
 import numpy as np
-from table.tabledonnees import TableDonnees
 
 
 class TestChiSquare(LienVar):
