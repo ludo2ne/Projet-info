@@ -22,8 +22,11 @@ ma_table_csv = DonneesCsv(nom="table_csv",
                           identifiants=['numer_sta', 'date'],
                           valeur_manquante="mq")
 
-ma_table_csv.afficher(nb_lignes=10,
-                      nb_colonnes=12)
+ma_table_csv.afficher(nb_lignes=10)
+
+print(len(ma_table_csv.variables))
+print(len(ma_table_csv.donnees[1]))
+print(ma_table_csv.donnees[1])
 
 
 # -------------------------------------------------------------------
