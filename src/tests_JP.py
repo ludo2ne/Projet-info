@@ -28,6 +28,8 @@ ma_table_csv = DonneesCsv(nom="table_csv",
                           identifiants=['numer_sta', 'date'],
                           valeur_manquante="mq")
 
+print(ma_table_csv.type_var)
+
 
 
 
@@ -35,14 +37,11 @@ ma_table_csv = DonneesCsv(nom="table_csv",
 # Supprimer les lignes d'une table qui contiennent au moins une valeur manquante pour une liste de variables données
 # -------------------------------------------------------------------
 
-SupprimeNA(["vv", "ww"]).appliquer(ma_table_csv)
+#SupprimeNA(["vv", "ww"]).appliquer(ma_table_csv)
 ma_table_csv.afficher(nb_lignes=10,
                       nb_colonnes=12)
 
-SelectionVariables(["numer_sta","date,""ff", "tend", "hnuage4"]).appliquer(ma_table_csv)
-ma_table_csv.afficher(nb_lignes=10, nb_colonnes=7)
-print(ma_table_csv.variables)
-print(ma_table_csv.type_var)
+
 
 # -------------------------------------------------------------------
 # Creation manuelle d une table
@@ -84,6 +83,10 @@ SupprimeNA(["ff", "tend", "hnuage4"]).appliquer(ma_table_csv)
 
 ma_table_csv.afficher(nb_colonnes=7)
 
+SelectionVariables(["numer_sta","date,""ff", "tend", "hnuage4"]).appliquer(ma_table_csv)
+ma_table_csv.afficher(nb_lignes=10, nb_colonnes=7)
+print(ma_table_csv.variables)
+print(ma_table_csv.type_var)
 
 
 CoefficientCorrelation("ff", "tend").appliquer(
@@ -116,3 +119,28 @@ TestChiSquare("numer_sta","").appliquer(ma_table_csv) #TODO à debugger
 # -------------------------------------------------------------------
 MoyenneGlissante().appliquer(ma_table_csv)
 ma_table_csv.afficher(nb_lignes=10, nb_colonnes=7)
+
+
+
+'''
+    def appliquer(self, table):
+        nom_tb_joint = "{}_{}".format(table.nom, self.autre_table.nom)
+        cle1=[TableDonnees.index_variable(var) for var in self.cle[0]]
+        cle2=[TableDonnees.index_variable(var) for var in self.cle[1]]
+        table_donnees=[]
+        list_var = table.variables + self.autre_table.variables #concaténation
+        list_type = table.type_var + self.autre_table.type_var
+        for i in range(len(table.donnees)):
+            for j in range(len(self.autre_table.donnees)):
+                if table.donnees[i,cle1] == self.autre_table.donnees[j,cle2]:
+                    list_concat = table.donnees[i] + self.autre_table.donnees[j]
+                    #list_concat.pop(col_cle[0]) dans l'idée de supprimer les colonnes en double, mais pop() attend un seul entier pas une liste
+                    #list_concat.pop(cle1) dans l'idée de supprimer les colonnes en double, mais pop() attend un seul entier pas une liste
+                    table_donnees.append(list_concat)
+        #finir par transformer table_donnee en array ?
+        # supprimer les colonnes (de la nouvelle table jointe) dont les numeros sont contenus dans cle1 (car en double) TODO
+        table.nom = nom_tb_joint
+        table.variables = list_var
+        table.donnees = table_donnees
+        table.type_var = list_type
+'''

@@ -24,7 +24,7 @@ class LienVar:
 
     '''
 
-    def __init__(self, var1, var2, etude=None):
+    def __init__(self, var1, var2, etude = None):
         '''Constructeur de l'objet
 
         Parameters :

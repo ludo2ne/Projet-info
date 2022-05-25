@@ -79,27 +79,3 @@ class JointureInterne(Transformation):
             table.variables, np.delete(self.autre_table.variables, index_cles_autre_table)))
         table.type_var = np.concatenate((
             table.type_var, np.delete(self.autre_table.type_var, index_cles_autre_table)))
-
-
-'''
-    def appliquer(self, table):
-        nom_tb_joint = "{}_{}".format(table.nom, self.autre_table.nom)
-        cle1=[TableDonnees.index_variable(var) for var in self.cle[0]]
-        cle2=[TableDonnees.index_variable(var) for var in self.cle[1]]
-        table_donnees=[]
-        list_var = table.variables + self.autre_table.variables #concaténation
-        list_type = table.type_var + self.autre_table.type_var
-        for i in range(len(table.donnees)):
-            for j in range(len(self.autre_table.donnees)):
-                if table.donnees[i,cle1] == self.autre_table.donnees[j,cle2]:
-                    list_concat = table.donnees[i] + self.autre_table.donnees[j]
-                    #list_concat.pop(col_cle[0]) dans l'idée de supprimer les colonnes en double, mais pop() attend un seul entier pas une liste
-                    #list_concat.pop(cle1) dans l'idée de supprimer les colonnes en double, mais pop() attend un seul entier pas une liste
-                    table_donnees.append(list_concat)
-        #finir par transformer table_donnee en array ?
-        # supprimer les colonnes (de la nouvelle table jointe) dont les numeros sont contenus dans cle1 (car en double) TODO
-        table.nom = nom_tb_joint
-        table.variables = list_var
-        table.donnees = table_donnees
-        table.type_var = list_type
-'''
