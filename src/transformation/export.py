@@ -11,7 +11,6 @@ import warnings
 import numpy as np
 import datetime
 from transformation.transformation import Transformation
-from estimateur.moyenne import Moyenne
 
 
 class Export(Transformation):

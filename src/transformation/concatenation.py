@@ -7,10 +7,9 @@ Version : 1.0
 '''
 import numpy as np
 from transformation.transformation import Transformation
-from table.tabledonnees import TableDonnees
 
 
-class ConcatanationLignes(Transformation):
+class ConcatenationLignes(Transformation):
     '''Concaténation des lignes de deux tables de données
 
     Attributes
@@ -25,6 +24,7 @@ class ConcatanationLignes(Transformation):
         autre_table : TableDonnees
         '''
         self.autre_table = autre_table
+        print("-------------- Creation concat -------------------")
 
     def appliquer(self, table):
         '''Méthode pour concaténer les deux tables
