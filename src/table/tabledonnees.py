@@ -124,6 +124,9 @@ class TableDonnees:
                             tablefmt="psql",
                             floatfmt=".2f") + "\n")    # 2 decimales pour les float
 
+    def __str__(self):
+        return "{}".format(self.afficher())
+
     def determiner_formats(self):
         '''Méthode qui détermine le format de chaque colonne à partir des données
 
@@ -183,7 +186,35 @@ class TableDonnees:
 
     def index_variable(self, nom_variable):
         '''Retourne l'index de la colonne de la variable
-           None si la variable n'a pas été trouvée 
+           None si la variable n'a pas été trouvée
+        Parameters :
+        ----------
+        nom_variable : str
         '''
         liste_index = np.where(self.variables == nom_variable)[0]
         return None if len(liste_index) == 0 else liste_index[0]
+
+    def compte_na(self, nom_variable):
+        '''Retourne le nombre de valeurs manquante d'une variable
+        Parameters :
+        ----------
+        nom_variable : str
+
+        Returns :
+        ----------
+        nb_na : int'''
+        nb_na = 0
+        num_colonne = self.index_variable(nom_variable = nom_variable)
+        for i in range(len(self.donnees)):
+            if type(self.donnees[i][num_colonne]) != str:
+                if np.isnan(self.donnees[i][num_colonne]): #la methode np.isnan() ne s'applique pas sur une chaine de caractère
+                    nb_na += 1
+        return nb_na
+
+    def liste_var_float(self):
+        '''Retourne la liste des variables numériques, c'est à dire de type float'''
+        liste_var = []
+        for i in range(len(self.variables)):
+            if self.type_var[i] == "float":
+                liste_var.append(self.variables[i])
+        return liste_var

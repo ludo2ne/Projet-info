@@ -20,6 +20,7 @@ from transformation.selectionvariables import SelectionVariables
 from lienvar.coefficientcorrelation import CoefficientCorrelation
 from transformation.supprimena import SupprimeNA
 from lienvar.testchisquare import TestChiSquare
+from transformation.export import Export
 # -------------------------------------------------------------------
 # Creation a partir d un fichier csv
 # -------------------------------------------------------------------
@@ -27,10 +28,14 @@ ma_table_csv = DonneesCsv(nom="table_csv",
                           chemin_complet=os.getcwd() + "/donnees/test/synop.201301.csv.gz",
                           identifiants=['numer_sta', 'date'],
                           valeur_manquante="mq")
+#Export().appliquer(ma_table_csv)
 
+SelectionVariables(liste_var=["date","numer_sta","ff", "tend","niv_bar","geop","tend24","tn24","tx12","tx24","nnuage2","ctype3","hnuage4"]).appliquer(ma_table_csv)
 print(ma_table_csv.type_var)
 
-print(Moyenne().appliquer(ma_table_csv))
+print(ma_table_csv)
+
+Moyenne().appliquer(ma_table_csv)
 
 
 # -------------------------------------------------------------------

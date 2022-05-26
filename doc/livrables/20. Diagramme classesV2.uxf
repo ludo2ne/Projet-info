@@ -38,7 +38,7 @@
 --
 +list_var : list[str]
 --
-&lt;&lt;Create&gt;&gt; __init__( liste_var: list[str]  )
+&lt;&lt;Create&gt;&gt; __init__( liste_var: list[str] = [ ]  )
 +appliquer(table : TableDonnees)
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1110</x><y>920</y><w>380</w><h>110</h></coordinates><panel_attributes>JointureInterne
 --
@@ -77,7 +77,7 @@ fin : int
 --
 &lt;&lt;Create&gt;&gt; __init__(liste_var : list[str])
 +appliquer(table : TableDonnees)
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1160</x><y>350</y><w>450</w><h>240</h></coordinates><panel_attributes>TableDonnees
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1160</x><y>330</y><w>450</w><h>260</h></coordinates><panel_attributes>TableDonnees
 --
 +nom : str
 +identifiants : list [ str ]
@@ -92,7 +92,9 @@ fin : int
 +determiner_formats() : numpy array 1D
 +appliquer_formats()
 +__str__() : str
-+index_variables(nom_variable : str) : int</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1180</x><y>630</y><w>430</w><h>70</h></coordinates><panel_attributes>DonneesCSV
++index_variables(nom_variable : str) : int
++compte_na(nom_variable :  str) : int
++liste_var_float() : list</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1180</x><y>630</y><w>430</w><h>70</h></coordinates><panel_attributes>DonneesCSV
 --
 --
 &lt;&lt;Create&gt;&gt; __init__(nom : str, chemin_complet : str, identifiants : list[str] = [],

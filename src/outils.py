@@ -96,3 +96,13 @@ matrice[0].append(3)
 matrice.append([])
 matrice[1].append(5)
 print(matrice)
+
+
+
+ma_table = TableDonnees(nom="t1",
+                        donnees_avec_entete=[["id", "dnais", "taille", "poids","pb_sante","autre"],
+                                             ["id1", 20120101, 160, 50,"oui",np.nan],
+                                             ["id2", 20060920, 180, 80,np.nan, np.nan],
+                                             ["id3", 20010815, 155, np.nan,"non", np.nan]],
+                        identifiants=["id"],
+                        type_var=["str", "date", "float", "float","str","str"])

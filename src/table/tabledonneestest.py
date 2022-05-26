@@ -17,12 +17,13 @@ class TableDonneesTest(unittest.TestCase):
                                                  ["id2", "B", "20060920", "180"],
                                                  ["id3", "C", "20060920", "na"],
                                                  ["id4", "D", "20010525", "165"],
-                                                 ["id5", "E", "19860525", "175"]],
+                                                 ["id5", "na", "19860525", "175"]],
                             identifiants=["id", "mat"],
                             valeur_manquante="na")
 
     def test_creation_table(self):
         self.ma_table.afficher()
+        print(self.ma_table)
 
         # resultat de determiner_formats
         self.assertEqual(list(self.ma_table.determiner_formats()), [
@@ -37,6 +38,9 @@ class TableDonneesTest(unittest.TestCase):
         self.assertTrue(len(self.ma_table.donnees) == 5)
         # nombre de variables
         self.assertTrue(len(self.ma_table.variables) == 4)
+        # nombre de valeur manque d'une variable
+        self.assertTrue(self.ma_table.compte_na("taille") == 1)
+        self.assertTrue(self.ma_table.compte_na("mat") == 1)
 
 
 if __name__ == '__main__':

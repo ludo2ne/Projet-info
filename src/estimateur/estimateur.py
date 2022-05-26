@@ -54,6 +54,6 @@ class AbstractEstimateur(ABC):
                             donnees_avec_entete=[table.variables, liste_estim],
                             type_var=table.type_var)
 
-        print("Estimateurs de la table",table.nom)
+        print("Estimateur demandé pour la table", table.nom)
         table_estim.afficher(nb_lignes = 2, nb_colonnes = n)
         return table_estim

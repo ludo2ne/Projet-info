@@ -41,6 +41,9 @@ class EcartType(AbstractEstimateur):
         nb_na = 0
         moyenne = Moyenne.estim1var(table, numero_colonne)
 
+        if np.isnan(moyenne):
+            return np.nan
+
         for i in range(len(table.donnees)):
             if not np.isnan(table.donnees[i][numero_colonne]):
                 somme += (float(table.donnees[i]
