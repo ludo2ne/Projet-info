@@ -33,7 +33,8 @@ class EcartType(AbstractEstimateur):
         -------
         float : écart-type des valeurs de la colonne
         '''
-        assert (table.type_var[numero_colonne] == 'float')
+        if table.type_var[numero_colonne] != "float":
+            return None
 
         somme = 0
         nb = 0

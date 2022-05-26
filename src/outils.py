@@ -65,7 +65,8 @@ print(np.isnan(ma_table.donnees[0, 2]))
 
 # moyenne avec NA
 liste = [5, 3, 5, 10, 9, np.nan]
-print(statistics.mean(liste))
+print("moyenne avec NA:", statistics.mean(liste))
+print("test:", np.isnan(liste))
 
 # boxplot
 plt.boxplot([[5, 3, 10, 9], [10, 15, 30]])

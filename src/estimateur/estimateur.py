@@ -2,6 +2,7 @@
 
 from abc import ABC, abstractmethod
 from table.tabledonnees import TableDonnees
+import numpy as np
 
 
 class AbstractEstimateur(ABC):
@@ -25,7 +26,7 @@ class AbstractEstimateur(ABC):
 
         Returns
         -------
-        float : écart-type des valeurs de la colonne
+        float : estimateur (écart-type ou moyenne) des valeurs de la colonne
         '''
         pass
 
@@ -39,15 +40,20 @@ class AbstractEstimateur(ABC):
 
         Returns
         -------
-        TableDonnees : les variables et la valeur donnée par l'estimateur
+        TableDonnees : les noms des variables et la valeur donnée par l'estimateur
         '''
         liste_estim = []
-        for i in range(len(table.variables)):
+        n = len(table.variables)
+        for i in range(n):
             if table.type_var[i] != "float":
-                liste_estim.append("na")
+                liste_estim.append(np.nan)
             else:
                 liste_estim.append(self.estim1var(table, i))
 
-        return TableDonnees(nom=table.nom,
+        table_estim = TableDonnees(nom=table.nom,
                             donnees_avec_entete=[table.variables, liste_estim],
                             type_var=table.type_var)
+
+        print("Estimateurs de la table",table.nom)
+        table_estim.afficher(nb_lignes = 2, nb_colonnes = n)
+        return table_estim
