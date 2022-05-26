@@ -33,5 +33,16 @@ print(ma_table_csv)
 # Test consécutif d'une selection plus restrainte sans les variables qui n'ont que des valeurs manquantes
 # -------------------------------------------------------------------
 
-SelectionVariables().appliquer(ma_table_csv)
+SelectionVariables(freqNA=0.99).appliquer(ma_table_csv)
+ma_table_csv.afficher()
+
+# -------------------------------------------------------------------
+# Selection des vériables avec moins de 10% de valeurs manquantes
+# -------------------------------------------------------------------
+ma_table_csv = DonneesCsv(nom="table_csv",
+                          chemin_complet=os.getcwd() + "/donnees/test/synop.201301.csv.gz",
+                          identifiants=['numer_sta', 'date'],
+                          valeur_manquante="mq")
+
+SelectionVariables(freqNA=0.1).appliquer(ma_table_csv)
 ma_table_csv.afficher()

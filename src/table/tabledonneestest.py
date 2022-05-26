@@ -52,6 +52,14 @@ class TableDonneesTest(unittest.TestCase):
         # Test de la méthode index_variable()
         self.assertEqual(self.ma_table.index_variable("date"), 2)
 
+        # liste des variables de type numérique
+        self.assertTrue(self.liste_var_float()==['taille'])
+
+        #liste des variables avec au plus 19% de valeurs manquantes
+        self.assertTrue(self.liste_var_na(freqNA=0.19)==['id', 'date'])
+
+
+
 
 if __name__ == '__main__':
     unittest.main()

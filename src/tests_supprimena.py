@@ -67,3 +67,8 @@ ma_table_csv.afficher(nb_colonnes=12)
 
 #Pipeline(nom="nettoyage",liste_operations=[SelectionVariables(),SupprimeNA(),Export()]).lancer(ma_table_csv)
 # cette table est encore vide de données car aucune ligne ne contenait aucune valeur manquante
+
+
+Pipeline(nom="nettoyage",liste_operations=[SelectionVariables(freqNA=0.2),SupprimeNA(),Export()]).lancer(ma_table_csv)
+#la table exportée est privée des variables qui avaient plus de 20% de valeurs manquantes,
+# puis privée des lignes contant au moins une valeur manquante parmi les variables restantes

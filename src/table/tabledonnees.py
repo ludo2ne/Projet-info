@@ -202,7 +202,8 @@ class TableDonnees:
 
         Returns :
         ----------
-        nb_na : int'''
+        nb_na : int
+        '''
         nb_na = 0
         num_colonne = self.index_variable(nom_variable = nom_variable)
         for i in range(len(self.donnees)):
@@ -212,9 +213,30 @@ class TableDonnees:
         return nb_na
 
     def liste_var_float(self):
-        '''Retourne la liste des variables numériques, c'est à dire de type float'''
+        '''Retourne la liste des variables numériques, c'est à dire de type float
+        Returns :
+        --------
+        liste_var : list [str]
+        '''
         liste_var = []
         for i in range(len(self.variables)):
             if self.type_var[i] == "float":
                 liste_var.append(self.variables[i])
+        return liste_var
+
+    def liste_var_na(self,freqNA = 0.3):
+        '''retourne la liste des variables qui ont moins d'une certain fréquence de valeurs manquantes
+        Parameters :
+        -----------
+        freqNA : float = 0.3
+            fréquence (proportion en 0 et 1) de valeurs manquantes maximale autorisées pour une variable
+        Returns :
+        liste_var : list[str]
+        '''
+        liste_var = []
+        n=len(self.donnees)
+        for var in self.variables:
+            freq = self.compte_na(var) / n
+            if freq <= freqNA:
+                liste_var.append(var)
         return liste_var

@@ -42,3 +42,4 @@ class Export(Transformation):
                        delimiter=";", fmt="%s")
         else:
             warnings.warn("Seul le format csv est autorisé pour l'export")
+#TODO covertir les dates en un format adapté à l'export (uniquement ici, pour ne pas empécher l'utilisation numérique)
