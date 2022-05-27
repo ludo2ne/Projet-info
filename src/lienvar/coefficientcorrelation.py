@@ -6,7 +6,6 @@ Licence : Domaine public
 Version : 1.0
 '''
 
-from ast import Break
 from lienvar.lienvar import LienVar
 import matplotlib.pyplot as plt
 import numpy as np
@@ -54,8 +53,7 @@ class CoefficientCorrelation(LienVar):
                 self.var1, self.var2, table.nom))
             plt.show()
         else:
-            print("erreur de type de variable")
-            Break
+            quit("erreur de type de variable")
 
     def appliquer(self, table):
         '''étude de la corrélation entre les variables

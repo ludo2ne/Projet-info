@@ -46,6 +46,8 @@ class Anova(LienVar):
             for i in range(len(table.donnees)):
                 if table.donnees[i, numcol_var_quali] not in liste_modalites:
                     liste_modalites.append(table.donnees[i, numcol_var_quali])
+            print("je suis ici",liste_modalites)
+
             matrice_boxplot = []
             nb_lignes = 0
             for modalite in liste_modalites:

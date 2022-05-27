@@ -120,14 +120,16 @@ fin : int
 /+estim1var(table : TableDonnees, numero_colonne : int) : float &lt;&lt;Abstract&gt;&gt;/
 +appliquer(table : TableDonnees) : TableDonnees
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>790</x><y>160</y><w>340</w><h>60</h></coordinates><panel_attributes>Moyenne
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>790</x><y>140</y><w>340</w><h>80</h></coordinates><panel_attributes>Moyenne
 --
++nom : str = "moyenne"
 --
 &lt;&lt; create &gt;&gt; __init__()
 +estim1var(table : TableDonnees, numero_colonne : int) : float
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1120</x><y>190</y><w>150</w><h>80</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;130;10;130;60</additional_attributes></element><element><id>Relation</id><coordinates><x>910</x><y>210</y><w>30</w><h>100</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;80;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1070</x><y>250</y><w>340</w><h>60</h></coordinates><panel_attributes>EcartType
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1120</x><y>190</y><w>150</w><h>60</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;130;10;130;40</additional_attributes></element><element><id>Relation</id><coordinates><x>910</x><y>210</y><w>30</w><h>100</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;80;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1070</x><y>230</y><w>340</w><h>80</h></coordinates><panel_attributes>EcartType
 --
++nom : str = "écart-typ"
 --
 &lt;&lt; create &gt;&gt; __init__()
 +estim1var(table : TableDonnees, numero_colonne : int) : float

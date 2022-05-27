@@ -224,17 +224,19 @@ class TableDonnees:
                 liste_var.append(self.variables[i])
         return liste_var
 
-    def liste_var_na(self,freqNA = 0.3):
+    def liste_var_na(self,freqNA):
         '''retourne la liste des variables qui ont moins d'une certain fréquence de valeurs manquantes
         Parameters :
         -----------
-        freqNA : float = 0.3
+        freqNA : float
             fréquence (proportion en 0 et 1) de valeurs manquantes maximale autorisées pour une variable
         Returns :
         liste_var : list[str]
         '''
         liste_var = []
         n=len(self.donnees)
+        if n == 0 :
+            print("attention, la table est vide")
         for var in self.variables:
             freq = self.compte_na(var) / n
             if freq <= freqNA:

@@ -16,7 +16,7 @@ class EcartType(AbstractEstimateur):
     '''
 
     def __init__(self):
-        pass
+        self.nom = "écart-type"
 
     @staticmethod
     def estim1var(table, numero_colonne):
