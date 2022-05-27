@@ -19,23 +19,43 @@ ma_table = TableDonnees(nom="table_test",
                         identifiants=["id"],
                         type_var=["str", "date", "float", "float"])
 
-print(ma_table)
-for k in range(len(ma_table.donnees[0])):
-    if ma_table.type_var[k] == 'float':
-        result = np.cumsum(ma_table.donnees[:, k])[
-            len(ma_table.donnees[:, k])-1]
-        print(result)
+var_tri = 'date'
+index_var_tri = ma_table.index_variable(var_tri)  # récupérer l'index de date
+echelon_init = 'region'
+index_echelon_init = ma_table.index_variable(
+    echelon_init)  # récupérer l'index de région
+echelon_final = 'national'
+
+autres_variables = [var_tri, echelon_final]
+for var in ma_table.variables:
+    if var not in [var_tri, echelon_init]:
+        autres_variables.append(var)
+print(autres_variables)
+# print(ma_table)
+# for k in range(len(ma_table.donnees[0])):
+#    if ma_table.type_var[k] == 'float':
+#        result = np.cumsum(ma_table.donnees[:, k])[
+#            len(ma_table.donnees[:, k])-1]
+#        print(result)
 
 # définition d'une fonction de cumul
 
 
-def cumul(table, var_tri, echelon_init, echelon_final):
-    result = [var_tri, echelon_final]
-    for k in range(len(table.donnees[0])):
-        if table.type_var[k] == 'float' and table.variables[k] not in [var_tri, echelon_init]:
-            result.append(np.cumsum(table.donnees[:, k])[
-                len(table.donnees[:, k])-1])
-    return result
+# def cumul(table, var_tri, echelon_init, echelon_final):
+#    result = [var_tri, echelon_final]
+#
+#     for k in range(len(table.donnees[0])):
+#
+#         if table.type_var[k] == 'float' and table.variables[k] not in [var_tri, echelon_init]:
+#
+#             result.append(np.cumsum(table.donnees[:, k])[
+#
+#                 len(table.donnees[:, k])-1])
+#
+#     return result
+#
 
+#
 
-print(cumul(ma_table, "date", "region", "national"))
+#
+# print(cumul(ma_table, "date", "region", "national"))

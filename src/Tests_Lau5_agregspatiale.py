@@ -19,30 +19,43 @@ ma_table = TableDonnees(nom="table_test",
                         identifiants=["id"],
                         type_var=["str", "date", "float", "float"])
 
-# je veux :
-# sur fichier électricité
-# pour chaque date (set(date)), les conso totales
 
 var_tri = 'date'
-echelon_init = 'region'
-echelon_final = 'national'  # on va remplacer à la fin echelon_init par echelon_final
-
 index_var_tri = ma_table.index_variable(var_tri)  # récupérer l'index de date
+echelon_init = 'region'
+index_echelon_init = ma_table.index_variable(
+    echelon_init)  # récupérer l'index de région
+echelon_final = 'national'
+# à la fin on veut :
+# pour chaque date, remplacer echelon_init par echelon_final et cumuler les données de type float correspondantes
+# valable pour les données d'électricité où on veut plutot cumuler les conso : fonction cumul() définie plus bas
+# TODO pour les donnees meteo il faudra plutot calculer une moyenne
 
+
+# tri de la table par date
 ma_table.donnees = ma_table.donnees[ma_table.donnees[:,
                                                      index_var_tri].argsort()]
 print(ma_table.donnees)
 
-liste_finale = [ma_table.variables]
+# initialisation de la liste finale avec le nom des variables (dans le "bon" ordre)
+liste_finale_variables = [var_tri, echelon_final]
+for var in ma_table.variables:
+    if var not in [var_tri, echelon_init]:
+        liste_finale_variables.append(var)
+liste_finale = [liste_finale_variables]
+
+# initialisation de la sous-liste correspondant à la première date
 k = 0
 donnees_extraites = list(ma_table.donnees[k])
 print(len(ma_table.donnees))
 var_tri_current = donnees_extraites[index_var_tri]
 print(var_tri_current)
 
+# fonction permettant de cumuler les donnes de type numérique (nan sinon) des sous tables qu'on extrait
+
 
 def cumul(table, var_tri_prev, echelon_init, echelon_final):
-    objetTable = TableDonnees(nom='objettable',
+    objetTable = TableDonnees(nom='objet',
                               donnees_avec_entete=table)
     result = [var_tri_prev, echelon_final]
     for k in range(len(objetTable.donnees[0])):
@@ -56,7 +69,7 @@ def cumul(table, var_tri_prev, echelon_init, echelon_final):
 
 #print(cumul(ma_table, "date", "region", "national"))
 
-
+# Vers la table d'agrégation
 tmp_liste = [ma_table.variables]
 var_tri_prev = donnees_extraites[index_var_tri]
 while k < len(ma_table.donnees):
