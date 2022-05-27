@@ -58,8 +58,8 @@ class Anova(LienVar):
                 nb_lignes += 1
 
             plt.boxplot(matrice_boxplot)
-            plt.title('Boxplot')
-            plt.xlabel('{}//{}'.format(self.var1, liste_modalites))
+            plt.title('Boxplot  : {}'.format(table.nom))
+            plt.xlabel('Modalités de {} : {}'.format(self.var1, liste_modalites))
             plt.ylabel('{}'.format(self.var2))
             plt.savefig('BoxPlot_{}_{}_{}.png'.format(
                 self.var1, self.var2, table.nom))
@@ -78,5 +78,5 @@ class Anova(LienVar):
         table : TableDonnees
         '''
         self.representation(table)
-        print("Etude du lien entre", self.var1, "et", self.var2)
+        print("voir le boxplot affiché et exporté")
         # TODO inachevé

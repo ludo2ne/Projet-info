@@ -1,5 +1,5 @@
 '''
-Module coefficientcorrelation_v2
+Module coefficientcorrelation
 Auteurs : Deneuville Ludovic, Trotta Jean-Philippe et Villacampa Laurene
 Date    : 19/05/2022
 Licence : Domaine public
@@ -46,11 +46,11 @@ class CoefficientCorrelation(LienVar):
             numcol_var2 = table.index_variable(self.var2)
             plt.scatter(table.donnees[:, numcol_var1],
                         table.donnees[:, numcol_var2])
-            plt.title('Nuage de points')
+            plt.title('Nuage de points : {}'.format(table.nom))
             plt.xlabel('{}'.format(self.var1))
             plt.ylabel('{}'.format(self.var2))
             plt.savefig('ScatterPlot_{}_{}_{}.png'.format(
-                self.var1, self.var2, table.nom))
+                self.var1, self.var2, table.nom)) #/donnees/exports/graphiques/ TODO
             plt.show()
 
         else:
@@ -66,7 +66,6 @@ class CoefficientCorrelation(LienVar):
         table : TableDonnees
         '''
         self.representation(table)
-        print("Etude du lien entre", self.var1, "et", self.var2)
 
         numcol_var1 = table.index_variable(self.var1)
         numcol_var2 = table.index_variable(self.var2)

@@ -23,7 +23,7 @@ from lienvar.testchisquare import TestChiSquare
 from transformation.export import Export
 
 # -------------------------------------------------------------------
-# création d'une table de données qui mixe le données qualitatives et quantitative
+# création d'une table de données qui mixe les données qualitatives et quantitatives
 # -------------------------------------------------------------------
 
 ma_table4 = TableDonnees(nom="tableMixte",

@@ -9,6 +9,7 @@ Version : 1.0
 from lienvar.lienvar import LienVar
 import numpy as np
 from table.tabledonnees import TableDonnees
+import matplotlib.pyplot as plt
 
 
 class TestChiSquare(LienVar):
@@ -63,7 +64,13 @@ class TestChiSquare(LienVar):
                 ligne += 1
 
             tableau = np.array(tb_contingence)
-            print(tableau)
+
+            fig, ax =plt.subplots(1,1)
+            ax.axis('off')
+            ax.table(cellText = tableau, loc = "center")
+            plt.savefig('TabContingence_{}_{}_{}.png'.format(
+                self.var1, self.var2, table.nom))
+            plt.show()
 
         else:
             print("erreur de type de variable")
@@ -79,5 +86,4 @@ class TestChiSquare(LienVar):
         table : TableDonnees
         '''
         self.representation(table)
-        print("Etude du lien entre", self.var1, "et", self.var2)
         # TODO inachevé

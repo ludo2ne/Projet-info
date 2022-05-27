@@ -37,14 +37,11 @@ class LienVar:
     def determine_etude(self, table):
         '''détermine le champ d'étude selon le type de variables'''
 
-        print("détermination de l'étude")
         numcol_var1 = table.index_variable(self.var1)
         numcol_var2 = table.index_variable(self.var2)
-        print(numcol_var1,numcol_var2)
 
         if (table.type_var[numcol_var1] == "float") and (table.type_var[numcol_var2] == "float"):
             self.etude = "quanti/quanti"
-            print(self.etude)
         if (table.type_var[numcol_var1] == "str") and (table.type_var[numcol_var2] == "str"):
             self.etude = "quali/quali"
         if ( (table.type_var[numcol_var1] == "str") and (table.type_var[numcol_var2] == "float") ) or ( (table.type_var[numcol_var1] == "float") and (table.type_var[numcol_var2] == "str") ):
@@ -60,6 +57,7 @@ class LienVar:
                 self.var1 = self.var2
                 # pour placer par défaut la variable numérique en 2ème (pour faciliter ensuite la méthode de représentation graphique)
                 self.var2 = transfert_var
+        print("Etude de type :",self.etude, "entre les variables", self.var1, "et", self.var2)
 
     @abstractmethod
     def representation(self, table):
