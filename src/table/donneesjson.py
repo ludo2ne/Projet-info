@@ -9,6 +9,7 @@ import warnings
 import gzip
 import json
 import numpy as np
+import os
 
 from datetime import datetime
 from table.tabledonnees import TableDonnees
@@ -31,13 +32,14 @@ class DonneesJson(TableDonnees):
         liste des noms de variables étant des identifiants
     '''
 
-    def __init__(self, nom, chemin_complet, identifiants=[], valeur_manquante=None):
+    def __init__(self, chemin_complet, nom = "", identifiants = [], valeur_manquante = None):
         '''Constructeur de l'objet
 
         Parameters
         ----------
-        nom : str
+        nom : str = ""
             nom de la table
+            si pas modifié, prend le nom du fichier sans l'extension
         variables : numpy array
             liste des variables
         identifiants : list[str] = []
@@ -51,15 +53,21 @@ class DonneesJson(TableDonnees):
             indique par quelle chaine de caractères sont représentées les valeurs manquantes
             None par défaut
         '''
-        super().__init__(nom=nom, donnees_avec_entete=[], identifiants=identifiants)
+        super().__init__(nom=nom, donnees_avec_entete = [], identifiants = identifiants)
+
+        basename = os.path.basename(chemin_complet)
+        file_name = os.path.splitext(basename)[0]
+        nom_dossier=chemin_complet.split('/')[-2]
 
         dico = None
 
+
         if chemin_complet.endswith(".gz"):
-            with gzip.open(chemin_complet, mode='rt', encoding='utf-8') as gzfile:
+            file_name = os.path.splitext(file_name)[0]
+            with gzip.open(chemin_complet, mode = 'rt', encoding = 'utf-8') as gzfile:
                 dico = json.load(gzfile)
         elif chemin_complet.endswith(".json"):
-            with open(chemin_complet, mode='r', encoding='utf-8') as jsonfile:
+            with open(chemin_complet, mode = 'r', encoding = 'utf-8') as jsonfile:
                 dico = json.load(jsonfile)
         else:
             warnings.warn("Le fichier doit être un json ou un json.gz")
@@ -87,6 +95,10 @@ class DonneesJson(TableDonnees):
         self.donnees[self.donnees == valeur_manquante] = np.nan
 
         self.type_var = self.determiner_formats()
+
+        if self.nom == "":
+            self.nom = "{}_{}".format(nom_dossier, file_name)
+
         self.appliquer_formats()
         self.bilan_chargement()
 

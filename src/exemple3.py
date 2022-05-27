@@ -24,7 +24,7 @@ from transformation.export import Export
 # -------------------------------------------------------------------
 
 # Creation a partir d un fichier json
-ma_table_json_01 = DonneesJson(nom="table_json_01",
+ma_table_json_01 = DonneesJson(
                                chemin_complet=os.getcwd() + "/donnees/electricite/2013-01.json.gz",
                                identifiants=["code_insee_region", "date", "heure"])
 
@@ -54,7 +54,7 @@ ma_table_json_01.afficher(nb_lignes=20,
 # -------------------------------------------------------------------
 # Import d une seconde table a partir d un fichier json
 # -------------------------------------------------------------------
-ma_table_json_02 = DonneesJson(nom="table_json_02",
+ma_table_json_02 = DonneesJson(
                                chemin_complet=os.getcwd() + "/donnees/electricite/2013-02.json.gz",
                                identifiants=["code_insee_region", "date", "heure"])
 

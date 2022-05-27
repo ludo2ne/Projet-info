@@ -23,7 +23,7 @@ from transformation.supprimena import SupprimeNA
 
 
 # Creation a partir d un fichier csv
-ma_table_csv = DonneesCsv(nom="table_csv",
+ma_table_csv = DonneesCsv(
                           chemin_complet=os.getcwd() + "/donnees/meteo/synop.201301.csv.gz",
                           identifiants=['numer_sta', 'date'],
                           valeur_manquante="mq")

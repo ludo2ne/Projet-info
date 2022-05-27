@@ -1,4 +1,5 @@
 from table.tabledonnees import TableDonnees
+import os
 
 
 
@@ -15,3 +16,15 @@ ma_table = TableDonnees(nom="t1",
 
 print(ma_table.liste_var_float()==['taille'])
 print(ma_table.liste_var_na(freqNA=0.19)==['id', 'date'])
+
+
+file_path = "Desktop/folder/myfile.csv.gz"
+
+basename = os.path.basename(file_path)
+print(basename)
+file_name = os.path.splitext(basename)[0]
+file_name = os.path.splitext(file_name)[0]
+print(file_name)
+
+
+nom_dossier=print(file_path.split('/')[-2])

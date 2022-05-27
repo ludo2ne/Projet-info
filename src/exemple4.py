@@ -25,7 +25,7 @@ from transformation.export import Export
 # ---------------------------------
 
 # Creation a partir d un fichier json
-donnees_elec = DonneesJson(nom="table_json_01",
+donnees_elec = DonneesJson(
                                chemin_complet=os.getcwd() + "/donnees/electricite/2013-01.json.gz",
                                identifiants=["code_insee_region", "date", "heure"])
 
@@ -51,7 +51,7 @@ mon_premier_pipeline.lancer(donnees_elec)
 # ---------------------------------
 
 # Creation a partir d un fichier csv
-donnees_meteo = DonneesCsv(nom="table_csv",
+donnees_meteo = DonneesCsv(
                            chemin_complet=os.getcwd() + "/donnees/meteo/synop.201301.csv.gz",
                            identifiants=['numer_sta', 'date'],
                            valeur_manquante="mq")
@@ -63,7 +63,7 @@ donnees_meteo.afficher(nb_lignes=10,
 # Import table lien
 # ---------------------------------
 
-table_lien = DonneesCsv(nom="table_posteSynopAvecRegion",
+table_lien = DonneesCsv(
                         chemin_complet=os.getcwd() + "/donnees/geographiques/postesSynopAvecRegions.csv",
                         identifiants=['ID', 'Region'])
 
