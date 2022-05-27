@@ -9,6 +9,7 @@ Version : 1.0
 from lienvar.lienvar import LienVar
 import numpy as np
 from table.tabledonnees import TableDonnees
+import matplotlib.pyplot as plt
 
 
 class Temporel(LienVar):
@@ -17,13 +18,15 @@ class Temporel(LienVar):
     -----------
     var1 : str
         nom de la variable temporelle
-    list_var2 : list[str]
-        liste de noms des variables quantitatives à remprésenter sur la même période
+    var2 : str
+        nom de la variable quantitative à remprésenter
+    titre : str
+        titre du graphique
     etude : str
         champs d'étude ("temporel" à vérifier)
     '''
 
-    def __init__(self, var1, var2, var3):
+    def __init__(self, var1, var2, var3="", titre = ""):
         '''Constructeur de l'objet
         Parameters
         ----------
@@ -32,10 +35,10 @@ class Temporel(LienVar):
         var2 : str
             variable quanti
         var3 : str
-            variable quali pour grouper var2 en liste
+            autre variable pour la coloration du graphique (facultatif)
         '''
-        super().__init__(var1, var2)
-        self.init = var3
+        super().__init__(var1 = var1, var2 = var2 , titre = titre)
+        self.var3 = var3
 
     def representation(self, table):
         '''Représentation en fonction du temps
@@ -44,5 +47,33 @@ class Temporel(LienVar):
         table : TableDonnees
         '''
         super().determine_etude(table)
+        if self.titre == "":
+            self.titre = "Représentation de {} en fonction du temps : {}".format(self.var2,table.nom)
         if self.etude == "temporel":
-            pass
+            numcol_var1 = table.index_variable(self.var1)
+            numcol_var2 = table.index_variable(self.var2)
+            if self.var3 != None:
+                numcol_var3 = table.index_variable(self.var3)
+                color = table.donnees[:, numcol_var3]
+                print("coloration du graphique selon la variable",self.var3)
+            else:
+                color = "b"
+            plt.scatter(table.donnees[:, numcol_var1],
+                        table.donnees[:, numcol_var2], c = color) #cherhcher une solution pour accepter une 3ème variable quali pour la couleur TODO
+            plt.title(self.titre)
+            plt.xlabel('{}'.format(self.var1))
+            plt.ylabel('{}'.format(self.var2))
+            plt.savefig('SérieTemporelle_{}_{}.png'.format(self.var2, table.nom))
+            plt.show()
+
+        else:
+            quit("erreur de type de variable")
+
+    def appliquer(self, table):
+        '''série temporelle
+
+        Parameters
+        ----------
+        table : TableDonnees
+        '''
+        self.representation(table)

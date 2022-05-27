@@ -18,19 +18,23 @@ class Anova(LienVar):
     var1 : str
         nom de la variable qualitative
     var2 : str
-        nom de la variable qualitative
+        nom de la variable quantitative
     etude : str
         champs d'étude ("quali/quanti" à vérifier)
     '''
 
-    def __init__(self, var1, var2):
+    def __init__(self, var1, var2, titre = ""):
         '''Constructeur de l'objet
         Parameters
         ----------
         var1 : str
+            nom de la variable qualitative
         var2 : str
+            nom de la variable quantitative
+        titre : str = ""
+            titre du graphique (sinon, généré automatiquement)
         '''
-        super().__init__(var1, var2)
+        super().__init__(var1 = var1, var2 = var2, titre = titre)
 
     def representation(self, table):
         '''Boxplot et export de ce graphique
@@ -39,6 +43,9 @@ class Anova(LienVar):
         table : TableDonnees
         '''
         super().determine_etude(table)
+        if self.titre == "":
+            self.titre = 'Boxplot  : {}'.format(table.nom)
+
         if self.etude == "quali/quanti":
             liste_modalites = []
             numcol_var_quali = table.index_variable(self.var1)
@@ -58,7 +65,7 @@ class Anova(LienVar):
                 nb_lignes += 1
 
             plt.boxplot(matrice_boxplot)
-            plt.title('Boxplot  : {}'.format(table.nom))
+            plt.title(self.titre)
             plt.xlabel('Modalités de {} : {}'.format(self.var1, liste_modalites))
             plt.ylabel('{}'.format(self.var2))
             plt.savefig('BoxPlot_{}_{}_{}.png'.format(

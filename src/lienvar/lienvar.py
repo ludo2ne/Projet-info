@@ -18,27 +18,36 @@ class LienVar:
         nom de la première variable
     var2 : str
         nom de la deuxième variable
+    titre : str
+        titre du graphique
     etude : str
 
     '''
 
-    def __init__(self, var1, var2, etude=None):
+    def __init__(self, var1, var2, titre):
         '''Constructeur de l'objet
 
         Parameters :
         ------------
         var1 : str
+            nom de la première variable
         var2 : str
-        etude : str = None'''
+            nom de la deuxième variable
+        titre : str = ""
+            titre du graphique
+        '''
         self.var1 = var1
         self.var2 = var2
-        self.etude = etude
+        self.etude = None
+        self.titre = titre
 
     def determine_etude(self, table):
         '''détermine le champ d'étude selon le type de variables'''
 
         numcol_var1 = table.index_variable(self.var1)
         numcol_var2 = table.index_variable(self.var2)
+        if numcol_var1 == None or numcol_var2 == None:
+            print("Vérifier l'écriture des variables saisies !")
 
         if (table.type_var[numcol_var1] == "float") and (table.type_var[numcol_var2] == "float"):
             self.etude = "quanti/quanti"

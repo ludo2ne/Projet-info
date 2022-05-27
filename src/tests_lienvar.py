@@ -47,7 +47,7 @@ ma_table_csv = DonneesCsv(nom="table_csv",
                           identifiants=['numer_sta', 'date'],
                           valeur_manquante="mq")
 
-Pipeline(nom="étude2varQuantitatives", liste_operations = [SupprimeNA(liste_var = ["pmer", "tend"]), SelectionVariables(liste_var = ["date", "numer_sta", "pmer", "tend"]), CoefficientCorrelation(var1 = "pmer", var2 = "tend")]).lancer(ma_table_csv)
+Pipeline(nom="étude2varQuantitatives", liste_operations = [SupprimeNA(liste_var = ["pmer", "tend", "dd"]), SelectionVariables(liste_var = ["date", "numer_sta", "pmer", "tend","dd"]), CoefficientCorrelation(var1 = "pmer", var2 = "tend", var3 ="dd")]).lancer(ma_table_csv)
 print(ma_table_csv)
 
 # -------------------------------------------------------------------

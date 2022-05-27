@@ -82,6 +82,10 @@ plt.scatter([1, 2, 3], [10, 15, 30], color="green")
 plt.scatter([0.5, 2.1, 4], [5, 15, 20])
 plt.show()
 
+plt.scatter([1, 2, 3], [10, 15, 30], c=["a","b","b"])
+plt.title("je suis ici")
+plt.show()
+
 
 # variable ou liste générées dans une boucle
 # tab=["a","b","c"]

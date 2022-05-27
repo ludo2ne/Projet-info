@@ -21,18 +21,24 @@ class TestChiSquare(LienVar):
         nom de la variable qualitative
     var2 : str
         nom de la variable qualitative
+    titre : str
+        titre du tableau de contigence
     etude : str
         champs d'étude ("quali/quali" à vérifier)
     '''
 
-    def __init__(self, var1, var2):
+    def __init__(self, var1, var2, titre = ""):
         '''Constructeur de l'objet
         Parameters
         ----------
         var1 : str
+            nom de la variable qualitative
         var2 : str
+            nom de la variable qualitative
+        titre : str = ""
+            titre du tableau de contigence (sinon, automatique)
         '''
-        super().__init__(var1, var2)
+        super().__init__(var1 = var1, var2 = var2, titre = titre)
 
     def representation(self, table):
         '''Tableau de contignence
@@ -41,6 +47,8 @@ class TestChiSquare(LienVar):
         table : TableDonnees
         '''
         super().determine_etude(table)
+        if self.titre == "":
+            self.titre = 'Tableau de contingence : {}'.format(table.nom)
         if self.etude == "quali/quali":
             liste_modalites1 = []
             liste_modalites2 = []
@@ -70,6 +78,7 @@ class TestChiSquare(LienVar):
             ax.table(cellText = tableau, loc = "center")
             plt.savefig('TabContingence_{}_{}_{}.png'.format(
                 self.var1, self.var2, table.nom))
+            plt.title(self.titre)
             plt.show()
 
         else:

@@ -22,13 +22,13 @@ Export().appliquer(ma_table_csv)
 print(ma_table_csv.type_var)
 print(ma_table_csv.variables)
 # affichage de la table initiale
-ma_table_csv.afficher(nb_lignes=10, nb_colonnes=12)
+ma_table_csv.afficher(nb_colonnes=12)
 
 # -------------------------------------------------------------------
 # Moyennes glissantes d'une table (sur toutes les variables numériques de la table)
 # -------------------------------------------------------------------
 MoyenneGlissante().appliquer(ma_table_csv)
-ma_table_csv.afficher(nb_lignes=10, nb_colonnes=12)
+ma_table_csv.afficher(nb_colonnes=12)
 
 # -------------------------------------------------------------------
 # Moyennes glissantes d'une liste de variable d'une table (autre test)
@@ -38,5 +38,5 @@ ma_table_csv = DonneesCsv(nom="table_csv",
                           identifiants=['numer_sta', 'date'],
                           valeur_manquante="mq")  # réinitialisation de la table
 
-MoyenneGlissante(["tend", "dd"]).appliquer(ma_table_csv)
-ma_table_csv.afficher(nb_lignes=10, nb_colonnes=12)
+MoyenneGlissante(["tend", "dd"],pas = 5).appliquer(ma_table_csv)
+ma_table_csv.afficher(nb_colonnes=12)
