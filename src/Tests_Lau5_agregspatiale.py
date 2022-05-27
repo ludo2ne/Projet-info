@@ -33,12 +33,58 @@ ma_table.donnees = ma_table.donnees[ma_table.donnees[:,
                                                      index_var_tri].argsort()]
 print(ma_table.donnees)
 
-liste_finale = []
+liste_finale = [ma_table.variables]
 k = 0
 donnees_extraites = list(ma_table.donnees[k])
 print(len(ma_table.donnees))
 var_tri_current = donnees_extraites[index_var_tri]
 print(var_tri_current)
+
+
+def cumul(table, var_tri_prev, echelon_init, echelon_final):
+    objetTable = TableDonnees(nom='objettable',
+                              donnees_avec_entete=table)
+    result = [var_tri_prev, echelon_final]
+    for k in range(len(objetTable.donnees[0])):
+        if objetTable.type_var[k] == 'float' and objetTable.variables[k] not in [var_tri, echelon_init]:
+            result.append(np.cumsum(objetTable.donnees[:, k])[
+                len(objetTable.donnees[:, k])-1])
+        elif objetTable.type_var[k] != 'float' and objetTable.variables[k] not in [var_tri, echelon_init]:
+            result.append('NaN')
+    return result
+
+
+#print(cumul(ma_table, "date", "region", "national"))
+
+
+tmp_liste = [ma_table.variables]
+var_tri_prev = donnees_extraites[index_var_tri]
+while k < len(ma_table.donnees):
+    donnees_extraites = list(ma_table.donnees[k])
+    var_tri_current = donnees_extraites[index_var_tri]
+    if var_tri_current == var_tri_prev:
+        tmp_liste.append(donnees_extraites)
+    else:
+        # TODO function : somme ou moyenne
+        result = cumul(tmp_liste, var_tri_prev, echelon_init, echelon_final)
+        liste_finale.append(result)
+        var_tri_prev = donnees_extraites[index_var_tri]
+        tmp_liste = [ma_table.variables]
+        tmp_liste.append(donnees_extraites)
+    k += 1
+
+result = cumul(tmp_liste, var_tri_prev, echelon_init, echelon_final)
+liste_finale.append(result)
+
+# liste_finale.append(tmp_liste)
+
+print('la liste finale est :')
+print(np.asarray(liste_finale))
+
+
+# ==> dans liste finale on récupère les tableaux/listes sur lesquels faire l'agrégation
+# pour le moment on ne fait que des additions (cumul)
+
 
 # while k < len(ma_table.donnees) - 1:
 #    k += 1
@@ -69,34 +115,6 @@ print(var_tri_current)
 #            S += table[i,j]
 #        result.append(S)
 #    return result
-
-
-tmp_liste = []
-var_tri_prev = donnees_extraites[index_var_tri]
-while k < len(ma_table.donnees):
-    donnees_extraites = list(ma_table.donnees[k])
-    var_tri_current = donnees_extraites[index_var_tri]
-    if var_tri_current == var_tri_prev:
-        tmp_liste.append(donnees_extraites)
-    else:
-        # TODO function : somme ou moyenne
-        #result = cumul(var_tri_prev, tmp_liste)
-        liste_finale.append(tmp_liste)
-        var_tri_prev = donnees_extraites[index_var_tri]
-        tmp_liste = []
-        tmp_liste.append(donnees_extraites)
-    k += 1
-
-#result = cumul(tmp_liste)
-# liste_finale.append(result)
-
-liste_finale.append(tmp_liste)
-
-print('la liste finale est :')
-print(liste_finale)
-
-# ==> dans liste finale on récupère les tableaux/listes sur lesquels faire l'agrégation
-# pour le moment on ne fait que des additions (cumul)
 
 
 # Version np.array
