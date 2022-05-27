@@ -6,7 +6,6 @@ Licence : Domaine public
 Version : 1.0
 '''
 
-from ast import Break
 from lienvar.lienvar import LienVar
 import matplotlib.pyplot as plt
 import numpy as np
@@ -53,9 +52,9 @@ class CoefficientCorrelation(LienVar):
             plt.savefig('ScatterPlot_{}_{}_{}.png'.format(
                 self.var1, self.var2, table.nom))
             plt.show()
+
         else:
-            print("erreur de type de variable")
-            Break
+            quit("erreur de type de variable")
 
     def appliquer(self, table):
         '''Etude de la corrélation entre les variables
@@ -68,16 +67,13 @@ class CoefficientCorrelation(LienVar):
         '''
         self.representation(table)
         print("Etude du lien entre", self.var1, "et", self.var2)
+
         numcol_var1 = table.index_variable(self.var1)
         numcol_var2 = table.index_variable(self.var2)
-        ma_liste_test = table.donnees[:, numcol_var1]
-        print(table.donnees[:, numcol_var1])
-        print(table.donnees[:, numcol_var2])
-        step1 = np.corrcoef(
-            table.donnees[:, numcol_var1].astype(float), table.donnees[:, numcol_var2].astype(float))
-        print(step1)
+
         coeff_corr = np.corrcoef(
             table.donnees[:, numcol_var1].astype(float), table.donnees[:, numcol_var2].astype(float))[1, 0]
+
         print("Le coefficient de corrélation de ces variables est : {} ".format(coeff_corr))
         if abs(coeff_corr) < 0.4:
             print("La relation entre ces variables est assez faible.")

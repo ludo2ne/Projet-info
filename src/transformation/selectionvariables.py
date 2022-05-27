@@ -20,6 +20,8 @@ class SelectionVariables(Transformation):
     ----------
     liste_var : list[str]
         liste des noms des colonnes à conserver
+    freqNA : float
+            fréquence (proportion entre 0 et 1) maximale de valeurs manquantes autorisée pour conserver une variabl
     '''
 
     def __init__(self, liste_var=[], freqNA=1):
@@ -29,9 +31,10 @@ class SelectionVariables(Transformation):
         ----------
         liste_var : list[str] = []
             liste des noms des colonnes à conserver;
-            si la liste n'est pas saisie, on conserve toutes les variables
+            si la liste n'est pas saisie, par défaut on conserve toutes les variables (qui vérifie l'autre condition)
         freqNA : float = 1
             fréquence (proportion entre 0 et 1) maximale de valeurs manquantes autorisée pour conserver une variable
+            par défaut on conserve toutes les variables même si elles ne sont composées que de valeurs manquantes
         '''
         self.liste_var = liste_var
         self.freqNA = freqNA

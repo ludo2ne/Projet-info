@@ -37,6 +37,7 @@
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>140</x><y>900</y><w>80</w><h>210</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>60;190;10;190;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>140</x><y>900</y><w>80</w><h>120</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>60;100;10;100;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>670</x><y>910</y><w>390</w><h>100</h></coordinates><panel_attributes>SelectionVariables
 --
 +list_var : list[str]
++ freqNA : float
 --
 &lt;&lt;Create&gt;&gt; __init__( liste_var: list[str] = [ ] , freqNA=1 )
 +appliquer(table : TableDonnees)
@@ -95,14 +96,14 @@ fin : int
 +index_variables(nom_variable : str) : int
 +compte_na(nom_variable :  str) : int
 +liste_var_float() : list[str]
-+liste_var_na(freqNA = 0.3): list [str]</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1180</x><y>670</y><w>430</w><h>70</h></coordinates><panel_attributes>DonneesCSV
++liste_var_na(freqNA ): list [str]</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1180</x><y>670</y><w>430</w><h>70</h></coordinates><panel_attributes>DonneesCSV
 --
 --
-&lt;&lt;Create&gt;&gt; __init__(nom : str, chemin_complet : str, identifiants : list[str] = [],
+&lt;&lt;Create&gt;&gt; __init__(chemin_complet : str, nom : str = " ",  identifiants : list[str] = [],
                              delimiteur : str =";", valeur_manquante : str ="mq")</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1130</x><y>600</y><w>230</w><h>140</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>210;10;210;60;10;60;10;120;50;120</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1180</x><y>770</y><w>430</w><h>70</h></coordinates><panel_attributes>DonneesJSON
 --
 --
-&lt;&lt;Create&gt;&gt; __init__(nom : str, chemin_complet : str, identifiants : list[str]=[],
+&lt;&lt;Create&gt;&gt; __init__(chemin_complet : str, nom : str=" ",  identifiants : list[str]=[],
                              delimiteur=";")
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>560</x><y>440</y><w>440</w><h>100</h></coordinates><panel_attributes>Pipeline
 --
@@ -120,14 +121,16 @@ fin : int
 /+estim1var(table : TableDonnees, numero_colonne : int) : float &lt;&lt;Abstract&gt;&gt;/
 +appliquer(table : TableDonnees) : TableDonnees
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>790</x><y>160</y><w>340</w><h>60</h></coordinates><panel_attributes>Moyenne
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>790</x><y>140</y><w>340</w><h>80</h></coordinates><panel_attributes>Moyenne
 --
++nom : str = "moyenne"
 --
 &lt;&lt; create &gt;&gt; __init__()
 +estim1var(table : TableDonnees, numero_colonne : int) : float
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1120</x><y>190</y><w>150</w><h>80</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;130;10;130;60</additional_attributes></element><element><id>Relation</id><coordinates><x>910</x><y>210</y><w>30</w><h>100</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;80;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1070</x><y>250</y><w>340</w><h>60</h></coordinates><panel_attributes>EcartType
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1120</x><y>190</y><w>150</w><h>60</h></coordinates><panel_attributes>lt=&lt;.</panel_attributes><additional_attributes>10;10;130;10;130;40</additional_attributes></element><element><id>Relation</id><coordinates><x>910</x><y>210</y><w>30</w><h>100</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;80;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1070</x><y>230</y><w>340</w><h>80</h></coordinates><panel_attributes>EcartType
 --
++nom : str = "écart-typ"
 --
 &lt;&lt; create &gt;&gt; __init__()
 +estim1var(table : TableDonnees, numero_colonne : int) : float

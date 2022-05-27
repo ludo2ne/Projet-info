@@ -35,7 +35,7 @@ class Centrage(Transformation):
         # Calcul de la moyenne
         moyenne = Moyenne.estim1var(table, numero_colonne)
 
-        # Centrage de toutes les valeurs qui ne sont pas NaN
+        # Centrage de toutes les valeurs qui ne sont pas des valeurs manquantes
         for i in range(0, len(table.donnees)):
             if not np.isnan(table.donnees[i][numero_colonne]):
                 old_value = table.donnees[i][numero_colonne]

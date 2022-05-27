@@ -12,11 +12,14 @@ from estimateur.estimateur import AbstractEstimateur
 
 class Moyenne(AbstractEstimateur):
     '''CLasse permettant de calculer la moyenne des variables d'une table
+    Attributes:
+    ----------
+    nom : str = "moyenne"
     '''
 
     def __init__(self):
         '''Constructeur'''
-        pass
+        self.nom = "moyenne"
 
     @staticmethod
     def estim1var(table, numero_colonne):

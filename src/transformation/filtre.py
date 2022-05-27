@@ -13,9 +13,9 @@ class Filtre(Transformation):
     '''Application d'un filtre ou d'un fenétrage temporel
 
     Deux cas :
-    - La variable est de type date : le filtre ne conserve 
+    - La variable est de type date : le filtre ne conserve
         que les valeurs de cette variables comprises entre debut et fin.
-    - La variable est de type str ou float : le filtre ne conserve que 
+    - La variable est de type str ou float : le filtre ne conserve que
          les valeurs présentes dans la liste des modalités
 
     Attributes
@@ -30,7 +30,7 @@ class Filtre(Transformation):
         liste des modalités à conserver
     '''
 
-    def __init__(self, variable, debut=None, fin=None, modalites=[]):
+    def __init__(self, variable, debut = None, fin = None, modalites = []):
         '''Constructeur de l'objet Filtre
 
         Parameters

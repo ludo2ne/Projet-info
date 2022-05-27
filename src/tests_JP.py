@@ -1,5 +1,5 @@
 '''
-Module main
+Module test_JP
 Auteurs : Deneuville Ludovic, Trotta Jean-Philippe et Villacampa Laurene
 Date	: 05/05/2022
 Licence : Domaine public
@@ -31,11 +31,7 @@ ma_table_csv = DonneesCsv(nom="table_csv",
 #Export().appliquer(ma_table_csv)
 
 SelectionVariables(liste_var=["date","numer_sta","ff", "tend","niv_bar","geop","tend24","tn24","tx12","tx24","nnuage2","ctype3","hnuage4"]).appliquer(ma_table_csv)
-print(ma_table_csv.type_var)
 
-print(ma_table_csv)
-
-Moyenne().appliquer(ma_table_csv)
 
 
 # -------------------------------------------------------------------
@@ -70,7 +66,12 @@ ma_table3 = TableDonnees(nom="t3",
                          identifiants=["id"],
                          type_var=["str", "date", "float", "float"])
 
-
+ma_table4 = TableDonnees(nom="tableMixte",
+                         donnees_avec_entete=[["id", "dnais", "taille", "poids", "emploi","saisfaction"],
+                                              ["id1", "20120101", "160", "63","statisticien","satisfait"],
+                                              ["id2", "20060920", "180", "90", "informaticien", "satisfait"], ["id3", "20060921", "170", "75","statisticien","satisfait"], ["id4", "20061020", "183", "65","na","insatisfait"],["id5", "20061025", "182", "80","informaticien","na"]],
+                         identifiants=["id"],
+                         type_var=["str", "date", "float", "float","str","str"], valeur_manquante="na")
 
 
 # -------------------------------------------------------------------
@@ -82,7 +83,7 @@ ma_table3 = TableDonnees(nom="t3",
 
 SupprimeNA(["ff", "tend", "hnuage4"]).appliquer(ma_table_csv)
 
-ma_table_csv.afficher(nb_colonnes=7)
+#ma_table_csv.afficher(nb_colonnes=7)
 
 SelectionVariables(["numer_sta","date,""ff", "tend", "hnuage4"]).appliquer(ma_table_csv)
 ma_table_csv.afficher(nb_lignes=10, nb_colonnes=7)
@@ -94,14 +95,15 @@ CoefficientCorrelation("ff", "tend").appliquer(
     ma_table_csv)
 
 
-SelectionVariables(["numer_sta","date,""ff", "tend", "hnuage4",""]).appliquer(ma_table_csv)
-ma_table_csv.afficher(nb_lignes=10, nb_colonnes=7)
-print(ma_table_csv.variables)
-print(ma_table_csv.type_var)
+#SelectionVariables(["numer_sta","date,""ff", "tend", "hnuage4",""]).appliquer(ma_table_csv)
+#ma_table_csv.afficher(nb_lignes=10, nb_colonnes=7)
+#print(ma_table_csv.variables)
+#print(ma_table_csv.type_var)
 
-Anova("tend","").appliquer(ma_table_csv) #TODO à debugger
+print(ma_table4)
+Anova("poids","satisfaction").appliquer(ma_table4) #TODO à debugger
 
-TestChiSquare("numer_sta","").appliquer(ma_table_csv) #TODO à debugger
+TestChiSquare("emploi","satisfaction").appliquer(ma_table4) #TODO à debugger
 
 
 

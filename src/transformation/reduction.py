@@ -36,8 +36,8 @@ class Reduction(Transformation):
         # Calcul de l'écart-type
         ecartype = EcartType.estim1var(table, numero_colonne)
 
-        # Réduction de toutes les valeurs qui ne sont pas NaN
-        if ecartype != 0 and not np.isnan(ecartype):
+        # Réduction de toutes les valeurs qui ne sont pas des valeurs manquantes
+        if ecartype != 0 and not np.isnan(ecartype): #et exclusion du cas où l'écart-type est nul
             for i in range(0, len(table.donnees)):
                 if not np.isnan(table.donnees[i][numero_colonne]):
                     old_value = table.donnees[i][numero_colonne]

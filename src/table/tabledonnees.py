@@ -37,13 +37,13 @@ class TableDonnees:
             données rangées dans un numpy array
             la première ligne contient les entêtes de colonnes (attribut variables)
             le reste du tableau comporte les données (attribut donnees)
-        identifiants : list[str]
+        identifiants : list[str] = []
             liste des noms de variables étant des identifiants
             [] par défaut
-        type_var : numpy array
+        type_var : numpy array = []
             type des variables
             [] par défaut
-        valeur_manquante : str
+        valeur_manquante : str = None
             indique par quelle chaine de caractères sont représentées les valeurs manquantes
             None par défaut
         '''
@@ -80,10 +80,10 @@ class TableDonnees:
 
         Parameters
         ----------
-        nb_lignes : int
+        nb_lignes : int = None
             nombre de lignes à afficher
             si non renseigné, toutes les lignes sont affichées
-        nb_colonnes : int
+        nb_colonnes : int = None
             nombre de colonnes à afficher
             si non renseigné, toutes les colonnes sont affichées
 
@@ -125,6 +125,7 @@ class TableDonnees:
                             floatfmt=".2f") + "\n")    # 2 decimales pour les float
 
     def __str__(self):
+        '''affichage par défaut de toute la table'''
         return "{}".format(self.afficher())
 
     def determiner_formats(self):
@@ -195,14 +196,14 @@ class TableDonnees:
         return None if len(liste_index) == 0 else liste_index[0]
 
     def compte_na(self, nom_variable):
-        '''Retourne le nombre de valeurs manquante d'une variable
+        '''Compte le nombre de valeurs manquantes d'une variable
         Parameters :
         ----------
         nom_variable : str
 
         Returns :
         ----------
-        nb_na : int
+        int : nombre de valeurs manquantes de la variable
         '''
         nb_na = 0
         num_colonne = self.index_variable(nom_variable=nom_variable)
@@ -217,7 +218,7 @@ class TableDonnees:
         '''Retourne la liste des variables numériques, c'est à dire de type float
         Returns :
         --------
-        liste_var : list [str]
+        list [str] : liste des variables numériques
         '''
         liste_var = []
         for i in range(len(self.variables)):
@@ -225,17 +226,19 @@ class TableDonnees:
                 liste_var.append(self.variables[i])
         return liste_var
 
-    def liste_var_na(self, freqNA=0.3):
+    def liste_var_na(self,freqNA):
         '''retourne la liste des variables qui ont moins d'une certain fréquence de valeurs manquantes
         Parameters :
         -----------
-        freqNA : float = 0.3
+        freqNA : float
             fréquence (proportion en 0 et 1) de valeurs manquantes maximale autorisées pour une variable
         Returns :
-        liste_var : list[str]
+        list[str] : liste des variables qui ont moins d'une certain fréquence de valeurs manquantes
         '''
         liste_var = []
         n = len(self.donnees)
+        if n == 0 :
+            print("attention, la table est vide")
         for var in self.variables:
             freq = self.compte_na(var) / n
             if freq <= freqNA:

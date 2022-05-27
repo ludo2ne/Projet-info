@@ -5,7 +5,7 @@ Date    : 19/05/2022
 Licence : Domaine public
 Version : 1.0
 '''
-from ast import Break
+
 from lienvar.lienvar import LienVar
 import matplotlib.pyplot as plt
 import numpy as np
@@ -39,13 +39,14 @@ class Anova(LienVar):
         table : TableDonnees
         '''
         super().determine_etude(table)
-        if self.etude == "quali/quanti":  # ça bug TODO problème à résoudre
+        if self.etude == "quali/quanti":
             liste_modalites = []
             numcol_var_quali = table.index_variable(self.var1)
             numcol_var_quanti = table.index_variable(self.var2)
             for i in range(len(table.donnees)):
                 if table.donnees[i, numcol_var_quali] not in liste_modalites:
                     liste_modalites.append(table.donnees[i, numcol_var_quali])
+
             matrice_boxplot = []
             nb_lignes = 0
             for modalite in liste_modalites:
@@ -55,6 +56,7 @@ class Anova(LienVar):
                         matrice_boxplot[nb_lignes].append(
                             table.donnees[i, numcol_var_quanti])
                 nb_lignes += 1
+
             plt.boxplot(matrice_boxplot)
             plt.title('Boxplot')
             plt.xlabel('{}//{}'.format(self.var1, liste_modalites))
@@ -62,9 +64,10 @@ class Anova(LienVar):
             plt.savefig('BoxPlot_{}_{}_{}.png'.format(
                 self.var1, self.var2, table.nom))
             plt.show()
+
         else:
-            print("erreur de type de variable")
-            Break
+            quit("erreur de type de variable")
+
 
     def appliquer(self, table):
         '''analyse de variance : étude du rapport de corrélation

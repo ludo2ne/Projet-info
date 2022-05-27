@@ -13,10 +13,13 @@ import numpy as np
 
 class EcartType(AbstractEstimateur):
     '''CLasse permettant de calculer l'écart-type des variables d'une table
+    Attributes
+    ----------
+    nom : str = "écart-type"
     '''
 
     def __init__(self):
-        pass
+        self.nom = "écart-type"
 
     @staticmethod
     def estim1var(table, numero_colonne):

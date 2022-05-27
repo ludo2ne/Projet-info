@@ -55,4 +55,10 @@ print( a,type(a),b,type(b))
 print("ça devrait afficher False False:",a==np.nan,b==np.nan)
 
 print(np.isnan(b))
-print(np.isnan(a)) #bug
+#print(np.isnan(a)) #bug
+
+print("test quali/quanti--------------------")
+print("2"==2)
+print("2"=="2")
+print(2==3)
+print(np.nan==np.nan)

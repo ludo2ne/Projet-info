@@ -32,6 +32,7 @@ class Normalisation(Transformation):
         '''
         Centrage().appliquer(table)
         Reduction().appliquer(table)
+        table.nom = "{}_standard".format(table.nom)
 
         print("------------------------------------------------------")
         print("Normalisation (standardisation) de la table " + table.nom)

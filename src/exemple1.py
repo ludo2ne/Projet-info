@@ -1,3 +1,10 @@
+'''
+Module exemple1
+Auteurs : Deneuville Ludovic, Trotta Jean-Philippe et Villacampa Laurene
+Date    : 27/05/2022
+Licence : Domaine public
+Version : 1.0
+'''
 import os
 from table.donneescsv import DonneesCsv
 from pipeline.pipeline import Pipeline
@@ -16,7 +23,7 @@ from transformation.supprimena import SupprimeNA
 
 
 # Creation a partir d un fichier csv
-ma_table_csv = DonneesCsv(nom="table_csv",
+ma_table_csv = DonneesCsv(
                           chemin_complet=os.getcwd() + "/donnees/meteo/synop.201301.csv.gz",
                           identifiants=['numer_sta', 'date'],
                           valeur_manquante="mq")

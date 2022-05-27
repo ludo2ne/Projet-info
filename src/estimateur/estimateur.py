@@ -50,10 +50,10 @@ class AbstractEstimateur(ABC):
             else:
                 liste_estim.append(self.estim1var(table, i))
 
-        table_estim = TableDonnees(nom=table.nom,
+        table_estim = TableDonnees(nom="{}_{}".format(table.nom,self.nom),
                             donnees_avec_entete=[table.variables, liste_estim],
                             type_var=table.type_var)
 
-        print("Estimateur demandé pour la table", table.nom)
+        print(self.nom, "de la table", table.nom)
         table_estim.afficher(nb_lignes = 2, nb_colonnes = n)
         return table_estim

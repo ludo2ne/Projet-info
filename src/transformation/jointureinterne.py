@@ -76,3 +76,4 @@ class JointureInterne(Transformation):
             table.variables, np.delete(self.autre_table.variables, index_cles_autre_table)))
         table.type_var = np.concatenate((
             table.type_var, np.delete(self.autre_table.type_var, index_cles_autre_table)))
+        table.nom = "{}_{}".format(table.nom, self.autre_table.nom)

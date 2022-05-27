@@ -8,6 +8,7 @@ Version : 1.0
 
 from lienvar.lienvar import LienVar
 import numpy as np
+from table.tabledonnees import TableDonnees
 
 
 class TestChiSquare(LienVar):
@@ -39,7 +40,7 @@ class TestChiSquare(LienVar):
         table : TableDonnees
         '''
         super().determine_etude(table)
-        if self.etude == "quali/quali":  # ça bug TODO problème à résoudre
+        if self.etude == "quali/quali":
             liste_modalites1 = []
             liste_modalites2 = []
             numcol_var1 = table.index_variable(self.var1)
@@ -60,10 +61,14 @@ class TestChiSquare(LienVar):
                             nb += 1
                     tb_contingence[ligne].append(nb)
                 ligne += 1
-            print(tb_contingence)
+
+            tableau = np.array(tb_contingence)
+            print(tableau)
+
         else:
             print("erreur de type de variable")
-        return tb_contingence
+
+        return tableau
 
     def appliquer(self, table):
         '''étude de la corrélation entre les variables
