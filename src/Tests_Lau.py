@@ -8,9 +8,9 @@ Version : 1.0
 import os
 import numpy as np
 from table.tabledonnees import TableDonnees
-from transformation.concatenation import ConcatanationLignes
+from transformation.concatenation import ConcatenationLignes
 from table.donneesjson import DonneesJson
-
+from transformation.export import Export
 # -------------------------------------------------------------------
 # Creation manuelle d une table
 # -------------------------------------------------------------------
@@ -22,6 +22,7 @@ ma_table = TableDonnees(nom="t1",
                         identifiants=["id"],
                         type_var=["str", "date", "float", "float"])
 
+
 mon_autre_table = TableDonnees(nom="t2",
                                donnees_avec_entete=[["id", "dnais", "taille", "poids"],
                                                     ["id1", 20100101, 130, 40]],
@@ -29,9 +30,9 @@ mon_autre_table = TableDonnees(nom="t2",
                                type_var=["str", "date", "float", "float"])
 
 
-ma_table.afficher()
+# ma_table.afficher()
 #
-mon_autre_table.afficher()
+# mon_autre_table.afficher()
 #
 # #
 #
@@ -44,12 +45,10 @@ mon_autre_table.afficher()
 # # -------------------------------------------------------------------
 #
 
-'''
-ma_table_concatenee = ConcatanationLignes(mon_autre_table).appliquer(ma_table)
-ma_table_concatenee.afficher()
-'''
-ConcatanationLignes(mon_autre_table).appliquer(ma_table)
-ma_table.afficher()
+#
+#ma_table_concatenee = ConcatenationLignes(mon_autre_table).appliquer(ma_table)
+# ma_table_concatenee.afficher()
+#
 
 
 # -------------------------------------------------------------------
@@ -58,5 +57,7 @@ ma_table.afficher()
 ma_table_json = DonneesJson(nom="table_json",
                             chemin_complet=os.getcwd() + "/donnees/test/2013-01.json.gz",
                             identifiants=["code_insee_region", "date", "heure"])
+Export().appliquer(ma_table_json)
 ma_table_json.afficher(nb_lignes=10,
                        nb_colonnes=7)
+# test de l'export

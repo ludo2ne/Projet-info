@@ -205,10 +205,11 @@ class TableDonnees:
         nb_na : int
         '''
         nb_na = 0
-        num_colonne = self.index_variable(nom_variable = nom_variable)
+        num_colonne = self.index_variable(nom_variable=nom_variable)
         for i in range(len(self.donnees)):
             if type(self.donnees[i][num_colonne]) != str:
-                if np.isnan(self.donnees[i][num_colonne]): #la methode np.isnan() ne s'applique pas sur une chaine de caractère
+                # la methode np.isnan() ne s'applique pas sur une chaine de caractère
+                if np.isnan(self.donnees[i][num_colonne]):
                     nb_na += 1
         return nb_na
 
@@ -224,7 +225,7 @@ class TableDonnees:
                 liste_var.append(self.variables[i])
         return liste_var
 
-    def liste_var_na(self,freqNA = 0.3):
+    def liste_var_na(self, freqNA=0.3):
         '''retourne la liste des variables qui ont moins d'une certain fréquence de valeurs manquantes
         Parameters :
         -----------
@@ -234,7 +235,7 @@ class TableDonnees:
         liste_var : list[str]
         '''
         liste_var = []
-        n=len(self.donnees)
+        n = len(self.donnees)
         for var in self.variables:
             freq = self.compte_na(var) / n
             if freq <= freqNA:

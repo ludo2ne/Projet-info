@@ -46,7 +46,7 @@ class DonneesCsv(TableDonnees):
             delimiteur utilisé dans le fichier, point virgule par défaut
         valeur_manquante : str
             indique par quelle chaine de caractères sont représentées les valeurs manquantes
-            na par défaut
+            None par défaut
         '''
         super().__init__(nom=nom,
                          donnees_avec_entete=[],

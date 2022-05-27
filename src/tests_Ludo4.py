@@ -3,7 +3,7 @@ import numpy as np
 from estimateur.moyenne import Moyenne
 from estimateur.ecarttype import EcartType
 from table.tabledonnees import TableDonnees
-from transformation.concatenation import ConcatanationLignes
+from transformation.concatenation import ConcatenationLignes
 from transformation.moyenneglissante import MoyenneGlissante
 from table.tabledonnees import TableDonnees
 from table.donneescsv import DonneesCsv
@@ -59,7 +59,7 @@ table_elec = DonneesJson(nom="table_elec",
 
 # pour ne pas modifier table_meteo : attention deep.copy ? ou OSEF de garder table_meteo
 JointureInterne(table_lien, [("numer_sta", "ID")]).appliquer(table_meteo)
-Export().appliquer(table_meteo)
+# Export().appliquer(table_meteo)
 
 JointureInterne(table_elec, [("Region", "region"),
                 ("date", "date_heure")]).appliquer(table_meteo)

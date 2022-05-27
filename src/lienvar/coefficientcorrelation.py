@@ -58,7 +58,8 @@ class CoefficientCorrelation(LienVar):
             Break
 
     def appliquer(self, table):
-        '''étude de la corrélation entre les variables
+        '''Etude de la corrélation entre les variables
+
         et appel à representation du nuage de points & export du graphique
 
         Parameters

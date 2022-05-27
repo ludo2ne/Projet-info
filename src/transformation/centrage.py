@@ -20,7 +20,8 @@ class Centrage(Transformation):
         '''
         pass
 
-    def appliquer_variable(self, table, numero_colonne):  # convertir en staticmethode ?
+    @staticmethod
+    def appliquer_variable(table, numero_colonne):
         '''Appliquer le centrage à une variable de la table
 
         Parameters
