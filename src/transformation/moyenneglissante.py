@@ -21,7 +21,7 @@ class MoyenneGlissante(Transformation):
             taille des sous-listes sur lesquelles on calcule la moyenne
     '''
 
-    def __init__(self, liste_colonnes="all", pas=3):
+    def __init__(self, liste_colonnes = "all", pas = 3):
         '''Constructeur de l'objet
 
         Parameters
@@ -50,29 +50,22 @@ class MoyenneGlissante(Transformation):
         liste_moyennes = []
 
         if pas % 2 == 1:  # cas impair
-
             demi_pas = int((pas-1) / 2)
-
-            for i in range(demi_pas):
-                liste_moyennes.append(np.nan)  # pour les premières valeurs
-            for i in range(demi_pas, len(table.donnees) - demi_pas + 1):
-                ss_liste = liste_valeurs[i - demi_pas: i + demi_pas]
-                moyenne = statistics.mean(ss_liste) #renvoie une valeur manquante si la liste contient au moins une valeur manquante
-                liste_moyennes.append(moyenne)
-            for i in range(demi_pas):
-                liste_moyennes.append(np.nan)  # pour les dernières valeurs
-
-        if pas % 2 == 0:  # cas pair
+        else:
             demi_pas = int(pas / 2)
-            for i in range(demi_pas):
-                liste_moyennes.append(np.nan)  # pour les premières valeurs
-            for i in range(demi_pas, len(table.donnees)-demi_pas+1):
-                ss_liste = liste_valeurs[i - demi_pas: i + demi_pas]
-                ss_liste.pop(i)
-                moyenne = statistics.mean(ss_liste)
-                liste_moyennes.append(moyenne)
-            for i in range(pas/2):
-                liste_moyennes.append(np.nan)  # pour les dernières valeurs
+
+        for i in range(demi_pas):
+            liste_moyennes.append(np.nan)  # pour les premières valeurs (qui n'ont pas assez de lignes précédentes)
+        for i in range(demi_pas, len(table.donnees) - demi_pas):
+            ss_liste = liste_valeurs[i - demi_pas: i + demi_pas + 1]
+            if pas % 2 ==0:
+                print(ss_liste)
+                ss_liste = np.delete(ss_liste, demi_pas, None) #suppresion de l'élément central de la sous-liste quand le pas est pair
+                print(ss_liste)
+            moyenne = statistics.mean(ss_liste) #renvoie une valeur manquante si la liste contient au moins une valeur manquante
+            liste_moyennes.append(moyenne)
+        for i in range(demi_pas):
+            liste_moyennes.append(np.nan)  # pour les dernières valeurs (qui n'ont pas assez de lignes suivantes)
 
         return liste_moyennes
 
