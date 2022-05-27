@@ -37,16 +37,16 @@ class DonneesCsv(TableDonnees):
         ----------
         nom : str
             nom de la table
-        identifiants : list[str]
+        identifiants : list[str] = []
             liste des noms de variables étant des identifiants
             aucun par défaut
         chemin_complet : str
             Chemin complet du fichier à charger
-        delimiteur : str
+        delimiteur : str = ";"
             delimiteur utilisé dans le fichier, point virgule par défaut
-        valeur_manquante : str
+        valeur_manquante : str = "mq"
             indique par quelle chaine de caractères sont représentées les valeurs manquantes
-            na par défaut
+            mq par défaut pour les csv
         '''
         super().__init__(nom=nom,
                          donnees_avec_entete=[],

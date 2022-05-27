@@ -14,7 +14,7 @@ from transformation.transformation import Transformation
 class AgregationSpatiale(Transformation):
     '''Agrégation vers un échelon plus vaste
     Attributes
-        ----------
+    ----------
         echelon : str
         table_correspondance : TableDonnees
     '''

@@ -40,14 +40,14 @@ class DonneesJson(TableDonnees):
             nom de la table
         variables : numpy array
             liste des variables
-        identifiants : list[str]
+        identifiants : list[str] = []
             liste des noms de variables étant des identifiants
             [] par défaut
         chemin_complet : str
             Chemin complet du fichier à charger
         delimiteur : str
             delimiteur utilisé dans le fichier, point virgule par défaut
-        valeur_manquante : str
+        valeur_manquante : str = None
             indique par quelle chaine de caractères sont représentées les valeurs manquantes
             None par défaut
         '''

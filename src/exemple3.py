@@ -1,3 +1,10 @@
+'''
+Module exemple3
+Auteurs : Deneuville Ludovic, Trotta Jean-Philippe et Villacampa Laurene
+Date    : 27/05/2022
+Licence : Domaine public
+Version : 1.0
+'''
 import os
 from table.donneesjson import DonneesJson
 from pipeline.pipeline import Pipeline

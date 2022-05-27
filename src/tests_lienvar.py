@@ -53,6 +53,13 @@ print(ma_table_csv)
 # -------------------------------------------------------------------
 # Etude du lien entre une variable quali et une variable quanti
 # -------------------------------------------------------------------
+ma_table4 = TableDonnees(nom="tableMixte",
+                         donnees_avec_entete=[["id", "dnais", "taille", "poids", "emploi","satisfaction"],
+                                              ["id1", "20120101", "160", "63","statisticien","satisfait"],
+                                              ["id2", "20060920", "180", "90", "informaticien", "satisfait"], ["id3", "20060921", "170", "75","statisticien","satisfait"], ["id4", "20061020", "183", "65","mq","insatisfait"],["id5", "20061025", "182", "80","informaticien","mq"]],
+                         identifiants=["id"],
+                         type_var=["str", "date", "float", "float","str","str"], valeur_manquante="na") #j'ai volantairement renommé les na pour ne pas les convertir en np.nan en attendant de résoudre le pb
+
 Anova(var1="satisfaction",var2="poids").appliquer(ma_table4)
 
 # -------------------------------------------------------------------

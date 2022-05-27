@@ -8,7 +8,7 @@ Version : 1.0
 
 
 class Pipeline:
-    '''Classe implémentant un pipeline, liste d'opérations à réaliser. 
+    '''Classe implémentant un pipeline, liste d'opérations à réaliser.
 
     Attributes
     ----------
@@ -25,8 +25,8 @@ class Pipeline:
         ----------
         nom : str
             Nom du pipeline
-        liste_transformations : list[Transformation]
-            liste des transformations qui seront appliquées
+        liste_operations : list[Transformation, Estimateur, LienVar]
+            liste des operations qui seront appliquées
         '''
         self.nom = nom
         self.liste_operations = liste_operations
@@ -34,7 +34,7 @@ class Pipeline:
     def lancer(self, table):
         '''Lancement du pipeline
 
-        La liste des opérations est appliquée dans l'ordre à la table en paramètre
+        La liste des opérations est appliquée (dans l'ordre) à la table en paramètre
 
         Parameters
         ----------

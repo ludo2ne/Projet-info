@@ -18,6 +18,7 @@ class Export(Transformation):
 
     Cette classe ne contient qu'une seule méthode statique qui exporte une table de données au format csv
     '''
+    #pourquoi c'est la seule classe sans constructeur , y compris dans l'uml ? TODO
 
     @staticmethod
     def appliquer(table, format='csv'):
