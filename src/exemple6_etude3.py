@@ -1,5 +1,5 @@
 '''
-Module exemple4
+Module exemple6_etude3
 Auteurs : Deneuville Ludovic, Trotta Jean-Philippe et Villacampa Laurene
 Date    : 27/05/2022
 Licence : Domaine public
