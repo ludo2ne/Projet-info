@@ -60,7 +60,9 @@ mon_2e_pipeline = Pipeline(nom="pipo2",
                                              JointureInterne(autre_table=donnees_elec, cle=[
                                                              ("Region", "region"), ("date", "date_heure")]),
                                              SelectionVariables(liste_var=[
-                                                                'numer_sta', 'date', 'Nom', 'Region', 't', 'u', 'consommation_brute_electricite_rte']),
+                                                                'date', 'Region', 't', 'u', 'consommation_brute_electricite_rte']),
+                                             SupprimeNA(
+                                                 liste_var=['t', 'u', 'consommation_brute_electricite_rte']),
                                              AgregationSpatiale('date', 'Region', 'national', liste_var_cum=['consommation_brute_electricite_rte'], liste_var_moy=['t', 'u'])])
 # TODO attention il y a un pbm dans les noms de variables, ne correspondent pas aux données ><
 mon_2e_pipeline.lancer(donnees_meteo)

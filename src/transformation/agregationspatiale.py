@@ -89,7 +89,6 @@ class AgregationSpatiale(Transformation):
                         len(objetTable.donnees[:, k])-1])
                 elif objetTable.type_var[k] == 'float' and objetTable.variables[k] in self.liste_var_moy:
                     result.append(Moyenne().estim1var(objetTable, k))
-                    print(Moyenne().estim1var(objetTable, k))
                 elif objetTable.type_var[k] != 'float':
                     result.append('nan')
         return result
@@ -105,20 +104,20 @@ class AgregationSpatiale(Transformation):
         # TODO vérifier que var_tri et echelon_init sont des variables de table
         assert(self.var_tri in table.variables and self.echelon_init in table.variables)
 
-        # récupérer l'index de var_tri et echelon_init
+        # récupérer l'index de var_tri
         index_var_tri = table.index_variable(self.var_tri)
-        index_echelon_init = table.index_variable(self.echelon_init)
         # tri de la table par var_tri
         table.donnees = table.donnees[table.donnees[:,
                                                     index_var_tri].argsort()]
 
         # initialisation de la liste finale avec le nom des variables (dans le "bon" ordre)
         liste_finale_variables = [self.var_tri, self.echelon_final]
+        types = [table.type_var[table.index_variable(self.var_tri)], 'srt']
         for var in table.variables:
             if var not in [self.var_tri, self.echelon_init]:
                 liste_finale_variables.append(var)
+                types.append(table.type_var[table.index_variable(var)])
         liste_finale = [liste_finale_variables]
-        # TODO on devrait plutot mettre : table.variables = ?
 
         # initialisation de la sous-liste correspondant à la première valeur de var_tri
         k = 0
@@ -143,18 +142,7 @@ class AgregationSpatiale(Transformation):
         result = self.agregation(tmp_liste, var_tri_prev)
         liste_finale.append(result)
 
-        #print('la liste finale est :')
-        # print(np.asarray(liste_finale))
-
         # Modification de la table :
-        types = []
-        for k in range(len(liste_finale[0])):
-            if liste_finale[0][k] in table.variables:
-                index = table.index_variable(liste_finale[0][k])
-                type = table.type_var[index]
-            else:
-                type = 'str'
-            types.append(type)
         table.variables = np.asarray(liste_finale[0])
         table.donnees = np.asarray(liste_finale[1:])
-        table.type_var = types
+        table.type_var = np.asarray(types)
