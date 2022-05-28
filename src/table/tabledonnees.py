@@ -26,7 +26,7 @@ class TableDonnees:
         liste des noms de variables étant des identifiants
     '''
 
-    def __init__(self, nom, donnees_avec_entete, identifiants=[], type_var=[], valeur_manquante=None):
+    def __init__(self, nom, donnees_avec_entete, identifiants=[], type_var=[], valeur_manquante=None, bilanchargement=True):
         '''Constructeur de l'objet
 
         Parameters
@@ -49,6 +49,7 @@ class TableDonnees:
         '''
         self.nom = nom
         self.identifiants = identifiants
+        self.bilanchargement = bilanchargement
 
         if self.__class__.__name__ == "TableDonnees":
             if donnees_avec_entete != []:
@@ -66,7 +67,8 @@ class TableDonnees:
                 self.type_var = self.determiner_formats()
 
             self.appliquer_formats()
-            self.bilan_chargement()
+            if self.bilanchargement:
+                self.bilan_chargement()
 
     def bilan_chargement(self):
         print("------------------------------------------------------")
@@ -226,7 +228,7 @@ class TableDonnees:
                 liste_var.append(self.variables[i])
         return liste_var
 
-    def liste_var_na(self,freqNA):
+    def liste_var_na(self, freqNA):
         '''retourne la liste des variables qui ont moins d'une certain fréquence de valeurs manquantes
         Parameters :
         -----------
@@ -237,7 +239,7 @@ class TableDonnees:
         '''
         liste_var = []
         n = len(self.donnees)
-        if n == 0 :
+        if n == 0:
             print("attention, la table est vide")
         for var in self.variables:
             freq = self.compte_na(var) / n

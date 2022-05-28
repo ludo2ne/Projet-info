@@ -51,12 +51,13 @@ print(len(ma_table.donnees))
 var_tri_current = donnees_extraites[index_var_tri]
 print(var_tri_current)
 
-# fonction permettant de cumuler les donnes de type numérique (nan sinon) des sous tables qu'on extrait
+# fonction permettant de cumuler les donnees de type numérique (nan sinon) des sous tables qu'on extrait
 
 
 def cumul(table, var_tri_prev, echelon_init, echelon_final):
     objetTable = TableDonnees(nom='objet',
-                              donnees_avec_entete=table)
+                              donnees_avec_entete=table,
+                              bilanchargement=False)
     result = [var_tri_prev, echelon_final]
     for k in range(len(objetTable.donnees[0])):
         if objetTable.type_var[k] == 'float' and objetTable.variables[k] not in [var_tri, echelon_init]:
