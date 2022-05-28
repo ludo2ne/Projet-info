@@ -88,6 +88,6 @@ mon_2e_pipeline = Pipeline(nom="pipo2",
                                              SupprimeNA(liste_var=["temperature","conso_elec","vitesse_vent","Region"]),
                                              Anova(var1="Region",var2="conso_elec",titre="Boxplot de la consommation électrique par région" ),
                                              Anova(var1="Region",var2="temperature",titre="Boxplot de la consommation électrique par région" ),
-                                             CoefficientCorrelation(var1="temperature",var2="conso_elec",var3="code_insee_region",titre="Consommation électrique en fonction de la température (couleur=région)" ) ] )
+                                             CoefficientCorrelation(var1="temperature",var2="conso_elec",var3="code_insee_region",titre="Consommation électrique en fonction de la température" ) ] )
 
 mon_2e_pipeline.lancer(donnees_meteo)

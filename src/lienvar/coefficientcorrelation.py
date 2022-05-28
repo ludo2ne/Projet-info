@@ -61,7 +61,7 @@ class CoefficientCorrelation(LienVar):
             if self.var3 != None:
                 numcol_var3 = table.index_variable(self.var3)
                 color = table.donnees[:, numcol_var3]
-                print("coloration du nuage selon la variable",self.var3)
+                plt.suptitle("Couleur en fonction de la variable {}".format(self.var3))
             else:
                 color = "b"
             plt.scatter(table.donnees[:, numcol_var1],

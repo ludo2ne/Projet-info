@@ -15,6 +15,8 @@ from transformation.filtre import Filtre
 from transformation.jointureinterne import JointureInterne
 from transformation.export import Export
 from lienvar.coefficientcorrelation import CoefficientCorrelation
+from lienvar.temporel import Temporel
+from transformation.moyenneglissante import MoyenneGlissante
 
 
 # -------------------------------------------------------------------
@@ -78,17 +80,19 @@ table_lien = DonneesCsv(nom = "Region",
 
 
 # Creation et lancement du pipeline
-# relations entre température et electricite (et impact du vent)
+# observation des tendances
 mon_2e_pipeline = Pipeline(nom="pipo2",
                            liste_operations=[JointureInterne(table_lien, [("numer_sta", "ID")]),
                                              Filtre(variable="Region", modalites=[
-                                                    "Hauts-de-France"]),
+                                                    "Hauts-de-France"]), #appliquer éventuellement un filtre temporel
                                              Export(),
                                              JointureInterne(
                                                  donnees_elec, [("Region", "region"), ("date", "date_heure")]),
                                              Export(),
-                                             SupprimeNA(liste_var=["temperature","conso_elec","vitesse_vent"]),
-                                             CoefficientCorrelation(var1="temperature",var2="conso_elec",var3="vitesse_vent",titre="Consommation électrique en fonction de la température (Hauts-de-France)" ),
-                                             CoefficientCorrelation(var1="vitesse_vent",var2="conso_elec",var3="temperature",titre="Consommation électrique en fonction de la vitesse du vent (Hauts-de-France)") ] )
+                                             Temporel(var1="date",var2="temperature",var3="numer_sta",titre="Temperature en fonction du temps (Hauts-de-France)" ),
+                                             Temporel(var1="date",var2="conso_elec",var3="numer_sta",titre="Consommation électrique en fonction du temps (Hauts-de-France)" ),
+
+                                             MoyenneGlissante(liste_colonnes = ["conso_elec"], pas = 15) ,
+                                             Temporel(var1="date",var2="conso_elec",var3="numer_sta",titre="Consommation électrique en fonction du temps (Hauts-de-France)" ) ] )
 
 mon_2e_pipeline.lancer(donnees_meteo)

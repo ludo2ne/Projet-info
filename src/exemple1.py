@@ -35,7 +35,7 @@ ma_table_csv.afficher(nb_lignes=10,
 
 # Creation et lancement du pipeline
 mon_premier_pipeline = Pipeline(nom="pipo",
-                                liste_operations=[SelectionVariables(['numer_sta', 'date', 'pmer', 'ff', 'ww', 'w1']),
+                                liste_operations=[SelectionVariables(['numer_sta', 'date', 'pmer', 'ff', 'vv', 'ww', 'w1']),
                                                   Normalisation(),
                                                   SupprimeNA(['w1']),
                                                   Export()])
@@ -43,6 +43,5 @@ mon_premier_pipeline = Pipeline(nom="pipo",
 # Lancement du pipeline
 mon_premier_pipeline.lancer(ma_table_csv)
 
-# Affichage de 20 lignes et 12 colonnes
-ma_table_csv.afficher(nb_lignes=20,
-                      nb_colonnes=12)
+# Affichage de 10 colonnes
+ma_table_csv.afficher(nb_lignes=10)
