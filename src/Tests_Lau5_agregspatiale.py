@@ -7,8 +7,8 @@ from table.tabledonnees import TableDonnees
 from estimateur.moyenne import Moyenne
 from table.donneesjson import DonneesJson
 from estimateur.ecarttype import EcartType
-from transformation.agregationspatialeLau import AgregationSpatialeLau
-#from transformation.agregationspatialeLau import AgregationSpatialeLau
+from transformation.agregationspatiale import AgregationSpatiale
+
 
 # Table de test
 ma_table = TableDonnees(nom="table_test",
@@ -20,10 +20,19 @@ ma_table = TableDonnees(nom="table_test",
                                              ["R1", 20010815, 200, 45, "du texte"]],
                         identifiants=["id"],
                         type_var=["str", "date", "float", "float", "str"])
+#
+#liste = [['a', 'b', 'c'], [1, 2, 3], [4, 2, 3], [5, 2, 3]]
+# print(liste[0])
+# print(liste[1:])
 
-AgregSpat = AgregationSpatialeLau('date', 'region', 'national', [
-                                  'consommation'], ['meteo'])
-AgregSpat.appliquer(ma_table)
+tableau = ma_table.variables
+tableau = np.delete(tableau, [ma_table.index_variable(
+    'region'), ma_table.index_variable('date')])
+print(tableau)
+
+# AgregSpat = AgregationSpatiale('date', 'region', 'national', [
+#                                  'consommation'], ['meteo'])
+# AgregSpat.appliquer(ma_table)
 
 # ---------------------------------
 # Import donnees electricite

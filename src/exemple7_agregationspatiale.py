@@ -9,45 +9,36 @@ Version : 1.0
 import os
 from transformation.supprimena import SupprimeNA
 from table.donneesjson import DonneesJson
-from table.donneescsv import DonneesCsv
 from pipeline.pipeline import Pipeline
 from transformation.selectionvariables import SelectionVariables
-from transformation.filtre import Filtre
-from transformation.concatenation import ConcatenationLignes
 from transformation.export import Export
-from transformation.agregationspatialeLau import AgregationSpatialeLau
+from transformation.agregationspatiale import AgregationSpatiale
 
-#
-# -------------------------------------------------------------------
+
+# # ----------------------------------------------------------------------------
 # Import d'une table JSON
 # Sélection des variables
 # SupprimeNA
 # Agrégation spatiale par date
-# -------------------------------------------------------------------
+# # ----------------------------------------------------------------------------
 
-# -------------------------------------------------------------------
-# Import de deux tables JSON
-# -------------------------------------------------------------------
+# ----------------------------------------------------------------------------
+# Import d'une table JSON : données d'électricité pour le mois de janvier 2013
+# ----------------------------------------------------------------------------
 donnees_elec1 = DonneesJson(nom="electricit201301",
                             chemin_complet=os.getcwd() + "/donnees/electricite/2013-01.json.gz",
                             identifiants=["code_insee_region", "date", "heure"])
 # Export().appliquer(donnees_elec1)
 
-# -------------------------------------------------------------------
-# Sélection des variables
-# -------------------------------------------------------------------
-SelectionVariables(liste_var=[
-                   'consommation_brute_electricite_rte', 'date', 'region']).appliquer(donnees_elec1)
+# # ----------------------------------------------------------------------------
+# Définition du Pipeline
+# # ----------------------------------------------------------------------------
 
-# -------------------------------------------------------------------
-# SupprimeNA
-# -------------------------------------------------------------------
-SupprimeNA(liste_var=['consommation_brute_electricite_rte']
-           ).appliquer(donnees_elec1)
-# donnees_elec1.bilan_chargement()
+pipeline_agregation1 = Pipeline(nom="pipeline_agreg",
+                                liste_operations=[SelectionVariables(liste_var=['consommation_brute_electricite_rte', 'date', 'region']),
+                                                  SupprimeNA(
+                                                      liste_var=['consommation_brute_electricite_rte']),
+                                                  AgregationSpatiale('date', 'region', 'national', ['consommation_brute_electricite_rte'])])
 
-# -------------------------------------------------------------------
-# Agrégation spatiale par date
-# -------------------------------------------------------------------
-AgregationSpatialeLau('date', 'region', 'national', [
-                      'consommation_brute_electricite_rte']).appliquer(donnees_elec1)
+pipeline_agregation1.lancer(donnees_elec1)
+print(donnees_elec1)

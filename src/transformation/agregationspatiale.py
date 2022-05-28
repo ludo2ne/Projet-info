@@ -1,35 +1,98 @@
 '''
-Module agregationspatialE
+Module agregationspatiale
 Auteurs : Deneuville Ludovic, Trotta Jean-Philippe et Villacampa Laurene
-Date    : 17/05/2022
+Date    : 27/05/2022
 Licence : Domaine public
 Version : 1.0
 '''
 
-import doctest
-from src.table.tabledonnees import TableDonnees
 from transformation.transformation import Transformation
+import numpy as np
+from table.tabledonnees import TableDonnees
+from estimateur.moyenne import Moyenne
 
 
 class AgregationSpatiale(Transformation):
     '''Agrégation vers un échelon plus vaste
 
+    L'agrégation peut se faire par cumul (somme, définie par défaut) ou moyenne.
+
     Attributes
     ----------
-        echelon : str
-        table_correspondance : TableDonnees
+    var_tri : str ou date
+        nom de la variable par laquelle sont triées les données avant agrégation
+    echelon_init : str
+        nom de la variable correspondant à l'échelon initial
+    echelon_final : str
+        nom de l'échelon final
+    liste_var_cum : list
+        liste des variables qu'on agrège par cumul (somme)
+        par défaut : liste vide
+    liste_var_moy : list
+        liste des variables qu'on agrège par moyenne
+        par défaut : liste vide
     '''
 
-    def __init__(self, echelon, table_correspondance):
+    def __init__(self, var_tri, echelon_init, echelon_final, liste_var_cum=[], liste_var_moy=[]):
         '''Constructeur de l'objet
 
         Parameters
         ----------
-        echelon : str
-        table_correspondance : TableDonnees
+        var_tri : str ou date
+            nom de la variable par laquelle sont triées les données avant agrégation
+        echelon_init : str
+            nom de la variable correspondant à l'échelon initial
+        echelon_final : str
+            nom de l'échelon final
+        liste_var_cum : list
+            liste des variables qu'on agrège par cumul (somme)
+            par défaut : liste vide
+        liste_var_moy : list
+            liste des variables qu'on agrège par moyenne
+            par défaut : liste vide
         '''
-        self.echelon = echelon
-        self.table_correspondance = table_correspondance
+        self.var_tri = var_tri
+        self.echelon_init = echelon_init
+        self.echelon_final = echelon_final
+        self.liste_var_cum = liste_var_cum
+        self.liste_var_moy = liste_var_moy
+
+    def agregation(self, table, var_tri_prev):
+        '''Fonction d'agregation
+
+        Parameters
+        ----------
+        table : numpy array 
+            table comportant les noms de variables et les données
+        var_tri_prev : float ou date
+            valeur de la variable de tri pour cette agrégation
+
+        Returns
+        -------
+        result : list
+            liste des valeurs agrégées pour la valeur var_tri_prev de la variable de tri  
+        '''
+        objetTable = TableDonnees(nom='objet',
+                                  donnees_avec_entete=table,
+                                  bilanchargement=False)  # pour ne pas que ça s'affiche à chaque passage dans la boucle
+        # par défaut on cumule toutes les variables
+        if self.liste_var_cum == [] and self.liste_var_moy == []:
+            self.liste_var_cum = np.delete(table.variables, [table.index_variable(
+                self.var_tri), table.index_variable(self.echelon_init)])
+
+        # La table obtenue commence par afficher la valeur de var_tri et l'échelon final :
+        result = [var_tri_prev, self.echelon_final]
+        for k in range(len(objetTable.donnees[0])):
+            if objetTable.variables[k] not in [self.var_tri, self.echelon_init]:
+                if objetTable.type_var[k] == 'float' and objetTable.variables[k] in self.liste_var_cum:
+                    result.append(np.cumsum(objetTable.donnees[:, k])[
+                        len(objetTable.donnees[:, k])-1])
+                elif objetTable.type_var[k] == 'float' and objetTable.variables[k] in self.liste_var_moy:
+                    result.append(Moyenne().estim1var(objetTable, k))
+                    print(Moyenne().estim1var(objetTable, k))
+                elif objetTable.type_var[k] != 'float':
+                    result.append('nan')
+        return result
 
     def appliquer(self, table):
         '''Appliquer la transformation à la table
@@ -39,15 +102,59 @@ class AgregationSpatiale(Transformation):
         table : TableDonnees
             table de données
         '''
-        # TODO il faudrait voir un peu plus la "tête"  des tables et de la table d'association (région/station) pour comprendre la mise en oeuvre
+        # TODO vérifier que var_tri et echelon_init sont des variables de table
+        assert(self.var_tri in table.variables and self.echelon_init in table.variables)
 
-        # algorithme (brouillon) :
-        # 1ere étape : à partir d'une table_station qui associe une variable num_stat à une region,
-        # créer une liste (entête) qui contient chaque nom de régions (sans doublon)
-        #  une liste de [ liste de numéros de station (éventuellement sans doublons) pour une région ] par région
-        #
-        # 2ème étape : dans la table.donnees extraire une sous-matrice des données de type numérique pour chaque date et pour chaque liste de station d'une même région
-        # pour une région et une date, calculer la moyenne de chaque variable numerique : recuperer cette liste et la mettre (append) dans une liste de donnees
+        # récupérer l'index de var_tri et echelon_init
+        index_var_tri = table.index_variable(self.var_tri)
+        index_echelon_init = table.index_variable(self.echelon_init)
+        # tri de la table par var_tri
+        table.donnees = table.donnees[table.donnees[:,
+                                                    index_var_tri].argsort()]
 
-        # la table récupérée (en sortie) aura la même structure que table.donnees mais avec une variable region à la place de la variable num_stat ,
-        # il n'y aura pas de doublons des couples d'identifiants (region, date)
+        # initialisation de la liste finale avec le nom des variables (dans le "bon" ordre)
+        liste_finale_variables = [self.var_tri, self.echelon_final]
+        for var in table.variables:
+            if var not in [self.var_tri, self.echelon_init]:
+                liste_finale_variables.append(var)
+        liste_finale = [liste_finale_variables]
+        # TODO on devrait plutot mettre : table.variables = ?
+
+        # initialisation de la sous-liste correspondant à la première valeur de var_tri
+        k = 0
+        donnees_extraites = list(table.donnees[k])
+        var_tri_current = donnees_extraites[index_var_tri]
+
+        # on conserve les noms de variables en en-tête
+        tmp_liste = [table.variables]
+        var_tri_prev = donnees_extraites[index_var_tri]
+        while k < len(table.donnees):
+            donnees_extraites = list(table.donnees[k])
+            var_tri_current = donnees_extraites[index_var_tri]
+            if var_tri_current == var_tri_prev:
+                tmp_liste.append(donnees_extraites)
+            else:
+                result = self.agregation(tmp_liste, var_tri_prev)
+                liste_finale.append(result)
+                var_tri_prev = donnees_extraites[index_var_tri]
+                tmp_liste = [table.variables]
+                tmp_liste.append(donnees_extraites)
+            k += 1
+        result = self.agregation(tmp_liste, var_tri_prev)
+        liste_finale.append(result)
+
+        #print('la liste finale est :')
+        # print(np.asarray(liste_finale))
+
+        # Modification de la table :
+        types = []
+        for k in range(len(liste_finale[0])):
+            if liste_finale[0][k] in table.variables:
+                index = table.index_variable(liste_finale[0][k])
+                type = table.type_var[index]
+            else:
+                type = 'str'
+            types.append(type)
+        table.variables = np.asarray(liste_finale[0])
+        table.donnees = np.asarray(liste_finale[1:])
+        table.type_var = types
