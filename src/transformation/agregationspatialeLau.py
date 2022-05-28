@@ -6,59 +6,126 @@ Licence : Domaine public
 Version : 1.0
 '''
 
-import doctest
-from src.table.tabledonnees import TableDonnees
 from transformation.transformation import Transformation
+import numpy as np
+from table.tabledonnees import TableDonnees
+from estimateur.moyenne import Moyenne
 
 
 class AgregationSpatialeLau(Transformation):
     '''Agrégation vers un échelon plus vaste
 
+    L'agrégation peut se faire par cumul (somme, définie par défaut) ou moyenne.
+
     Attributes
-        ----------
-        echelon : str
-            nom de la variable d'agrégation dont on va regrouper les modalités
-        type_agregation : str
-            type d'agrégation : 'moyenne' ou 'cumul'
-        table_correspondance : TableDonnees
+    ----------
     '''
 
-    def __init__(self, echelon, type_agregation='cumul', table_correspondance=None):
+    def __init__(self, var_tri, echelon_init, echelon_final, liste_var_cum=[], liste_var_moy=[]):
         '''Constructeur de l'objet
 
         Parameters
         ----------
-        echelon : str
+        var_tri : str ou date
+            nom de la variable par laquelle sont triées les données avant agrégation
+        echelon_init : str
+            nom de la variable correspondant à l'échelon initial
+        echelon_final : str
+            nom de l'échelon final
+        liste_var_cum : list
+            liste des variables qu'on agrège par cumul (somme)
+            par défaut : liste vide
+        liste_var_moy : list
+            liste des variables qu'on agrège par moyenne
+            par défaut : liste vide
         table_correspondance : TableDonnees
         '''
-        self.echelon = echelon
-        self.type_agregation = type_agregation
-        self.table_correspondance = table_correspondance
+        self.var_tri = var_tri
+        self.echelon_init = echelon_init
+        self.echelon_final = echelon_final
+        self.liste_var_cum = liste_var_cum
+        self.liste_var_moy = liste_var_moy
 
-    def appliquer(self, table, var_tri=None):
+    def agregation(self, table, var_tri_prev):
+        '''Fonction d'agregation
+
+        Parameters
+        ----------
+        table : numpy array 
+            table comportant les noms de variables et les données
+        var_tri_prev : float ou date
+            valeur de la variable de tri pour cette agrégation
+        '''
+        objetTable = TableDonnees(nom='objet',
+                                  donnees_avec_entete=table,
+                                  bilanchargement=False)  # pour ne pas que ça s'affiche à chaque passage dans la boucle
+        # par défaut on cumule toutes les variables
+        if self.liste_var_cum == [] and self.liste_var_moy == []:
+            liste_var_cum = objetTable.variables
+
+        # La table obtenue commence par afficher la valeur de var_tri et l'échelon final :
+        result = [var_tri_prev, self.echelon_final]
+        for k in range(len(objetTable.donnees[0])):
+            if objetTable.variables[k] not in [self.var_tri, self.echelon_init]:
+                if objetTable.type_var[k] == 'float' and objetTable.variables[k] in self.liste_var_cum:
+                    result.append(np.cumsum(objetTable.donnees[:, k])[
+                        len(objetTable.donnees[:, k])-1])
+                elif objetTable.type_var[k] == 'float' and objetTable.variables[k] in self.liste_var_moy:
+                    result.append(Moyenne().estim1var(objetTable, k))
+                    print(Moyenne().estim1var(objetTable, k))
+                elif objetTable.type_var[k] != 'float':
+                    result.append('nan')
+        return result
+
+    def appliquer(self, table):
         '''Appliquer la transformation à la table
 
         Parameters
         ----------
         table : TableDonnees
             table de données
-        var_tri : str
-            nom de la variable selon laquelle va se faire l'agrégation
         '''
-        # vérfiier que var_tri est une variable de table
+        # TODO vérifier que var_tri et echelon_init sont des variables de table
 
-        liste_tri = set(var_tri)
-        for modalite in liste_tri:  # pour chaque date
+        # récupérer l'index de var_tri et echelon_init
+        index_var_tri = table.index_variable(self.var_tri)
+        index_echelon_init = table.index_variable(self.echelon_init)
+        # tri de la table par var_tri
+        table.donnees = table.donnees[table.donnees[:,
+                                                    index_var_tri].argsort()]
 
-            # TODO il faudrait voir un peu plus la "tête"  des tables et de la table d'association (région/station) pour comprendre la mise en oeuvre
+        # initialisation de la liste finale avec le nom des variables (dans le "bon" ordre)
+        liste_finale_variables = [self.var_tri, self.echelon_final]
+        for var in table.variables:
+            if var not in [self.var_tri, self.echelon_init]:
+                liste_finale_variables.append(var)
+        liste_finale = [liste_finale_variables]
+        # TODO on devrait plutot mettre : table.variables = ?
 
-            # algorithme (brouillon) :
-            # 1ere étape : à partir d'une table_station qui associe une variable num_stat à une region,
-            # créer une liste (entête) qui contient chaque nom de régions (sans doublon)
-            #  une liste de [ liste de numéros de station (éventuellement sans doublons) pour une région ] par région
-            #
-            # 2ème étape : dans la table.donnees extraire une sous-matrice des données de type numérique pour chaque date et pour chaque liste de station d'une même région
-            # pour une région et une date, calculer la moyenne de chaque variable numerique : recuperer cette liste et la mettre (append) dans une liste de donnees
+        # initialisation de la sous-liste correspondant à la première valeur de var_tri
+        k = 0
+        donnees_extraites = list(table.donnees[k])
+        var_tri_current = donnees_extraites[index_var_tri]
 
-            # la table récupérée (en sortie) aura la même structure que table.donnees mais avec une variable region à la place de la variable num_stat ,
-            # il n'y aura pas de doublons des couples d'identifiants (region, date)
+        # on conserve les noms de variables en en-tête
+        tmp_liste = [table.variables]
+        var_tri_prev = donnees_extraites[index_var_tri]
+        while k < len(table.donnees):
+            donnees_extraites = list(table.donnees[k])
+            var_tri_current = donnees_extraites[index_var_tri]
+            if var_tri_current == var_tri_prev:
+                tmp_liste.append(donnees_extraites)
+            else:
+                result = self.agregation(tmp_liste, var_tri_prev)
+                liste_finale.append(result)
+                var_tri_prev = donnees_extraites[index_var_tri]
+                tmp_liste = [table.variables]
+                tmp_liste.append(donnees_extraites)
+            k += 1
+        result = self.agregation(tmp_liste, var_tri_prev)
+        liste_finale.append(result)
+
+        print('la liste finale est :')
+        print(np.asarray(liste_finale))
+
+# TODO à la fin on renvoie une nouvelle table : juste redéfinir self.donnees et self.variables? (mais du coup self.type_var.. ?)
