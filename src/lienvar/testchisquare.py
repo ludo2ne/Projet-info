@@ -95,4 +95,4 @@ class TestChiSquare(LienVar):
         table : TableDonnees
         '''
         self.representation(table)
-        # TODO inachevé
+        # TODO prolongement possible : test du X²

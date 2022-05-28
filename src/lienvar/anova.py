@@ -86,4 +86,4 @@ class Anova(LienVar):
         '''
         self.representation(table)
         print("voir le boxplot affiché et exporté")
-        # TODO inachevé
+        # TODO prolongement possible (test d'analyse de variance)

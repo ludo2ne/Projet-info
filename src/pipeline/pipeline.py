@@ -1,5 +1,5 @@
 '''
-Module tabledonnees
+Module pipeline
 Auteurs : Deneuville Ludovic, Trotta Jean-Philippe et Villacampa Laurene
 Date    : 05/05/2022
 Licence : Domaine public

@@ -1,5 +1,5 @@
 '''
-Module concaténation
+Module concatenation
 Auteurs : Deneuville Ludovic, Trotta Jean-Philippe et Villacampa Laurene
 Date    : 13/05/2022
 Licence : Domaine public
