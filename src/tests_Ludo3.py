@@ -3,7 +3,7 @@ import numpy as np
 from estimateur.moyenne import Moyenne
 from estimateur.ecarttype import EcartType
 from table.tabledonnees import TableDonnees
-from transformation.concatenation import ConcatanationLignes
+from transformation.concatenation import ConcatenationLignes
 from transformation.moyenneglissante import MoyenneGlissante
 from table.tabledonnees import TableDonnees
 from table.donneescsv import DonneesCsv

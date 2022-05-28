@@ -63,7 +63,7 @@ JointureInterne(table_lien, [("numer_sta", "ID")]).appliquer(table_meteo)
 
 JointureInterne(table_elec, [("Region", "region"),
                 ("date", "date_heure")]).appliquer(table_meteo)
-Export().appliquer(table_meteo)
+# Export().appliquer(table_meteo)
 
 print(table_lien.variables)
 # table_jointe.afficher(nb_lignes=10, nb_colonnes=10)

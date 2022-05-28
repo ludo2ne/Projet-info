@@ -57,7 +57,7 @@ mon_autre_table = TableDonnees(nom="t2",
 ma_table_json = DonneesJson(nom="table_json",
                             chemin_complet=os.getcwd() + "/donnees/test/2013-01.json.gz",
                             identifiants=["code_insee_region", "date", "heure"])
-Export().appliquer(ma_table_json)
+# Export().appliquer(ma_table_json)
 ma_table_json.afficher(nb_lignes=10,
                        nb_colonnes=7)
 # test de l'export

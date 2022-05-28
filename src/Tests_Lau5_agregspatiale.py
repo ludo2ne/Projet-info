@@ -1,23 +1,43 @@
 # -----------------------------------------------------------------------------------------------
 # Test de la classe agrégation spatiale
 # -----------------------------------------------------------------------------------------------
-
+import os
 import numpy as np
 from table.tabledonnees import TableDonnees
+from table.donneesjson import DonneesJson
 from estimateur.moyenne import Moyenne
 from estimateur.ecarttype import EcartType
 #from transformation.agregationspatialeLau import AgregationSpatialeLau
 
 # Table de test
 ma_table = TableDonnees(nom="table_test",
-                        donnees_avec_entete=[["region", "date", "consommation", "meteo"],
-                                             ["R1", 20120101, 100, 50],
-                                             ["R2", 20060920, 180, 80],
-                                             ["R3", 20120101, 160, 50],
-                                             ["R2", 20120101, 160, 50],
-                                             ["R1", 20010815, 200, 45]],
+                        donnees_avec_entete=[["region", "date", "consommation", "meteo", "autre"],
+                                             ["R1", 20120101, 100, 50, "juste"],
+                                             ["R2", 20060920, 180, 80, "un"],
+                                             ["R3", 20120101, 'nan', 50, "exemple"],
+                                             ["R2", 20120101, 160, 50, "avec"],
+                                             ["R1", 20010815, 200, 45, "du texte"]],
                         identifiants=["id"],
-                        type_var=["str", "date", "float", "float"])
+                        type_var=["str", "date", "float", "float", "str"])
+
+# ---------------------------------
+# Import donnees electricite
+# ---------------------------------
+#
+# Creation a partir d un fichier json
+# ma_table = DonneesJson(nom="electricit201301",
+#                       chemin_complet=os.getcwd() + "/donnees/electricite/2013-01.json.gz",
+#                       identifiants=["code_insee_region", "date", "heure"])
+#
+#
+# Renommage de deux variables aux noms un peu trop longs
+# ma_table.variables[ma_table.variables ==
+#                   "consommation_brute_electricite_rte"] = "conso_elec"
+# ma_table.variables[ma_table.variables ==
+#                   "consommation_brute_gaz_terega"] = "conso_gaz"
+#
+# ma_table.afficher(nb_lignes=15,
+#                  nb_colonnes=5)
 
 
 var_tri = 'date'
@@ -54,23 +74,86 @@ print(var_tri_current)
 # fonction permettant de cumuler les donnees de type numérique (nan sinon) des sous tables qu'on extrait
 
 
-def cumul(table, var_tri_prev, echelon_init, echelon_final):
+# def cumul(table, var_tri_prev, echelon_init, echelon_final):
+#    objetTable = TableDonnees(nom='objet',
+#                              donnees_avec_entete=table,
+#                              bilanchargement=False)
+#    result = [var_tri_prev, echelon_final]
+#    for k in range(len(objetTable.donnees[0])):
+#        if objetTable.type_var[k] == 'float' and objetTable.variables[k] not in [var_tri, echelon_init]:
+#            result.append(np.cumsum(objetTable.donnees[:, k])[
+#                len(objetTable.donnees[:, k])-1])
+#        elif objetTable.type_var[k] != 'float' and objetTable.variables[k] not in [var_tri, echelon_init]:
+#            result.append('NaN')
+#    return result
+#
+
+# Vers la table d'agrégation
+#tmp_liste = [ma_table.variables]
+#var_tri_prev = donnees_extraites[index_var_tri]
+# while k < len(ma_table.donnees):
+#    donnees_extraites = list(ma_table.donnees[k])
+#    var_tri_current = donnees_extraites[index_var_tri]
+#    if var_tri_current == var_tri_prev:
+#        tmp_liste.append(donnees_extraites)
+#    else:
+#        # TODO function : somme ou moyenne
+#        result = cumul(tmp_liste, var_tri_prev, echelon_init, echelon_final)
+#        liste_finale.append(result)
+#        var_tri_prev = donnees_extraites[index_var_tri]
+#        tmp_liste = [ma_table.variables]
+#        tmp_liste.append(donnees_extraites)
+#    k += 1
+#
+#result = cumul(tmp_liste, var_tri_prev, echelon_init, echelon_final)
+# liste_finale.append(result)
+
+# liste_finale.append(tmp_liste)
+
+
+def agregation(table, var_tri_prev, echelon_init, echelon_final, liste_var_cum=[], liste_var_moy=[]):
+    '''Fonction d'agregation
+
+    Parameters
+    ----------
+    table : numpy array 
+        table comportant les noms de variables et les données
+    var_tri_prev : float ou date
+        valeur de la variable de tri pour cette agrégation
+    echelon_init : str
+        variable qui contient l'échelon initial
+    echelon_final : str
+    liste_var_cum : list
+        les variables où l'agrégation se fait par cumul (somme)
+    liste_var_moy : list
+        les variables où l'agrégation se fait par moy
+
+    '''
     objetTable = TableDonnees(nom='objet',
                               donnees_avec_entete=table,
                               bilanchargement=False)
+    # par défaut on cumule toutes les variables
+    if liste_var_cum == [] and liste_var_moy == []:
+        liste_var_cum = objetTable.variables
+
+    # La table obtenue commence par afficher la valeur de var_tri et l'échelon final :
     result = [var_tri_prev, echelon_final]
     for k in range(len(objetTable.donnees[0])):
-        if objetTable.type_var[k] == 'float' and objetTable.variables[k] not in [var_tri, echelon_init]:
-            result.append(np.cumsum(objetTable.donnees[:, k])[
-                len(objetTable.donnees[:, k])-1])
-        elif objetTable.type_var[k] != 'float' and objetTable.variables[k] not in [var_tri, echelon_init]:
-            result.append('NaN')
+        if objetTable.variables[k] not in [var_tri, echelon_init]:
+            if objetTable.type_var[k] == 'float' and objetTable.variables[k] in liste_var_cum:
+                result.append(np.cumsum(objetTable.donnees[:, k])[
+                    len(objetTable.donnees[:, k])-1])
+            elif objetTable.type_var[k] == 'float' and objetTable.variables[k] in liste_var_moy:
+                result.append(Moyenne().estim1var(objetTable, k))
+                print(Moyenne().estim1var(objetTable, k))
+            elif objetTable.type_var[k] != 'float':
+                result.append('nan')
     return result
 
 
-#print(cumul(ma_table, "date", "region", "national"))
-
-# Vers la table d'agrégation
+liste_var_cum = ['consommation']
+liste_var_moy = ['meteo']
+# on conserve les noms de variables en en-tête
 tmp_liste = [ma_table.variables]
 var_tri_prev = donnees_extraites[index_var_tri]
 while k < len(ma_table.donnees):
@@ -79,22 +162,25 @@ while k < len(ma_table.donnees):
     if var_tri_current == var_tri_prev:
         tmp_liste.append(donnees_extraites)
     else:
-        # TODO function : somme ou moyenne
-        result = cumul(tmp_liste, var_tri_prev, echelon_init, echelon_final)
+        result = agregation(tmp_liste, var_tri_prev, echelon_init,
+                            echelon_final, liste_var_cum, liste_var_moy)
         liste_finale.append(result)
         var_tri_prev = donnees_extraites[index_var_tri]
         tmp_liste = [ma_table.variables]
         tmp_liste.append(donnees_extraites)
     k += 1
-
-result = cumul(tmp_liste, var_tri_prev, echelon_init, echelon_final)
+result = agregation(tmp_liste, var_tri_prev, echelon_init,
+                    echelon_final, liste_var_cum, liste_var_moy)
 liste_finale.append(result)
-
-# liste_finale.append(tmp_liste)
 
 print('la liste finale est :')
 print(np.asarray(liste_finale))
 
+
+# Objectif suivant :
+# 1) changer la fonction cumul pour qu'elle prenne en entrée des variables à cumuler, des variables à moyenner et qu'elle applique
+# 2) dans csv ou table jointe,  conserver une donnée à moyenner et une donnée à cumuler
+# ==> appliquer la méthode
 
 # ==> dans liste finale on récupère les tableaux/listes sur lesquels faire l'agrégation
 # pour le moment on ne fait que des additions (cumul)
