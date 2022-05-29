@@ -5,7 +5,7 @@ Date    : 27/05/2022
 Licence : Domaine public
 Version : 1.0
 '''
-
+import os
 from lienvar.lienvar import LienVar
 import numpy as np
 from table.tabledonnees import TableDonnees
@@ -65,7 +65,7 @@ class Temporel(LienVar):
             plt.title(self.titre)
             plt.xlabel('{}'.format(self.var1))
             plt.ylabel('{}'.format(self.var2))
-            plt.savefig('SérieTemporelle_{}_{}.png'.format(
+            plt.savefig(os.getcwd() + '/donnees/export/' + 'SérieTemporelle_{}_{}.png'.format(
                 self.var2, table.nom))
             plt.show()
 
