@@ -33,7 +33,7 @@ class Export(Transformation):
 
         donnees_exportees = np.concatenate(([table.variables], table.donnees))
         current_date_and_time = datetime.datetime.now().strftime("%Y.%m.%d %Hh%M")
-        nom_fichier_exporte = os.getcwd() + "/donnees/export/" + table.nom + \
+        nom_fichier_exporte = os.getcwd() + "/donnees/exports/" + table.nom + \
             "_" + current_date_and_time + ".csv"
 
         if format == "csv":
