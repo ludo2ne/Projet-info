@@ -5,7 +5,7 @@ Date    : 19/05/2022
 Licence : Domaine public
 Version : 1.0
 '''
-
+import os
 from lienvar.lienvar import LienVar
 import matplotlib.pyplot as plt
 import numpy as np
@@ -28,7 +28,7 @@ class CoefficientCorrelation(LienVar):
         champs d'étude ("quanti/quanti" à vérifier)
     '''
 
-    def __init__(self, var1, var2, var3 = None, titre = ""):
+    def __init__(self, var1, var2, var3=None, titre=""):
         '''Constructeur de l'objet
         Parameters
         ----------
@@ -41,9 +41,8 @@ class CoefficientCorrelation(LienVar):
         titre : str = ""
             titre du graphique (sinon, généré automatiquement)
         '''
-        super().__init__(var1 = var1, var2 = var2, titre = titre)
+        super().__init__(var1=var1, var2=var2, titre=titre)
         self.var3 = var3
-
 
     def representation(self, table):
         '''Nuage de points et export de ce graphique
@@ -61,16 +60,17 @@ class CoefficientCorrelation(LienVar):
             if self.var3 != None:
                 numcol_var3 = table.index_variable(self.var3)
                 color = table.donnees[:, numcol_var3]
-                plt.suptitle("Couleur en fonction de la variable {}".format(self.var3))
+                plt.suptitle(
+                    "Couleur en fonction de la variable {}".format(self.var3))
             else:
                 color = "b"
             plt.scatter(table.donnees[:, numcol_var1],
-                        table.donnees[:, numcol_var2], c = color)
+                        table.donnees[:, numcol_var2], c=color)
             plt.title(self.titre)
             plt.xlabel('{}'.format(self.var1))
             plt.ylabel('{}'.format(self.var2))
-            plt.savefig('ScatterPlot_{}_{}_{}.png'.format(
-                self.var1, self.var2, table.nom)) #/donnees/exports/graphiques/ TODO
+            plt.savefig(os.getcwd() + '/donnees/export/' + 'ScatterPlot_{}_{}_{}.png'.format(
+                self.var1, self.var2, table.nom))  # /donnees/export/ TODO
             plt.show()
 
         else:
