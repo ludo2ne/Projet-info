@@ -15,12 +15,12 @@ from transformation.export import Export
 from transformation.agregationspatiale import AgregationSpatiale
 
 
-# # ----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 # Import d'une table JSON
 # Sélection des variables
 # SupprimeNA
 # Agrégation spatiale par date
-# # ----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------
 # Import d'une table JSON : données d'électricité pour le mois de janvier 2013
@@ -30,9 +30,9 @@ donnees_elec1 = DonneesJson(nom="electricit201301",
                             identifiants=["code_insee_region", "date", "heure"])
 # Export().appliquer(donnees_elec1)
 
-# # ----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 # Définition du Pipeline
-# # ----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 
 pipeline_agregation1 = Pipeline(nom="pipeline_agreg",
                                 liste_operations=[SelectionVariables(liste_var=['consommation_brute_electricite_rte', 'date', 'region']),

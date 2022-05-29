@@ -90,7 +90,6 @@ mon_2e_pipeline = Pipeline(nom="pipo2",
                                                       titre="Temperature en fonction du temps (Hauts-de-France)"),
                                              Temporel(var1="date", var2="conso_elec", var3="numer_sta",
                                                       titre="Consommation électrique en fonction du temps (Hauts-de-France)"),
-
                                              MoyenneGlissante(
                                                  liste_colonnes=["conso_elec"], pas=15),
                                              Temporel(var1="date", var2="conso_elec", var3="numer_sta", titre="Consommation électrique en fonction du temps (Hauts-de-France)")])

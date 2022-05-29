@@ -12,7 +12,6 @@ from table.donneesjson import DonneesJson
 from table.donneescsv import DonneesCsv
 from pipeline.pipeline import Pipeline
 from transformation.selectionvariables import SelectionVariables
-from transformation.export import Export
 from transformation.agregationspatiale import AgregationSpatiale
 from transformation.jointureinterne import JointureInterne
 
