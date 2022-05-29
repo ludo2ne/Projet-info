@@ -49,12 +49,17 @@
 --
 &lt;&lt;Create&gt;&gt; __init__(autre_table : TableDonnees, cle : list[ tuple[str] ] )
 +appliquer(table : TableDonnees)
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>740</x><y>1210</y><w>390</w><h>90</h></coordinates><panel_attributes>AgregationSpatiale
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>740</x><y>1210</y><w>390</w><h>170</h></coordinates><panel_attributes>AgregationSpatiale
 --
-+table_correspondance : TableDonnees
-+echelon : str
++var_tri : str
++echelon_init : str
++echelin_final : str
+liste_var_cum : list
+liste_var_moy : list
 --
-&lt;&lt;Create&gt;&gt; __init__(echelon : str, table_correspondance : TableDonnees )
+&lt;&lt;Create&gt;&gt; __init__(var_tri : str, echelon_init : str, echelon_final :str 
+                             liste_var_cum : list = [], list_var_moy = [] )
++agregation(donnees_avec_entete : np.array, var_tri_prev : any)
 +appliquer(table : TableDonnees)
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1180</x><y>1060</y><w>380</w><h>90</h></coordinates><panel_attributes>ConcatenationLignes
 --

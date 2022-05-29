@@ -57,7 +57,7 @@ class AgregationSpatiale(Transformation):
         self.liste_var_cum = liste_var_cum
         self.liste_var_moy = liste_var_moy
 
-    def agregation(self, table, var_tri_prev):
+    def agregation(self, donnees_avec_entete, var_tri_prev):
         '''Fonction d'agregation
 
         Parameters
@@ -73,12 +73,12 @@ class AgregationSpatiale(Transformation):
             liste des valeurs agrégées pour la valeur var_tri_prev de la variable de tri  
         '''
         objetTable = TableDonnees(nom='objet',
-                                  donnees_avec_entete=table,
+                                  donnees_avec_entete=donnees_avec_entete,
                                   bilanchargement=False)  # pour ne pas que ça s'affiche à chaque passage dans la boucle
         # par défaut on cumule toutes les variables
         if self.liste_var_cum == [] and self.liste_var_moy == []:
-            self.liste_var_cum = np.delete(table.variables, [table.index_variable(
-                self.var_tri), table.index_variable(self.echelon_init)])
+            self.liste_var_cum = np.delete(objetTable.variables, [objetTable.index_variable(
+                self.var_tri), objetTable.index_variable(self.echelon_init)])
 
         # La table obtenue commence par afficher la valeur de var_tri et l'échelon final :
         result = [var_tri_prev, self.echelon_final]
