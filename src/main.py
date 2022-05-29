@@ -12,7 +12,7 @@ from table.donneescsv import DonneesCsv
 from table.donneesjson import DonneesJson
 from pipeline.pipeline import Pipeline
 from transformation.centrage import Centrage
-from transformation.concatenation import ConcatanationLignes
+from transformation.concatenation import ConcatenationLignes
 from transformation.selectionvariables import SelectionVariables
 from transformation.normalisation import Normalisation
 from transformation.export import Export
@@ -43,7 +43,7 @@ ma_table_csv_02 = DonneesCsv(nom="table_csv",
 # -------------------------------------------------------------------
 mon_premier_pipeline = Pipeline(nom="pipo",
                                 liste_operations=[Centrage(),
-                                                  ConcatanationLignes(
+                                                  ConcatenationLignes(
                                     ma_table_csv_02),
                                     SelectionVariables(
                                     ['numer_sta', 'date', 'ff', 'w1', 'sw']),
