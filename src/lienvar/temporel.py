@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 
 class Temporel(LienVar):
     '''Remplésentation temporelle d'une variable quantitative
+
     Attributes
     -----------
     var1 : str
@@ -26,6 +27,7 @@ class Temporel(LienVar):
 
     def __init__(self, var1, var2, var3="", titre=""):
         '''Constructeur de l'objet
+
         Parameters
         ----------
         var1 : str
@@ -40,6 +42,7 @@ class Temporel(LienVar):
 
     def representation(self, table):
         '''Représentation en fonction du temps
+
         Parameters
         ----------
         table : TableDonnees

@@ -8,7 +8,6 @@ Version : 1.0
 import os
 from lienvar.lienvar import LienVar
 import numpy as np
-from table.tabledonnees import TableDonnees
 import matplotlib.pyplot as plt
 
 
@@ -29,6 +28,7 @@ class TestChiSquare(LienVar):
 
     def __init__(self, var1, var2, titre=""):
         '''Constructeur de l'objet
+
         Parameters
         ----------
         var1 : str
@@ -42,6 +42,7 @@ class TestChiSquare(LienVar):
 
     def representation(self, table):
         '''Tableau de contignence
+
         Parameters
         ----------
         table : TableDonnees
@@ -95,4 +96,4 @@ class TestChiSquare(LienVar):
         table : TableDonnees
         '''
         self.representation(table)
-        # TODO prolongement possible : test du X²
+        # prolongement possible : test du X²

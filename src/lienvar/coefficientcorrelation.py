@@ -30,6 +30,7 @@ class CoefficientCorrelation(LienVar):
 
     def __init__(self, var1, var2, var3=None, titre=""):
         '''Constructeur de l'objet
+
         Parameters
         ----------
         var1 : str
@@ -46,6 +47,7 @@ class CoefficientCorrelation(LienVar):
 
     def representation(self, table):
         '''Nuage de points et export de ce graphique
+
         Parameters
         ----------
         table : TableDonnees
@@ -78,7 +80,6 @@ class CoefficientCorrelation(LienVar):
 
     def appliquer(self, table):
         '''Etude de la corrélation entre les variables
-
         et appel à representation du nuage de points & export du graphique
 
         Parameters

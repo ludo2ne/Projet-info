@@ -6,13 +6,14 @@ Licence : Domaine public
 Version : 1.0
 '''
 
-from lienvar.lienvar import LienVar
+import os
 import matplotlib.pyplot as plt
-import numpy as np
+from lienvar.lienvar import LienVar
 
 
 class Anova(LienVar):
     '''Analyse de variance d'une variable quantitative en fonction d'une variable qualitative d'une table de données
+
     Attributes
     -----------
     var1 : str
@@ -23,8 +24,9 @@ class Anova(LienVar):
         champs d'étude ("quali/quanti" à vérifier)
     '''
 
-    def __init__(self, var1, var2, titre = ""):
+    def __init__(self, var1, var2, titre=""):
         '''Constructeur de l'objet
+
         Parameters
         ----------
         var1 : str
@@ -34,10 +36,11 @@ class Anova(LienVar):
         titre : str = ""
             titre du graphique (sinon, généré automatiquement)
         '''
-        super().__init__(var1 = var1, var2 = var2, titre = titre)
+        super().__init__(var1=var1, var2=var2, titre=titre)
 
     def representation(self, table):
         '''Boxplot et export de ce graphique
+
         Parameters
         ----------
         table : TableDonnees
@@ -66,15 +69,15 @@ class Anova(LienVar):
 
             plt.boxplot(matrice_boxplot)
             plt.title(self.titre)
-            plt.xlabel('Modalités de {} : {}'.format(self.var1, liste_modalites))
+            plt.xlabel('Modalités de {} : {}'.format(
+                self.var1, liste_modalites))
             plt.ylabel('{}'.format(self.var2))
-            plt.savefig('BoxPlot_{}_{}_{}.png'.format(
+            plt.savefig(os.getcwd() + '/donnees/exports/' + 'BoxPlot_{}_{}_{}.png'.format(
                 self.var1, self.var2, table.nom))
             plt.show()
 
         else:
             quit("erreur de type de variable")
-
 
     def appliquer(self, table):
         '''analyse de variance : étude du rapport de corrélation
@@ -86,4 +89,4 @@ class Anova(LienVar):
         '''
         self.representation(table)
         print("voir le boxplot affiché et exporté")
-        # TODO prolongement possible (test d'analyse de variance)
+        # prolongement possible (test d'analyse de variance)
