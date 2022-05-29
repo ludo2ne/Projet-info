@@ -45,6 +45,9 @@ class TableDonneesTest(unittest.TestCase):
         self.assertTrue(len(self.ma_table.donnees) == 5)
         # nombre de variables
         self.assertTrue(len(self.ma_table.variables) == 4)
+
+    def test_methodes(self):
+
         # nombre de valeur manque d'une variable
         self.assertTrue(self.ma_table.compte_na("taille") == 1)
         self.assertTrue(self.ma_table.compte_na("mat") == 1)
@@ -53,12 +56,11 @@ class TableDonneesTest(unittest.TestCase):
         self.assertEqual(self.ma_table.index_variable("date"), 2)
 
         # liste des variables de type numérique
-        self.assertTrue(self.liste_var_float()==['taille'])
+        self.assertTrue(self.ma_table.liste_var_float() == ['taille'])
 
-        #liste des variables avec au plus 19% de valeurs manquantes
-        self.assertTrue(self.liste_var_na(freqNA=0.19)==['id', 'date'])
-
-
+        # liste des variables avec au plus 19% de valeurs manquantes
+        self.assertTrue(self.ma_table.liste_var_na(
+            freqNA=0.19) == ['id', 'date'])
 
 
 if __name__ == '__main__':

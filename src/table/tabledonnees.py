@@ -190,7 +190,8 @@ class TableDonnees:
     def index_variable(self, nom_variable):
         '''Retourne l'index de la colonne de la variable
            None si la variable n'a pas été trouvée
-        Parameters :
+
+        Parameters
         ----------
         nom_variable : str
         '''
@@ -199,12 +200,13 @@ class TableDonnees:
 
     def compte_na(self, nom_variable):
         '''Compte le nombre de valeurs manquantes d'une variable
-        Parameters :
+
+        Parameters
         ----------
         nom_variable : str
 
-        Returns :
-        ----------
+        Returns
+        -------
         int : nombre de valeurs manquantes de la variable
         '''
         nb_na = 0
@@ -218,9 +220,11 @@ class TableDonnees:
 
     def liste_var_float(self):
         '''Retourne la liste des variables numériques, c'est à dire de type float
-        Returns :
+
+        Returns
         --------
-        list [str] : liste des variables numériques
+        list [str]
+            liste des variables numériques
         '''
         liste_var = []
         for i in range(len(self.variables)):
@@ -230,12 +234,16 @@ class TableDonnees:
 
     def liste_var_na(self, freqNA):
         '''retourne la liste des variables qui ont moins d'une certain fréquence de valeurs manquantes
-        Parameters :
-        -----------
+
+        Parameters
+        ----------
         freqNA : float
             fréquence (proportion en 0 et 1) de valeurs manquantes maximale autorisées pour une variable
-        Returns :
-        list[str] : liste des variables qui ont moins d'une certain fréquence de valeurs manquantes
+
+        Returns
+        ----------
+        list[str]
+            liste des variables qui ont moins d'une certain fréquence de valeurs manquantes
         '''
         liste_var = []
         n = len(self.donnees)
