@@ -7,8 +7,6 @@ Version : 1.0
 '''
 import os
 from lienvar.lienvar import LienVar
-import numpy as np
-from table.tabledonnees import TableDonnees
 import matplotlib.pyplot as plt
 
 
@@ -65,7 +63,7 @@ class Temporel(LienVar):
             plt.title(self.titre)
             plt.xlabel('{}'.format(self.var1))
             plt.ylabel('{}'.format(self.var2))
-            plt.savefig(os.getcwd() + '/donnees/export/' + 'SérieTemporelle_{}_{}.png'.format(
+            plt.savefig(os.getcwd() + '/donnees/exports/' + 'SérieTemporelle_{}_{}.png'.format(
                 self.var2, table.nom))
             plt.show()
 

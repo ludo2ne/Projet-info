@@ -6,15 +6,12 @@ Licence : Domaine public
 Version : 1.0
 '''
 import os
-from transformation.supprimena import SupprimeNA
 from table.donneesjson import DonneesJson
 from table.donneescsv import DonneesCsv
 from pipeline.pipeline import Pipeline
-from transformation.selectionvariables import SelectionVariables
 from transformation.filtre import Filtre
 from transformation.jointureinterne import JointureInterne
 from transformation.export import Export
-from lienvar.coefficientcorrelation import CoefficientCorrelation
 from lienvar.temporel import Temporel
 from transformation.moyenneglissante import MoyenneGlissante
 
@@ -30,9 +27,9 @@ from transformation.moyenneglissante import MoyenneGlissante
 # ---------------------------------
 
 # Creation a partir d un fichier json
-donnees_elec = DonneesJson(nom = "electricit201301",
-                               chemin_complet=os.getcwd() + "/donnees/electricite/2013-01.json.gz",
-                               identifiants=["code_insee_region", "date", "heure"])
+donnees_elec = DonneesJson(nom="electricit201301",
+                           chemin_complet=os.getcwd() + "/donnees/electricite/2013-01.json.gz",
+                           identifiants=["code_insee_region", "date", "heure"])
 
 
 # Renommage de deux variables aux noms un peu trop longs
@@ -63,9 +60,9 @@ donnees_meteo = DonneesCsv(nom="meteo201301",
 
 # Renommage d'une variable peu explicite
 donnees_meteo.variables[donnees_meteo.variables ==
-                       "t"] = "temperature"
+                        "t"] = "temperature"
 donnees_meteo.variables[donnees_meteo.variables ==
-                       "ff"] = "vitesse_vent"
+                        "ff"] = "vitesse_vent"
 
 donnees_meteo.afficher(nb_lignes=10,
                        nb_colonnes=12)
@@ -74,7 +71,7 @@ donnees_meteo.afficher(nb_lignes=10,
 # Import table lien
 # ---------------------------------
 
-table_lien = DonneesCsv(nom = "Region",
+table_lien = DonneesCsv(nom="Region",
                         chemin_complet=os.getcwd() + "/donnees/geographiques/postesSynopAvecRegions.csv",
                         identifiants=['ID', 'Region'])
 
@@ -84,15 +81,18 @@ table_lien = DonneesCsv(nom = "Region",
 mon_2e_pipeline = Pipeline(nom="pipo2",
                            liste_operations=[JointureInterne(table_lien, [("numer_sta", "ID")]),
                                              Filtre(variable="Region", modalites=[
-                                                    "Hauts-de-France"]), #appliquer éventuellement un filtre temporel
+                                                    "Hauts-de-France"]),  # appliquer éventuellement un filtre temporel
                                              Export(),
                                              JointureInterne(
                                                  donnees_elec, [("Region", "region"), ("date", "date_heure")]),
                                              Export(),
-                                             Temporel(var1="date",var2="temperature",var3="numer_sta",titre="Temperature en fonction du temps (Hauts-de-France)" ),
-                                             Temporel(var1="date",var2="conso_elec",var3="numer_sta",titre="Consommation électrique en fonction du temps (Hauts-de-France)" ),
+                                             Temporel(var1="date", var2="temperature", var3="numer_sta",
+                                                      titre="Temperature en fonction du temps (Hauts-de-France)"),
+                                             Temporel(var1="date", var2="conso_elec", var3="numer_sta",
+                                                      titre="Consommation électrique en fonction du temps (Hauts-de-France)"),
 
-                                             MoyenneGlissante(liste_colonnes = ["conso_elec"], pas = 15) ,
-                                             Temporel(var1="date",var2="conso_elec",var3="numer_sta",titre="Consommation électrique en fonction du temps (Hauts-de-France)" ) ] )
+                                             MoyenneGlissante(
+                                                 liste_colonnes=["conso_elec"], pas=15),
+                                             Temporel(var1="date", var2="conso_elec", var3="numer_sta", titre="Consommation électrique en fonction du temps (Hauts-de-France)")])
 
 mon_2e_pipeline.lancer(donnees_meteo)
