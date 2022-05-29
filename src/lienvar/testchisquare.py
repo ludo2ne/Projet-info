@@ -77,7 +77,7 @@ class TestChiSquare(LienVar):
             fig, ax = plt.subplots(1, 1)
             ax.axis('off')
             ax.table(cellText=tableau, loc="center")
-            plt.savefig(os.getcwd() + '/donnees/export/' + 'TabContingence_{}_{}_{}.png'.format(
+            plt.savefig(os.getcwd() + '/donnees/exports/' + 'TabContingence_{}_{}_{}.png'.format(
                 self.var1, self.var2, table.nom))
             plt.title(self.titre)
             plt.show()

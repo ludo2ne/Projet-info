@@ -44,7 +44,8 @@ ma_table_csv = DonneesCsv(nom="table_csv",
                           valeur_manquante="mq")
 
 
-SelectionVariables(liste_var=["date","numer_sta","ff", "tend","niv_bar","geop","tend24","tn24","tx12","tx24","nnuage2","ctype3","hnuage4"]).appliquer(ma_table_csv)
+SelectionVariables(liste_var=["date", "numer_sta", "ff", "tend", "niv_bar", "geop", "tend24",
+                   "tn24", "tx12", "tx24", "nnuage2", "ctype3", "hnuage4"]).appliquer(ma_table_csv)
 print(ma_table_csv.type_var)
 
 print(ma_table_csv)
@@ -64,6 +65,12 @@ ma_table_csv = DonneesCsv(nom="table_csv",
                           identifiants=['numer_sta', 'date'],
                           valeur_manquante="mq")
 
-Pipeline(nom="estim&normalise",liste_operations=[SelectionVariables(freqNA=0.1),Moyenne(),EcartType(),Normalisation(),Export(),Moyenne()]).lancer(ma_table_csv)
-#le dernier estimateur moyenne est pour vérifier que toutes les moyennes sont nulles après normalisation de la table
+Pipeline(nom="estim&normalise",
+         liste_operations=[SelectionVariables(freqNA=0.1),
+                           Moyenne(),
+                           EcartType(),
+                           Normalisation(),
+                           Export(),
+                           Moyenne()]).lancer(ma_table_csv)
+# le dernier estimateur moyenne est pour vérifier que toutes les moyennes sont nulles après normalisation de la table
 print(ma_table_csv)
