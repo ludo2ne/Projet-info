@@ -10,7 +10,6 @@ from transformation.supprimena import SupprimeNA
 from table.donneesjson import DonneesJson
 from table.donneescsv import DonneesCsv
 from pipeline.pipeline import Pipeline
-from transformation.selectionvariables import SelectionVariables
 from transformation.filtre import Filtre
 from transformation.jointureinterne import JointureInterne
 from transformation.export import Export
@@ -28,9 +27,9 @@ from lienvar.coefficientcorrelation import CoefficientCorrelation
 # ---------------------------------
 
 # Creation a partir d un fichier json
-donnees_elec = DonneesJson(nom = "electricit201301",
-                               chemin_complet=os.getcwd() + "/donnees/electricite/2013-01.json.gz",
-                               identifiants=["code_insee_region", "date", "heure"])
+donnees_elec = DonneesJson(nom="electricit201301",
+                           chemin_complet=os.getcwd() + "/donnees/electricite/2013-01.json.gz",
+                           identifiants=["code_insee_region", "date", "heure"])
 
 
 # Renommage de deux variables aux noms un peu trop longs
@@ -61,9 +60,9 @@ donnees_meteo = DonneesCsv(nom="meteo201301",
 
 # Renommage d'une variable peu explicite
 donnees_meteo.variables[donnees_meteo.variables ==
-                       "t"] = "temperature"
+                        "t"] = "temperature"
 donnees_meteo.variables[donnees_meteo.variables ==
-                       "ff"] = "vitesse_vent"
+                        "ff"] = "vitesse_vent"
 
 donnees_meteo.afficher(nb_lignes=10,
                        nb_colonnes=12)
@@ -72,7 +71,7 @@ donnees_meteo.afficher(nb_lignes=10,
 # Import table lien
 # ---------------------------------
 
-table_lien = DonneesCsv(nom = "Region",
+table_lien = DonneesCsv(nom="Region",
                         chemin_complet=os.getcwd() + "/donnees/geographiques/postesSynopAvecRegions.csv",
                         identifiants=['ID', 'Region'])
 
@@ -80,15 +79,17 @@ table_lien = DonneesCsv(nom = "Region",
 # Creation et lancement du pipeline
 # relations entre température et electricite (et impact du vent)
 mon_2e_pipeline = Pipeline(nom="pipo2",
-                           liste_operations=[JointureInterne(autre_table = table_lien, cle = [("numer_sta", "ID")]),
+                           liste_operations=[JointureInterne(autre_table=table_lien, cle=[("numer_sta", "ID")]),
                                              Filtre(variable="Region", modalites=[
                                                     "Hauts-de-France"]),
                                              Export(),
                                              JointureInterne(
-                                                 autre_table = donnees_elec, cle = [("Region", "region"), ("date", "date_heure")]),
+                                                 autre_table=donnees_elec, cle=[("Region", "region"), ("date", "date_heure")]),
                                              Export(),
-                                             SupprimeNA(liste_var=["temperature","conso_elec","vitesse_vent"]),
-                                             CoefficientCorrelation(var1="temperature",var2="conso_elec",var3="vitesse_vent",titre="Consommation électrique en fonction de la température (Hauts-de-France)" ),
-                                             CoefficientCorrelation(var1="vitesse_vent",var2="conso_elec",var3="temperature",titre="Consommation électrique en fonction de la vitesse du vent (Hauts-de-France)") ] )
+                                             SupprimeNA(
+                                                 liste_var=["temperature", "conso_elec", "vitesse_vent"]),
+                                             CoefficientCorrelation(var1="temperature", var2="conso_elec", var3="vitesse_vent",
+                                                                    titre="Consommation électrique en fonction de la température (Hauts-de-France)"),
+                                             CoefficientCorrelation(var1="vitesse_vent", var2="conso_elec", var3="temperature", titre="Consommation électrique en fonction de la vitesse du vent (Hauts-de-France)")])
 
 mon_2e_pipeline.lancer(donnees_meteo)

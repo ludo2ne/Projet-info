@@ -69,7 +69,7 @@ class CoefficientCorrelation(LienVar):
             plt.title(self.titre)
             plt.xlabel('{}'.format(self.var1))
             plt.ylabel('{}'.format(self.var2))
-            plt.savefig(os.getcwd() + '/donnees/export/' + 'ScatterPlot_{}_{}_{}.png'.format(
+            plt.savefig(os.getcwd() + '/donnees/exports/' + 'ScatterPlot_{}_{}_{}.png'.format(
                 self.var1, self.var2, table.nom))
             plt.show()
 

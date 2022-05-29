@@ -25,17 +25,20 @@ from transformation.export import Export
 
 # Creation a partir d un fichier json
 ma_table_json_01 = DonneesJson(
-                               chemin_complet=os.getcwd() + "/donnees/electricite/2013-01.json.gz",
-                               identifiants=["code_insee_region", "date", "heure"])
+    chemin_complet=os.getcwd() + "/donnees/electricite/2013-01.json.gz",
+    identifiants=["code_insee_region", "date", "heure"])
 
-ma_table_json_01.afficher(nb_lignes=15,
-                          nb_colonnes=7)
 
 # Renommage de deux variables aux noms un peu trop longs
 ma_table_json_01.variables[ma_table_json_01.variables ==
                            "consommation_brute_electricite_rte"] = "conso_elec"
 ma_table_json_01.variables[ma_table_json_01.variables ==
-                           "consommation_brute_gaz_terega"] = "conso_gaz"
+                           "consommation_brute_gaz_terega"] = "conso_gaz_terega"
+ma_table_json_01.variables[ma_table_json_01.variables ==
+                           "consommation_brute_gaz_grtgaz"] = "conso_gaz_grtgaz"
+
+ma_table_json_01.afficher(nb_lignes=15,
+                          nb_colonnes=7)
 
 # Creation et lancement du pipeline
 mon_premier_pipeline = Pipeline(nom="pipo",
@@ -55,15 +58,17 @@ ma_table_json_01.afficher(nb_lignes=20,
 # Import d une seconde table a partir d un fichier json
 # -------------------------------------------------------------------
 ma_table_json_02 = DonneesJson(
-                               chemin_complet=os.getcwd() + "/donnees/electricite/2013-02.json.gz",
-                               identifiants=["code_insee_region", "date", "heure"])
+    chemin_complet=os.getcwd() + "/donnees/electricite/2013-02.json.gz",
+    identifiants=["code_insee_region", "date", "heure"])
 
 
 # Renommage de deux variables aux noms un peu trop longs
 ma_table_json_02.variables[ma_table_json_02.variables ==
                            "consommation_brute_electricite_rte"] = "conso_elec"
 ma_table_json_02.variables[ma_table_json_02.variables ==
-                           "consommation_brute_gaz_terega"] = "conso_gaz"
+                           "consommation_brute_gaz_terega"] = "conso_gaz_terega"
+ma_table_json_02.variables[ma_table_json_02.variables ==
+                           "consommation_brute_gaz_grtgaz"] = "conso_gaz_grtgaz"
 
 
 ma_table_json_02.afficher(nb_lignes=30,
