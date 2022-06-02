@@ -1,0 +1,646 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[francais]{babel}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{amsmath,amssymb}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{awesomebox}
+\usepackage{tcolorbox}
+\usepackage{pifont}
+\usepackage[top=1.5cm,bottom=1.5cm,margin=2.5cm]{geometry}
+
+
+\graphicspath{{Images/}} %le chemin vers les images
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%% DEBUT COUVERTURE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{titlepage}
+
+\begin{center}
+
+
+\textsc{{\LARGE Ecole nationale de la statistique \\et de l'analyse de l'information}} \\ %Nom de l'école
+\vspace{5mm}
+\includegraphics[width=0.4\textwidth]{ensai_logo}\\[2 cm] %logo de l'école
+
+%\textsc{\LARGE Projet de traitement de données }\\[0.5cm] % Nom de cours
+
+
+% Title
+\HRule \\[0.4cm]
+{ \huge \bfseries Projet de Traitement de Données}\\[0.4cm]
+
+\HRule \\[1cm]
+
+{\Large 1ère Année}\\ [2cm]
+
+% Auteur(s) et Superviseur(s)
+
+\begin{flushleft} \Large
+\emph{Etudiants :}\\
+Ludovic \textsc{Deneuville} \\
+Jean-Philippe \textsc{Trotta} \\
+Laurène \textsc{Villacampa} \\
+\end{flushleft}
+
+\begin{flushright} \Large
+\emph{Professeur:} \\
+Benjamin \textsc{Girault} \\
+\emph{Encadrant:} \\
+Natacha \textsc{Njongwa Yepnga} \\
+\end{flushright}
+
+
+\vfill
+{\large 2021 - 2022}
+\end{center}
+\end{titlepage} 
+%%%%%%%%%%%%%%%%%%%%%%%%% FIN COUVERTURE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%% SOMMAIRE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\contentsname}{Sommaire}
+\tableofcontents
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%% INTRODUCTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Introduction}
+\addcontentsline{toc}{section}{Introduction}
+
+Ce projet s'inscrit dans le cadre du cours d'introduction à la Programmation Orientée Objet (POO). L'objectif principal est donc de mobiliser les notions acquises dans ce cours, en utilisant le langage de programmation Python. Ce type de programmation est centré autour de la notion d'objet et donc de classe : définissant des attributs et des méthodes, la création d'une classe autorise le programmeur à avoir l'entier contrôle de ce que peut réaliser l'utilisateur avec les éléments de cette classe (les objets). Ce principe d'encapsulation est au fondement de la POO et nous nous sommes attachés à le rendre explicite dans notre travail. \\
+
+Le thème général du projet est l'étude du lien entre climat et énergie, à travers la réalisation d'une application permettant l'analyse statistique de données météorologiques et de consommation d'électricité. L'ouverture et la complexité du sujet proposé nous ont d'abord amenés à réaliser un cahier des charges afin de mieux cerner les attendus du projet. La réalisation du diagramme UML de cas d'utilisation nous a aidés à définir les classes que nous allions implémenter par la suite, et à les organiser : chacune dans un module, et articulées dans des paquets que nous détaillerons ultérieurement. Nous avons recensé toutes les classes dans un diagramme UML de classe que nous présenterons également. Nous avons ainsi pu mettre à profit les relations entre les classes que nous avons vues en cours : association, agrégation, ou héritage. Nous avons essayé d'utiliser au maximum la relation d'héritage pour faciliter l'implémentation de nouvelles fonctionnalités et donc la réutilisation du code. Nous avons également tenté de proposer des noms explicites et neutres, tant pour les attributs que pour les méthodes, de façon à accroître sa reproductibilité.
+Nous avons construit l'architecture de notre application en vue de pouvoir répondre à certaines questions : 
+\begin{itemize}
+    \item Comment mettre en forme les données fournies pour permettre leur traitement ?
+    \item  Comment enchaîner une série d'opérations sur les tables de données ? A ce sujet, nous avons découvert la notion de pipeline et implémenté une classe du même nom. 
+    \item Quelles fonctionnalités permettraient de répondre à des questions d'analyses statistiques sur les liens de corrélation entre deux variables ? Nous emploierons parfois le terme de "variable" au sens statistique, qui n'est pas à interpréter au sens homonyme de variable informatique. 
+    \item Comment «~nettoyer~» et combiner nos données en leur faisant subir diverses transformations ?\\
+\end{itemize}
+
+
+Dans ce rapport, nous présentons d'abord le cahier des charges avec la description des jeux de données à notre disposition, les contraintes techniques que nous devions respecter et les fonctionnalités attendues pour l'utilisateur de notre application avec le diagramme de cas d'utilisation.
+Nous expliquons ensuite comment nous avons géré l'import des données selon les différents formats ( .csv et .json) fournis en compression (.gz), ainsi que l'export. Nous présentons à cette occasion la classe \texttt{TableDonnees} que nous avons implémentée pour conceptualiser les tables de données comme «~objets~».
+Nous proposons enfin une présentation plus globale de l'ensemble des paquets de l'application, en détaillant les classes qui les composent, l'objectif fonctionnel des classes utilisées, leurs attributs et leurs méthodes, ainsi que leur relation avec d'autres classes. 
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%% DEBUT RAPPORT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Cahier des charges}
+
+ Le but du projet est de réaliser un programme permettant d’analyser des données. Dans notre cadre d’étude, il s’agit de mettre en place un processus de traitement de fichiers de données. En sortie de notre programme, l’utilisateur obtiendra des données propres qu’il pourra utiliser pour des traitements statistiques. Dans un premier temps, les données utilisées sont les relevés météorologiques et les relevés de consommation électrique en France et sur les dix dernières années.
+
+\subsection{Jeux de données}
+
+Nous disposons de deux jeux de données :
+\begin{itemize}[label=\ding{108}, font=\large]
+    \item Jeu de données issu du site de Météo France :\\
+    Ce jeu de données recense des données relatives à la météo mesurées dans les stations françaises (hors Corse) entre janvier 2023 et mars 2022. Il contient un fichier .csv par mois :
+        \begin{itemize}
+            \item Maille géographique : station
+            \item Pas temporel : 3 Heures
+            \item Identifiants : instant (Date-heure) et station (ID) 
+        \end{itemize}
+    \item Jeu de données issu du site de Réseaux Energie :\\
+    Ce jeu de données donne la consommation quotidienne brute régionale en électricité, exprimée en MW, en France (hors Corse) sur la période allant de janvier 2013 à décembre(!) 2022. Il contient un fichier .json par mois :
+    \begin{itemize}
+        \item Maille géographique : région
+        \item Pas temporel : 1/2 Heure
+        \item Identifiants : instant (Date-heure) et région (code INSEE region)
+    \end{itemize}
+\end{itemize}
+Le programme issu de ce travail doit donc implémenter des fonctionnalités permettant l’analyse des données proposées. Il doit en outre pouvoir être réutilisé assez facilement, et être aisément adaptable à de nouvelles utilisations.
+
+\subsection{Contraintes techniques}
+
+Plusieurs contraintes techniques sont imposées pour ce projet.
+\begin{itemize}
+    \item Le travail demandé doit être réalisé dans le langage Python. Certains packages sont autorisés, à savoir \texttt{numpy}, \texttt{matplotlib} et \texttt{scipy}. A contrario, l’utilisation du package \texttt{pandas} est interdite. D’autres packages peuvent éventuellement être utilisés sur autorisation. Le module \texttt{datetime} qui fait partie de Python peut être utilisé.
+    \item  Dans une logique de programmation orientée objet, le programme doit être modulaire, réutilisable et évolutif. Toutes les classes devront être documentées et les méthodes testées.
+\end{itemize}
+    
+\subsection{Résultats attendus}
+Les utilisations attendues de ce programme sont résumées dans le diagramme de cas d’utilisation ci-dessous :
+
+\begin{figure}[H]
+    \caption{\textbf{Diagramme des cas d'utilisation}}
+    \label{UML_cas_utilisation}
+    \centering
+    \includegraphics[height=0.9\textheight]{UML_diagrammes/Diagramme_cas_utilisation.png}
+\end{figure}
+
+
+
+\newpage
+
+\section{Gestion des données}
+
+\subsection{Import et stockage des données}
+
+Comme précisé dans le cahier des charges, les données utilisées sont issues de deux types de fichiers : des données météorologiques issues de fichiers .csv et des données de consommation d'éléctricité issues de fichiers .json. Pour tenir compte de cette diversité des sources, et afin de faciliter l'implémentation du chargement de données dans de nouveaux formats, nous avons implémenté une classe nommée \texttt{TableDonnees}, dont deux classes filles héritent : \texttt{DonneesCSV} et \texttt{DonneesJSON}. Ci-dessous le diagramme des classes correspondant : 
+
+%ATTENTION / A METTRE A JOUR
+\begin{figure}[H]
+    \caption{\textbf{Classes liées aux jeux de données}}
+    \label{UML_classe_TableDonnees}
+    \centering
+    \includegraphics[height=0.5\textheight]{UML_diagrammes/UML_classes_tabledonnees.png}
+\end{figure}
+
+
+\subsection{La classe \texttt{TableDonnees}}
+
+Un objet de \texttt{TableDonnees} possède les attributs suivants :
+\begin{itemize}
+    \item \texttt{nom} : une chaîne de caractères pour l'identifier 
+    \item \texttt{identifiants} : la liste des variables définies comme identifiants. Cette liste sert à figer le format de ces variables à «~str~» ou «~date~». Nous avons en effet des méthodes de détection et d'application des formats qui pourraient transformer une variable servant d'identifiant en «~float~». Cela permet de mettre dès le début un garde-fou pour éviter par exemple, qu'une Moyenne soit appliquée sur ces variables.
+    \item \texttt{variables} : de type numpy array 1D, il contient la liste des variables. Celle-ci est obtenue lors de l'instanciation en récupérant la première ligne du paramètre \texttt{donnees$\_$avec$\_$entete}
+    \item \texttt{donnees} : tableau de type numpy array 2D contenant les données. Cet attribut est alimenté dans le constructeur en prenant le contenu du paramètre \texttt{donnees$\_$avec$\_$entete} privé de la première ligne.
+    \item \texttt{type$\_$var} : la liste des types de chaque variable. Celle-ci est soit renseignée par l'utilisateur, soit obtenue après application d'une méthode qui détermine le type (le "format") de chaque variable.
+\end{itemize}
+
+\bigbreak
+
+\begin{tcolorbox}[colback=gray!5!white,
+                  colframe=gray!75!black,
+                  title= Le choix du recours au package \texttt{numpy}]
+Nous avions commencé par définir les attributs des classes avec des listes ou des listes de listes. Cependant, nous nous sommes rapidement rendus compte que les \texttt{numpy array} offrent d'avantage de possibilités, particulièrement dans le cas de tableaux en 2D. Si nous avions conservé les listes de listes, nous aurions dû développer des méthodes déjà disponibles avec le package \texttt{numpy}.\\ Un exemple de méthode très utile fournie par \texttt{numpy} est l'extraction d'une colonne d'un tableau en deux dimensions et sa transformation en liste.
+\end{tcolorbox}
+
+
+\vspace{0.5cm}
+Les méthodes suivantes sont définies pour un objet : 
+\begin{itemize}
+    \item \texttt{$\_\_$init$\_\_$(nom, donnees$\_$avec$\_$entete, type$\_$var = [], identifiants = [], \\ valeur$\_$manquante = "na")} : constructeur qui initialise par défaut l'attribut \texttt{list$\_$var} comme liste vide, et la liste des identifiants également à une liste vide. %à vérifier : les valeurs manquantes sont identifiées par défaut par "na".
+    Le constructeur prend en paramètre la table \texttt{donnees$\_$avec$\_$entete} qui permet de définir les attributs  \texttt{donnees} et  \texttt{variables}
+    \item \texttt{bilan$\_$chargement()} : récapitule les informations chargées en donnant notamment le nom de la table, le nombre de lignes et de colonnes de la table obtenue.
+    \item \texttt{afficher(nb$\_$lignes = None, nb$\_$colonnes = None)} : permet d'afficher la table de données, en précisant un nombre de lignes et de colonnes voulues. Par exemple, \texttt{afficher(10,5)} va afficher dix lignes et cinq colonnes et \texttt{afficher(nb$\_$colonnes = 8)} va afficher toutes les lignes et huit colonnes.
+    \item \texttt{determiner$\_$formats()} : méthode permettant, à partir des données observées, d'attribuer un type à chaque variable
+        \begin{itemize}[label=\ding{109}, font= \small]
+            \item Si la variable contient le mot «~date~», le type de cette variable sera \texttt{date}
+            \item Si la variable fait partie de la liste des identifiants, celle-ci reste de type \texttt{str}
+            \item Si toutes les données d'une variable sont de type \texttt{float}, la variable sera de type \texttt{float}
+            \item Sinon la variable reste de type \texttt{str}
+        \end{itemize}
+    \item \texttt{appliquer$\_$format()} : méthode permettant de transformer les données associées à une variable de type \texttt{float} en \texttt{float}. Concernant les variables de type date, celles-ci sont converties en \texttt{int} au format «~YYYYMMDDHHMISS~». Nous aurions pu utiliser le type \texttt{datetime} mais le format choisi répondait déjà à notre principal besoin, c'est à dire comparer des dates. 
+    \item  \texttt{index$\_$variable(nom$\_$variable)} : méthode pour récupérer l'index d'une variable (c'est-à-dire l'indice de sa colonne dans la table de données). 
+\end{itemize}
+
+
+
+
+
+
+
+\subsection{Gestion des formats .csv et .json}
+
+Les deux classes \texttt{DonneesCSV} et \texttt{DonneesJSON} héritent des attributs et des méthodes précisés pour la classe \texttt{TableDonnees}. Nous avons introduit deux paramètres supplémentaires dans leurs constructeurs : 
+\begin{itemize}
+    \item \texttt{chemin$\_$complet} : une chaîne de caractère précisant le chemin d'accès au fichier voulu
+    \item \texttt{delimiteur} : le délimiteur pris en compte lors de l'import. Le delimiteur est paramétré par défaut à «~;~» pour les fichiers de type .csv
+\end{itemize}
+
+\begin{itemize}[label=\ding{108}, font=\large]
+    \item Format .csv ou .csv.gz: \\ L'import de la table fonctionne également si le fichier .csv est contenu dans une archive .gz. Les valeurs manquantes sont recherchées par défaut sous la forme «~mq~» (valeur utiliée dans les fichiers météo). L'attribut \texttt{type$\_$var} est instancié grace au résultat de la méthode \texttt{determiner$\_$format()}.
+    \item Format .json ou .json.gz : \\ L'import est également possible si le fichier est archivé.
+\end{itemize}
+
+\bigbreak
+Le chargement d'un fichier .json est plus complexe qu'un fichier .csv. En effet, un fichier .json étant construit sous la forme de dictionnaire de dictionnaires, les variables ne sont pas les mêmes selon les individus. Ainsi il y a une étape préliminaire qui consiste à parcourir tous les individus pour obtenir la liste de toutes les variables.
+
+\bigbreak
+
+Dans un second temps, le dictionnaire des individus est de nouveau parcouru. Pour chaque individu, l'algorithme essaie de récupérer les valeurs pour chacune des variables listées lors de l'étape précédente. Si la variable n'est pas trouvée, ce champs est renseigné à «~nan~» pour cet individu dans l'attribut \texttt{donnees}. Au final le constructeur le la classe DonneesJSON permet de convertir le contenu d'un fichier .json en objet de type TableDonnees.
+
+
+
+
+
+
+
+
+
+\subsection{Gestion des exports}
+Initialement nous avions prévu de gérer les exports de tables par un booléen en fin de pipeline, mais cela n'autorisait qu'un export potentiel en fin de procédure. Nous avons finalement décidé de créer une classe \texttt{Export} que nous détaillerons dans la partie sur la classe \texttt{Transformations}. Cela permet de considérer l'export comme une des opérations de la liste lancée via le pipeline, et ouvre ainsi la possibilité d'exporter plusieurs résultats au cours du traitement. Nous nous sommes limités à des exports au format .csv.  
+
+
+\newpage
+
+\section{Présentation de l'application}
+
+\subsection{Architecture globale de l'application}
+
+L'application est composée de plusieurs paquets :
+\begin{itemize}
+    \item \texttt{estimateur} : paquet composé de modules permettant de calculer des estimateurs statistiques sur une variable ou sur toutes les variables d'une table. On trouve notamment dans ce paquet les deux modules \texttt{moyenne.py} et \texttt{ecarttype.py}, consacrés respectivement aux classes \texttt{Moyenne} et \texttt{EcartType}. Ces deux classes héritent d'une classe abstraite \texttt{AbstractEstimateur} définie dans le module \texttt{estimateur.py}.
+    
+    \item \texttt{lienvar} : paquet permettant d'étudier les corrélations entre deux variables, selon leurs types (qualitatif ou quantitatif). Ce paquet regroupe ainsi un module \texttt{coefficientcorrelation.py} (pour deux variables quantitatives), un module \texttt{testchisquare.py} (pour deux variables qualitatives), et un module \texttt{anova.py} (pour une variable qualitative et l'autre quantitative). On y a défini des classes \texttt{CoefficientCorrelation}, \texttt{TestChiSquare} et \texttt{Anova} qui héritent d'une classe abstraite \texttt{LienVar} définie dans le module \texttt{lienvar.py}. Ces classes prennent également en charge la réalisation de graphiques associés à chaque type de couple de variables, ainsi que son export. En conséquent, nous y avons également inclus le module \texttt{temporel.py} contenant la classe \texttt{Temporel} (également en héritage de \texttt{LienVar}) pour gérer la réalisation de graphiques temporels (pour une variable quantitative en fonction d'une variable \texttt{date}).
+
+    \item \texttt{table} : ce paquet regroupe les modules définissant les classes abordées dans la section Gestion des données: \texttt{donneescsv.py} et \texttt{donneesjson.py} définissant respectivement les classes \texttt{DonneesCsv} et \texttt{DonneesJson}, toutes deux héritant de la classe \texttt{TableDonnees} définie dans le module \texttt{tabledonnees.py}.
+    
+    \item \texttt{transformation} : paquet composé des modules définissant des classes permettant de réaliser une «~transformation~» des données. Toutes ces classes héritent de la classe abstraite Transformation définie dans le module \texttt{transformation.py}. Nous étudions les classes implémentées plus en détail par la suite. 
+    
+    \item \texttt{pipeline} : ce paquet est constitué d'un unique module \texttt{pipeline.py}, pierre angulaire de l'application puisqu'il définit la classe \texttt{Pipeline}, permettant de d'appliquer une suite d'opérations (des transformations, des calculs d'estimateurs, des études de liens entre variables avec représentation graphique à l'appui) à une table de données en vue de réaliser un traitement statistique, et de décider notamment de l'export des résultats obtenus. 
+    
+\end{itemize}
+
+Cette organisation générale est résumée par le diagramme des classes partiel suivant :
+\begin{figure}[H]
+    \caption{\textbf{Structure globale de l'application}}
+    \label{UML_classe_struct_glob}
+    \centering
+    \includegraphics[height=0.22\textheight]{UML_diagrammes/UML_classe_structure_globale2.png}
+\end{figure}
+
+
+\subsection{Les classes du paquet \texttt{lienvar}}
+
+Nous avons implémenté une classe abstraite \texttt{LienVar} dont héritent les classes \texttt{CoefficientCorrelation}, \texttt{TestChiSquare}, \texttt{Anova} et \texttt{Temporel}. Voici le diagramme de classe correspondant :
+
+\begin{figure}[H]
+    \caption{\textbf{Classes du paquet \texttt{lienvar}}}
+    \label{UML_classe_lienvar}
+    \centering
+    \includegraphics[height=0.5\textheight]{UML_diagrammes/UML_classe_LienVar.png}
+\end{figure}
+
+
+\subsection*{La classe mère : \texttt{LienVar}}
+La classe \texttt{LienVar} a trois attributs :
+\begin{itemize}
+    \item \texttt{var1} et \texttt{var2} (de type str) : pour définir le nom des variables de la table de données sur lesquelles on étudiera la relation
+    \item \texttt{etude} (de type str): pour préciser la nature de l'étude qui va être réalisée entre les deux variables, selon si elles sont qualitatives, quantitatives ou de type \texttt{date}.
+\end{itemize}
+Dans le constructeur de cette classe, le paramètre \texttt{etude} est initialement défini par \texttt{None} avant d'être modifié dans la méthode \texttt{determine$\_$etude()}. Cette méthode prend en entrée un objet \texttt{table} (d'où sont issues \texttt{var1} et \texttt{var2}), de type \texttt{TableDonnees}. En fonction de l'attribut \texttt{type$\_$var} correspondant aux colonnes de \texttt{var1} et \texttt{var2}, elle attribue à \texttt{etude} une des modalités suivantes : "quanti/quanti", "quali/quanti", "quali/quali" ou "date/quanti".\\
+Cette classe a enfin deux méthodes abstraites, qui ont le même paramètre \texttt{table} que la méthode précédente :
+\begin{itemize}
+    \item \texttt{representation()} : pour faire un graphique ou un tableau de contingence selon ce qui est contenu dans \texttt{etude}. Pour les graphiques, un export est implémenté au format .png.
+    \item \texttt{appliquer()} : exécute la méthode précédente en la complétant par un affichage d'informations caractérisant la relation entre les deux variables statistiques étudiées.
+\end{itemize}
+Cette dernière méthode est celle appliquée par le Pipeline. Par contre, elle ne modifie par la table donnée, donc elle peut s'appliquer à n'importe quelle(s) étape(s) du Pipeline. 
+
+\subsection*{Les classes filles : \texttt{CoefficientCorrelation}, \texttt{TestChiSquare}, \texttt{Anova}, \texttt{Temporel} }
+L'ensemble des classes filles héritent des trois attributs de \texttt{LienVar} sans en définir d'autres. Le constructeur fait donc appel à celui de la classe mère.
+Pour chaque classe fille, la méthode
+\\
+\texttt{representation()} commence par un test sur la «~valeur~» de \texttt{etude} et vérifie que le type des variables est le bon pour l'étude concernée, sinon elle retourne un message d'erreur.\\ Par exemple, la classe \texttt{CoefficientCorrelation} ne s'applique que lorsque \texttt{etude} a la valeur\\ «~quanti/quanti~». Dans ce cas, la méthode \texttt{reprensentation()} affiche un nuage de points explicitement légendé et exporte son image sous un nom de fichier spécifique. Enfin, la méthode \texttt{appliquer()} rappelle la précédente et complète par l'affichage du coefficient de corrélation entre les deux variables et un commentaire d'interprétation du résultat. \\
+Sur le même principe, dans la classe \texttt{Anova} la méthode \texttt{representation()} affiche un boxplot après avoir vérifié que \texttt{etude} est égal à «~quali/quanti~». Dans la classe \texttt{TestChiSquare} l'affichage sera remplacé par un tableau de contingence après avoir testé que \texttt{etude} est égal à «~quali/quali~». Enfin, lorsqu'une variable est quantitative et l'autre une date, l'affichage sera aussi un nuage de points selon la classe \texttt{Temporel}. 
+
+
+\subsection{Les classes du paquet \texttt{estimateur}}
+
+Le but ici est de pouvoir calculer la moyenne ou l'écart-type, d'une variable ou de toutes les variables d'une table. Afin de faciliter l'implémentation de nouveaux calculs du même type, nous avons généré une classe abstraite et des classes filles pour chaque type de calcul. Voici le diagramme de classe correspondant : 
+\begin{figure}[H]
+    \caption{\textbf{Classes du paquet \texttt{estimateur}}}
+    \label{UML_classe_estimateur}
+    \centering
+    \includegraphics[height=0.19\textheight]{UML_diagrammes/UML_classe_estimateur.png}
+\end{figure}
+
+Ainsi la classe \texttt{Estimateur} possède une méthode abstraite \texttt{estim1var(table, numero$\_$colonne)} qui permet de calculer l'estimateur sur la variable de l'objet \texttt{table} (de type \texttt{TableDonnees}) dont l'index est précisé par \texttt{numero$\_$colonne}. La méthode \texttt{table$\_$estimateur(table)} automatise quant à elle l'application de l'estimateur à toutes les colonnes de \texttt{table} (pris en paramètre). \\
+
+Les classes \texttt{Moyenne} et \texttt{EcartType} héritent de cette classe abstraite. Dans chaque cas la méthode \texttt{estim1var(table, numero$\_$colonne)} est spécifiée.
+
+
+\subsection{Les classes du paquet \texttt{table}}
+
+Cette partie a déjà été traitée dans la section Gestion de données. Nous n'y revenons pas plus en détails ici. 
+
+\subsection{Les classes du paquet \texttt{transformation}}
+
+Nous avons identifié plusieurs types de transformations, certaines permettant de réaliser un calcul sur les données d'une table ou une modification des données, d'autres permettant une combinaison de tables. Toutes nos classes héritent donc de la classe abstraite \texttt{Transformation}. Chaque classe fille de \texttt{Transformation} contient une méthode \texttt{appliquer()}, prenant en paramètre une instance de la classe \texttt{TableDonnees}. Nous avons décidé d'ajouter à cette classe une transformation un peu à part permettant l'export des tables de données au format csv, comportant une unique méthode statique. Cela permet de réaliser plusieurs exports au cours du pipeline en l'intégrant dans la liste des transformations.\\
+
+L'application implémente ainsi les classes suivantes:  
+\begin{itemize}
+    \item \texttt{Centrage} : centrage des variables de type \texttt{float}. Utilise notamment la classe Moyenne.
+    \item \texttt{Concatenation} : concaténation des lignes de deux tables de données dont les variables sont identiques.
+    \item \texttt{Export} : extraction d'un jeu de données vers un fichier au format .csv
+    \item \texttt{Filtre} : application d'un filtre de modalités ou d'un fenêtrage temporel. 
+    \item \texttt{JointureInterne} : jointure interne entre deux tables. 
+    \item \texttt{MoyenneGlissante} : remplace les valeurs numériques d'une table par la moyenne des valeurs de lignes voisines selon un pas donné. %% à modifier pour faire intervenir un intervalle de temps ? vérifier si liste_colonne est toujours un attribut (ou si elle s'applique sur toutes les variables numériques)
+    \item \texttt{Normalisation} : centrage et réduction des variables de type float sans modifier les autres. 
+    \item \texttt{Reduction} : réduction d'une ou de plusieurs variables de type float.
+    \item \texttt{SelectionVariables} : extraction d'une sous-table en conservant certaines variables spécifiées.
+    \item \texttt{SupprimeNA} : suppression des valeurs manquantes. 
+    \item \texttt{AgregationSpatiale} : agrège les données numériques d'une table (à l'aide d'un calcul de moyenne) pour passer des données par station aux données par région. 
+    
+\end{itemize}
+
+Voici le diagramme de classe correspondant : 
+\begin{figure}[H]
+    \caption{\textbf{Classes du paquet \texttt{transformation}}}
+    \label{UML_classe_transfo}
+    \centering
+    \includegraphics[height=0.38\textheight]{UML_diagrammes/UML_classes_Transfo.png}
+\end{figure}
+
+Nous donnons ici quelques précisions concernant les classes, avec des zooms sur les portions de diagramme UML correspondantes : 
+
+\begin{itemize}
+    \item Toutes les classes possèdent une méthode \texttt{appliquer} : c'est ce qui nous permet de faire appel à toutes ces transformations dans le pipeline dont nous traiterons juste après. Le seul paramètre de cette méthode de type \texttt{TableDonnees}.
+    
+    \item Les classes \texttt{Reduction} et \texttt{Centrage} permettent de réaliser ces opérations soit sur une variable (via la méthode \texttt{appliquer$\_$variable}) soit à la table entière (via la méthode \texttt{appliquer}). 
+    
+    \begin{figure}[H]
+    \caption{\textbf{Classes \texttt{Reduction}, \texttt{Centrage} et \texttt{Normalisation}}}
+    \label{UML_classe_transfo_norm_centr_red}
+    \centering
+    \includegraphics[height=0.3\textheight]{UML_diagrammes/Classes_Transfo/UML_classes_Transfo_norm_centr_red.png}
+    \end{figure}
+    
+    Même si cela n'apparaît pas explicitement sur le diagramme UML par soucis de lisibilité, ces classes utilisent les méthodes des classes \texttt{Moyenne} et \texttt{EcartType} définies dans le paquet \texttt{estimateur} et décrites plus haut. Ainsi, la modification des données d'une table n'impacte que les variables de type \texttt{float}. La classe  \texttt{Normalisation} (qui a recours aux deux précédentes) permet seulement de normaliser toutes les variables d'une table. Ces trois classes n'ont aucun attribut.
+    
+
+    
+    \item La classe {MoyenneGlissante} a pour attributs :
+    \begin{itemize}[label=\ding{109}, font=\small]
+        \item \texttt{liste$\_$colonnes} : une liste de chaînes de caractères correspondant aux noms des variables statistiques sur lesquelles appliquer la transformation
+        \item \texttt{pas} : un nombre entier (type int) qui donne le nombre de lignes autour de la valeur à remplacer par leur moyenne.
+        Par exemple, si on l'initialise à pas=3 dans le constructeur, la valeur de la 10ème ligne sera remplacée par la moyenne des lignes 9, 10 et 11. Nous avons laissé cette initialisation par défaut dans le constructeur si l'utilisateur ne choisit pas un autre pas, mais nous avons aussi traité le cas d'un pas pair dans le code.
+    \end{itemize}
+    
+     \begin{figure}[H]
+    \caption{\textbf{Classe \texttt{MoyenneGlissante}}}
+    \label{UML_classe_moy_gliss}
+    \centering
+    \includegraphics[height=0.15\textheight]{UML_diagrammes/Classes_Transfo/UML_classes_Transfo_moy_gliss.png}
+    \end{figure}
+    
+    La classe \texttt{MoyenneGlissante} possède donc trois méthodes en plus de son constructeur :
+    \begin{itemize}[label=\ding{109}, font=\small]
+        \item  La méthode \texttt{moyenne$\_$glissante()} est statique (pour plus de lisibilité, sinon elle aurait pu être intégrée comme une première partie du code de la méthode suivante), elle s'applique avec trois paramètres : une instance de  \texttt{TableDonnees}, un \texttt{numero$\_$colonne} sur laquelle appliquer les calculs, et le \texttt{pas}. Cette méthode retourne la liste des moyennes glissantes de la variable correspondant à \texttt{numero$\_$colonne} pour l'utiliser dans la méthode suivante.  %%vérifier si moyenne$\_$glissante() à un return de la programme qui n'est pas dans l'uml
+        
+        \item    La méthode \texttt{appliquer$\_$variable()} a les mêmes paramètres que la précédente, et elle remplace les données de la colonne correspondant à \texttt{numero$\_$colonne} par la liste des moyennes glissantes retournée par la méthode précédente. %%je pense qu'on peut virer pas=3 dans cette méthode car déjà initialisé dans le constructeur (si oui, màj l'uml)
+        
+        \item Enfin, la méthode \texttt{appliquer()} qui a toujours pour unique paramètre une instance de \texttt{TableDonnees}, applique la méthode précédente à toutes les variables numériques contenues dans l'attribut \texttt{liste$\_$colonnes}.
+        %%  j'ai fait en fonction de mon programme, à vérifier
+         %% est-ce que dans le rapport on écrit toute les méthodes suivis de ()   ?
+    \end{itemize}
+
+    
+
+    
+    \item Les classes \texttt{SupprimeNA} et \texttt{SelectionVariables} ont pour attribut \texttt{liste\_var}, une liste de variables. Leurs méthodes \texttt{appliquer} prennent en paramètre \texttt{table}, un objet de type \texttt{TableDonnees}.
+    
+    \begin{itemize}[label=\ding{109}, font=\small]
+        \item La classe \texttt{SupprimeNA} permet de supprimer les lignes de l'attribut \texttt{donnees} (d'une instance de TableDonnees) dont les variables spécifiées dans \texttt{liste\_var} comportent des valeurs manquantes. Nous avons ainsi fait le choix de pouvoir cibler les variables qui nous intéressaient.
+        \item La classe \texttt{SelectionVariables} modifie les attributs \texttt{donnees}, \texttt{variables} et \texttt{type\_var} d'une instance de TableDonnees, en ne conservant que les variables qui sont spécifiées dans  \texttt{liste\_var}. \texttt{liste\_var} est le seul attribut de la classe \texttt{SelectionVariables} : une liste de chaîne de caractères, correspondant à des noms de variables de la table de données.
+    \end{itemize}
+    
+    \begin{figure}[H]
+    \caption{\textbf{Classe \texttt{SupprimeNA et SelectionVariables}}}
+    \label{UML_classe_supprNA_SelectVar}
+    \centering
+    \includegraphics[height=0.25\textheight]{UML_diagrammes/Classes_Transfo/UML_classes_Transfo_supprNA_selectVar.png}
+    \end{figure}
+    
+    
+    \item La classe \texttt{Filtre} a quatre attributs :
+    \begin{itemize}[label=\ding{109}, font=\small]
+        \item \texttt{variable} (de type str) : le nom de la variable sur laquelle on veut appliquer le filtre
+        \item \texttt{modalite} (liste de str) : la liste des modalités de cette variable à conserver
+        \item \texttt{debut} : une date au format YYYYMMDDHHMMSS, date à partir de laquelle on conserve les données
+        \item \texttt{fin} : une date au format YYYYMMDDHHMMSS, date où le filtre s'arrête.
+    \end{itemize}
+    
+    \begin{figure}[H]
+    \caption{\textbf{Classe \texttt{Filtre}}}
+    \label{UML_classe_Filtre}
+    \centering
+    \includegraphics[height=0.17\textheight]{UML_diagrammes/Classes_Transfo/UML_classes_Transfo_Filtre.png}
+    \end{figure}
+    
+    Dans le constructeur, le filtrage par modalité est initialisée à \texttt{modalite=[]}, de même pour le filtrage temporel avec \texttt{debut=None} et \texttt{fin=None}. Ceci permet de ne pas empêcher de créer le filtre quand l'une ou l'autre des informations n'est pas renseignée. La méthode \texttt{appliquer()} a encore pour paramètre \texttt{table} (instance de \texttt{TableDonnees}). Elle propose un traitement différencié selon si la variable n'est pas trouvée dans la table (message d'erreur), si elle est de type \texttt{date} ou si elle est de type \texttt{float} ou \texttt{str}. La méthode récupère le type de la variable via l'attribut \texttt{type\_var} de la classe \texttt{TableDonnees} et réalise le cas échéant un filtre sur les modalités ou un filtre temporel. 
+    
+    \item La classe AgregationSpatiale : Cette classe reste à finaliser. Elle répond à notre besoin de changer d'écehelon géographique, notamment pour passer des stations aux régions. A priori, elle comporte deux attributs : 
+        \begin{itemize}[label=\ding{109}, font=\small]
+            \item \texttt{table\_correspondance} : un objet de type \texttt{TableDonnees} qui fait le lien enre les deux niveaux géographiques
+            \item \texttt{echelon} : une chaîne de caractères qui précise l'échelon géographique souhaité en sortie.
+        \end{itemize}
+
+    \begin{figure}[H]
+    \caption{\textbf{Classe \texttt{AgregationSpatiale}}}
+    \label{UML_classe_agreg_spat}
+    \centering
+    \includegraphics[height=0.12\textheight]{UML_diagrammes/Classes_Transfo/UML_classes_Transfo_Agreg_Spatiale.png}
+    \end{figure}
+    
+    \item Concernant la classe \texttt{JointureInterne}, la clé de jointure est sous la forme d'une liste de tuples (exemple : \texttt{[(table1\_id, table2\_id),(table1\_date, table2\_date)])}. La jointure se fait en mode «~INNER JOIN~», c'est à dire que si la clé n'existe pas dans l'une des tables, la ligne n'apparaît pas dans la sortie. Cette clé de jointure est l'attribut \texttt{cle} de cette classe, et le deuxième attribut est \texttt{autre$\_$table}(l'autre instance de \texttt{TableDonnees} avec laquelle se fait la jointure). %% vérifier dans le diagramme si l'attribut est cle ou cles DONE: cle
+    
+    \begin{figure}[H]
+    \caption{\textbf{Classe \texttt{JointureInterne}}}
+    \label{UML_classe_jointure_interne}
+    \centering
+    \includegraphics[height=0.14\textheight]{UML_diagrammes/Classes_Transfo/UML_classes_Transfo_Joint_interne.png}
+    \end{figure}
+    
+    \item La classe \texttt{ConcatenationLigne} vérifie en amont de l'exécution que les tables en entrée ont les mêmes variables. Elle possède un unique attribut \texttt{autre$\_$table}, un objet de type \texttt{TableDonnees}. Sa méthode \texttt{appliquer} permet de concaténer les lignes de \texttt{table} (objet de type \texttt{TableDonnees} pris en paramètre) et \texttt{autre$\_$table}.
+
+    \begin{figure}[H]
+    \caption{\textbf{Classe \texttt{ConcatenationLignes}}}
+    \label{UML_classe_concat_lignes}
+    \centering
+    \includegraphics[height=0.12\textheight]{UML_diagrammes/Classes_Transfo/UML_classes_Transfo_concat_lignes.png}
+    \end{figure}
+    
+    \item La classe Export possède une unique méthode statique \texttt{appliquer} qui prend en paramètre \texttt{table}, objet de type \texttt{TableDonnees}, et un format sous forme de texte ici fixé à «~csv~».
+    
+    \begin{figure}[H]
+    \caption{\textbf{Classe \texttt{Export}}}
+    \label{UML_classe_export}
+    \centering
+    \includegraphics[height=0.11\textheight]{UML_diagrammes/Classes_Transfo/UML_classes_Transfo_export.png}
+    \end{figure}
+    
+     L'application enregistre la table dans un dossier spécifiquement réservé aux exports, et nomme le fichier avec le nom de la table, la date et l'heure. 
+    
+\end{itemize}
+
+
+
+
+
+\subsection{Les classes du paquet \texttt{pipeline}}
+%% remettre l'image UML de la classe Pipeline plutot ? la ref suffit
+Le paquet pipeline ne contient que la classe Pipeline décrite en Figure \ref{UML_classe_pipeline} ci-dessous. Cette classe est centrale dans notre application puisqu'elle permet de faire appel à une liste d'opérations en vue de réaliser un traitement de données complexe.  
+
+\begin{figure}[H]
+    \caption{\textbf{Classe du paquet \texttt{pipeline}}}
+    \label{UML_classe_pipeline}
+    \centering
+    \includegraphics[height=0.12\textheight]{UML_diagrammes/UML_classe_pipeline.png}
+\end{figure}
+
+Un objet de la classe Pipeline est défini par les attributs suivants :
+\begin{itemize}
+    \item \texttt{nom} : nom du pipeline
+    \item \texttt{liste\_opérations} : liste contenant des objets des classes Transformation, Estimateur ou LienVar. 
+\end{itemize}
+
+En plus du constructeur, le pipeline intègre la méthode \texttt{lancer} qui parcourt dans l'ordre la liste des opérations et les applique à l'objet \texttt{table} pris en paramètre.
+Initialement nous n'avions prévu d'insérer dans le pipeline que des objets de type \texttt{Transformation}. Nous avions d'abord également envisagé un booléen en sortie de pipeline pour gérer l'export éventuel de la table finale : cette solution nous est vite apparue limitante et finalement peu pertinente donc nous avons créé la classe \texttt{Export}. Nous avons par la suite hésité à regrouper les trois types d'opérations (\texttt{Transformation}, \texttt{Estimateur} et \texttt{LienVar}) dans une catégorie mère «~\texttt{Operation}~» mais finalement nous n'avons pas jugé cela vraiment nécessaire : nous avons plutôt uniformisé nos classes avec une méthode \texttt{appliquer}. L'autre choix aurait été possible et peut-être plus généraliste, mais nous avons décidé de ne pas le prioriser.
+
+
+
+
+\subsection{Utilisation de l'application}
+
+L'utilisation des fonctionnalités que nous avons créées implique une connaissance du langage Python. L'utilisateur a la possibilité d'appeler les classes implémentées. Par exemple, le processus le plus simple consiste à :
+\begin{itemize}
+    \item charger une table depuis un fichier .csv (classe \texttt{donneesCsv})
+    \item créer un pipeline contenant des \texttt{Transformations} et en particulier un \texttt{Export}
+    \item lancer le pipeline et récupérer le fichier .csv généré
+\end{itemize}
+
+Pour aller plus loin, il serait possible de créer un menu interactif ou une interface graphique pour faciliter l'expérience utilisateur. Néanmoins cela dépasse le cadre de notre projet.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%% CONCLUSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\section*{Conclusion}
+\addcontentsline{toc}{section}{Conclusion}
+
+La réalisation de ce projet de traitement de données nous a permis à la fois de réinvestir nos compétences développées précédemment lors du projet statistique et d'autre part de mettre en application les apprentissages du cours de programmation orienté objet (POO). En effet, le traitement de données dans le contexte d'études statistiques nous a fait réfléchir à l'implémentation de fonctions parfois déjà utilisées avec le langage R. Essayer de reconstruire l'algorithme par nous-même et le coder dans un langage de programmation (ici Python) était une expérience formatrice. Cela nous a également poussé à organiser efficacement les relations entre les classes construites à l'aide d'un diagramme UML qui a évolué au cours de la réflexion et en interaction avec la phase de codage qui a suivie. L'UML a été un guide de route pour préparer la phase de programmation avec cohérence (par exemple, sans attributs ni méthodes redondantes, grâce à la notion d'héritage). De plus, l'interaction en équipe nous a facilité un échange horizontal de compétences afin de progresser en partageant les atouts de chacun (utilisation de Github, logique mathématique, maitrise du langage Python, etc…). Par chance, notre groupe était assez diversifié car il aurait pu nous manquer une formation à l'utilisation de Git, la maitrise de \texttt{Array} ou plus généralement du package \texttt{numpy}, ou encore une introduction à l'utilisation d'un Pipeline. \\
+
+Malgré les délais assez courts, notre phase de programmation a bien avancé, et nous pensons que certaines classes encore incomplètes pourront être finalisées d'ici le rendu du code. Il nous reste à pouvoir traiter d'avantage d'exemples d'utilisation pour en déduire avec plus de recul de réelles interprétations statistiques qui soient exploitables. Les classes qui sont déjà fonctionnelles sont : celles des packages \texttt{table}, \texttt{pipeline}, \texttt{estimateur}; puis la plupart de celles de \texttt{transformation} et quelques-unes de \texttt{lienvar}. Dans le package \texttt{lienvar}, les classes en construction \texttt{Anova} et \texttt{TestChiSquare} sont plutôt là à titre de prolongement possible pour généraliser l'application à d'autres tables de données que celles du projet, car à priori ces tables contiennent peu de données qualitatives (en opposition aux nombreuses données quantitatives). L'export en format \texttt{.json} pourrait également faire l'objet d'un prolongement. \\
+
+Les limites rencontrées sont pour l'instant au niveau des classes \texttt{AgregationSpatiale} et\\ \texttt{MoyenneGlissante} qui nous demandent de prendre encore du recul sur la gestion du format des dates et sur la nature de la table qui fait l'association entre les stations et les régions (que nous n'avons pas encore chargée).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%% ANNEXES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\addcontentsline{toc}{section}{Annexes}
+\appendix  % On passe aux annexes
+\section*{Annexe 1 - Diagramme de classe UML}
+
+\begin{figure}[H]
+    \caption{\textbf{Diagramme de classe}}
+    \label{UML_classe_entier}
+    \centering
+    \includegraphics[height=0.65\textheight]{diagclasse21mai23h07.png}
+\end{figure}
+\newpage
+
+
+
+
+
+
+
+
+\section*{Annexe 2 - Utilisation de Git sur notre projet}
+
+Git est un logiciel de gestion de versions. Il facilite, pour chaque développeur, la synchronisation entre le dépôt local (le code qui est sur notre ordinateur) et le dépôt distant sur GitHub (le code commun). Il est ainsi beaucoup plus simple de travailler sur un même projet et d'éviter les décalages de versions. Dans le cadre de notre projet, nous utiliserons les fonctionnalités basiques de Git. Nous avons mis en place le protocole ci-dessous.
+
+\bigbreak
+
+Notre dépôt est organisé avec les dossiers suivants :
+\begin{itemize}
+    \item src : contient les fichiers python
+    \item doc : fichiers de documentation (cahier des charges, diagrammes UML...)
+    \item donnees : contient des fichiers de données, des fichiers tests et un dossier \texttt{exports} où seront générés tous les exports. 
+\end{itemize}
+
+
+\subsection*{Avant de commencer à coder}
+
+\begin{itemize}
+    \item Dans Visual Studio Code, j'ouvre un terminal Git Bash
+    \item Menu View > Terminal (ou CTRL+ù)
+    \item je clique sur la petite flèche vers le bas à coté du +, puis sur Git Bash
+    \item Normalement je suis placé directement dans le bon dossier et dans la console s'affiche : 
+\end{itemize}
+
+
+\noindent
+\verb"idxxxx yyyyyy /p/projet-info-sources/Projet-info (main)" \\
+\verb"git pull      # permet de mettre à jour le dépôt local avec le dépôt distant"
+
+
+
+
+\subsection*{Je code}
+
+\begin{itemize}
+    \item je crée/modifie/supprime des fichiers python (ou autre)
+    \item je teste que ça fonctionne bien
+    \item une fois que j'ai un morceau de code qui fonctionne, je crée un \textbf{commit} (point de sauvegarde)
+    \item il est très important de faire régulièrement un commit dès que quelque chose fonctionne bien. Cela évitera de perdre beaucoup de temps si ensuite par une action malheureuse, le code ne fonctionnait plus du tout. Dans ce cas, un simple retour arrière au dernier commit et l'on peut repartir sur de bonnes bases
+\end{itemize}
+
+\noindent
+\verb"git add .    # permet d'ajouter tous les nouveaux fichiers créés" \\
+\verb"git status   # pour voir les changements en cours" \\
+\verb"git commit -am «~message explicite~»     # Pour créer un commit" \\
+
+\bigbreak
+
+Si par la suite je fais une erreur, il est facile de revenir en arrière (au dernier commit) :\\
+\verb"git reset --hard" 
+
+\bigbreak
+
+Attention cette commande supprime toutes les modifications effectuées depuis le dernier commit. Par sécurité, je crée une copie du dossier \textbf{Projet-info} avant de lancer la commande.
+
+
+
+\subsection*{Je partage mon travail}
+
+\begin{itemize}
+    \item Si personne n'a poussé du code entre temps, tout va bien, je vais pouvoir faire un \textbf{push}
+    \item Par contre si le dépôt distant a été modifié, je dois synchroniser mon dépôt local avec les mises à jour effectuées sur le dépôt distant par d'autres membres de l'équipe
+    \item Si vous n'avez pas touché aux mêmes fichiers, Git va effectuer la fusion tout seul lors du \textbf{git pull}
+    \item Si vous avez touché au même fichier, ça se complique un peu. Git va dire qu'il n'a pas réussi de fusion automatique (\textit{CONFLICT (content): Merge conflict - Automatic merge failed}). Il faut ouvrir les fichiers en conflit et ceci apparaît : 
+\end{itemize}
+
+
+\noindent
+\verb"<<<<<<< HEAD" \\
+\verb"« Les modifications que j'ai faites »" \\
+\verb"=======" \\
+\verb"« Les modifications faites par un autre membre de l'équipe »" \\
+\verb">>>>>>>" \\
+
+\begin{itemize}
+    \item je modifie le fichier pour choisir quelle modification je garde
+    \item je teste et je vérifie que tout est ok
+    \item je recrée un commit \verb"git commit -am « merge manuel »"
+    \item et enfin, je peux faire \verb"git push"
+\end{itemize}
+
+\noindent
+\verb"git pull           # pour récupérer les éventuelles modifications du dépôt distant" \\
+\verb"git status         # pour voir s'il n'y a pas de conflits" \\
+\verb"git push           # pousser son code vers le dépôt distant" \\
+
+
+
+\subsection*{Commandes Git : ce qu'il faut retenir}
+
+\noindent
+\verb"git status               # Voir ce qui est en cours" \\
+\verb"git pull                 # Copier dépôt distant vers dépôt local" \\
+\verb"git push                 # Copier dépôt local vers dépôt distant" \\
+\verb"git add .                # Avant un commit pour que git identifie les nouveaux fichiers" \\
+\verb"git commit -am « message » # Créer un point de sauvegarde" \\
+\verb"git diff                 # Avant de faire un commit, voir les différences" \\
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%% FIN RAPPORT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
+
