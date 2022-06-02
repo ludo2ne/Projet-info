@@ -1,28 +1,29 @@
 '''
-Module exemple4_etude1
+Module exemple7_agregationspatiale
 Auteurs : Deneuville Ludovic, Trotta Jean-Philippe et Villacampa Laurene
-Date    : 27/05/2022
+Date    : 02/06/2022
 Licence : Domaine public
 Version : 1.0
 '''
+
 import os
 from transformation.supprimena import SupprimeNA
 from table.donneesjson import DonneesJson
 from table.donneescsv import DonneesCsv
 from pipeline.pipeline import Pipeline
-from transformation.filtre import Filtre
+from transformation.selectionvariables import SelectionVariables
+from transformation.agregationspatiale import AgregationSpatiale
 from transformation.jointureinterne import JointureInterne
-from transformation.export import Export
+from transformation.filtre import Filtre
 from lienvar.coefficientcorrelation import CoefficientCorrelation
-
+from lienvar.temporel import Temporel
+from transformation.concatenation import ConcatenationLignes
+from transformation.export import Export
 
 # -------------------------------------------------------------------
 # Jointure entre donnees meteo et electricite
-# Filtre région Hauts de France
-# Suppression des NA
-# Export csv
-# Correlation : temperature - conso_elec
-# Correlation : vitesse_vent - conso_elec
+# Sélections de quelques variables
+# Agregation spatiale
 # -------------------------------------------------------------------
 
 # ---------------------------------
@@ -33,22 +34,6 @@ from lienvar.coefficientcorrelation import CoefficientCorrelation
 donnees_elec = DonneesJson(nom="electricit201301",
                            chemin_complet=os.getcwd() + "/donnees/electricite/2013-01.json.gz",
                            identifiants=["code_insee_region", "date", "heure"])
-
-
-# Renommage de deux variables aux noms un peu trop longs
-donnees_elec.variables[donnees_elec.variables ==
-                       "consommation_brute_electricite_rte"] = "conso_elec"
-donnees_elec.variables[donnees_elec.variables ==
-                       "consommation_brute_gaz_terega"] = "conso_gaz"
-
-donnees_elec.afficher(nb_lignes=15,
-                      nb_colonnes=5)
-
-# Creation et lancement du pipeline
-mon_premier_pipeline = Pipeline(nom="pipo",
-                                liste_operations=[Filtre(variable="region", modalites=["Hauts-de-France"])])
-
-mon_premier_pipeline.lancer(donnees_elec)
 
 
 # ---------------------------------
@@ -66,9 +51,8 @@ donnees_meteo.variables[donnees_meteo.variables ==
                         "t"] = "temperature"
 donnees_meteo.variables[donnees_meteo.variables ==
                         "ff"] = "vitesse_vent"
-
-donnees_meteo.afficher(nb_lignes=10,
-                       nb_colonnes=12)
+donnees_meteo.variables[donnees_meteo.variables ==
+                        "u"] = "humidite"
 
 # ---------------------------------
 # Import table lien
@@ -79,20 +63,32 @@ table_lien = DonneesCsv(nom="Region",
                         identifiants=['ID', 'Region'])
 
 
+
 # Creation et lancement du pipeline
 # relations entre température et electricite (et impact du vent)
 mon_2e_pipeline = Pipeline(nom="pipo2",
                            liste_operations=[JointureInterne(autre_table=table_lien, cle=[("numer_sta", "ID")]),
-                                             Export(),
-                                             Filtre(variable="Region", modalites=[
-                                                    "Hauts-de-France"]),
-                                             JointureInterne(
-                                                 autre_table=donnees_elec, cle=[("Region", "region"), ("date", "date_heure")]),
+                                             Filtre(variable="Region", modalites=["Nouvelle-Aquitaine", "Occitanie", "Bretagne"]),
+
+                                             SelectionVariables(
+                                                 liste_var=['numer_sta', 'date', 'Nom', 'Region', 'temperature', 'humidite']),
+                                             JointureInterne(autre_table=donnees_elec, cle=[
+                                                             ("Region", "region"), ("date", "date_heure")]),
+
+                                             SelectionVariables(liste_var=[
+                                                                'date', 'Region', 'temperature', 'humidite', 'consommation_brute_electricite_rte']),
+
 
                                              SupprimeNA(
-                                                 liste_var=["temperature", "conso_elec", "vitesse_vent"]),
-                                             CoefficientCorrelation(var1="temperature", var2="conso_elec", var3="vitesse_vent",
-                                                                    titre="Consommation électrique en fonction de la température (Hauts-de-France)"),
-                                             CoefficientCorrelation(var1="vitesse_vent", var2="conso_elec", var3="temperature", titre="Consommation électrique en fonction de la vitesse du vent (Hauts-de-France)")])
+                                                 liste_var=['temperature', 'humidite', 'consommation_brute_electricite_rte']),
+                                             AgregationSpatiale('date', 'Region', 'Ouest', liste_var_cum=['consommation_brute_electricite_rte'], liste_var_moy=['temperature', 'humidite']),
+
+                                             Temporel(var1="date", var2="consommation_brute_electricite_rte", var3="temperature", titre="Consommation électrique en fonction du temps (Ouest)")
+
+                                             ])
+
 
 mon_2e_pipeline.lancer(donnees_meteo)
+donnees_meteo.bilan_chargement()
+print(donnees_meteo.variables)
+donnees_meteo.afficher()
