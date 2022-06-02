@@ -18,8 +18,15 @@ from lienvar.anova import Anova
 
 # -------------------------------------------------------------------
 # Jointure entre donnees meteo et electricite
+<<<<<<< HEAD
 # Filtre sur une region pour plus de rapidite
 # Etude de lien avec la région (dont Boxplot)
+=======
+# Filtre sur 3 régions : Bretagne, Occitanie, Grand Est
+# Anova : Boxplot de la consommation électrique par région
+# Anova : Boxplot de la consommation électrique par région
+# Correlation : Consommation électrique en fonction de la température
+>>>>>>> 35e36b02a0a2bf0e5136304805e6f8b87beb2822
 # -------------------------------------------------------------------
 
 # ---------------------------------
@@ -80,6 +87,8 @@ table_lien = DonneesCsv(nom="Region",
 # observation des disparités régionales
 mon_2e_pipeline = Pipeline(nom="pipo2",
                            liste_operations=[JointureInterne(table_lien, [("numer_sta", "ID")]),
+                                             Filtre(variable="Region", modalites=[
+                                                    "Bretagne", "Occitanie", "Grand Est"]),
                                              JointureInterne(
                                                  donnees_elec, [("Region", "region"), ("date", "date_heure")]),
                                              SupprimeNA(
@@ -87,7 +96,7 @@ mon_2e_pipeline = Pipeline(nom="pipo2",
                                              Anova(
                                                  var1="Region", var2="conso_elec", titre="Boxplot de la consommation électrique par région"),
                                              Anova(
-                                                 var1="Region", var2="temperature", titre="Boxplot de la consommation électrique par région"),
+                                                 var1="Region", var2="temperature", titre="Boxplot de la température par région"),
                                              CoefficientCorrelation(var1="temperature", var2="conso_elec", var3="code_insee_region", titre="Consommation électrique en fonction de la température")])
 
 mon_2e_pipeline.lancer(donnees_meteo)

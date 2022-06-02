@@ -19,8 +19,11 @@ from lienvar.coefficientcorrelation import CoefficientCorrelation
 
 # -------------------------------------------------------------------
 # Jointure entre donnees meteo et electricite
-# Filtre sur une region pour plus de rapidite
-# Etude de lien (correlation et reprensentation graphique)
+# Filtre région Hauts de France
+# Suppression des NA
+# Export csv
+# Correlation : temperature - conso_elec et reprensentation graphique
+# Correlation : vitesse_vent - conso_elec
 # -------------------------------------------------------------------
 
 # ---------------------------------
@@ -84,7 +87,6 @@ mon_2e_pipeline = Pipeline(nom="pipo2",
                                              Export(),
                                              Filtre(variable="Region", modalites=[
                                                     "Hauts-de-France"]),
-
                                              JointureInterne(
                                                  autre_table=donnees_elec, cle=[("Region", "region"), ("date", "date_heure")]),
 
