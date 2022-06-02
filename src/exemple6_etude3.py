@@ -18,8 +18,10 @@ from transformation.moyenneglissante import MoyenneGlissante
 
 # -------------------------------------------------------------------
 # Jointure entre donnees meteo et electricite
-# Filtre sur une region pour plus de rapidite
-# Etude de lien
+# Filtre sur la région Hauts de France
+# Température en fonction du temps
+# Conso_elec en fonction du temps
+# Moyenne glissante sur conso_elec puis affichage en fonction du temps
 # -------------------------------------------------------------------
 
 # ---------------------------------
@@ -82,7 +84,6 @@ mon_2e_pipeline = Pipeline(nom="pipo2",
                            liste_operations=[JointureInterne(table_lien, [("numer_sta", "ID")]),
                                              Filtre(variable="Region", modalites=[
                                                     "Hauts-de-France"]),  # appliquer éventuellement un filtre temporel
-                                             Export(),
                                              JointureInterne(
                                                  donnees_elec, [("Region", "region"), ("date", "date_heure")]),
                                              Export(),
