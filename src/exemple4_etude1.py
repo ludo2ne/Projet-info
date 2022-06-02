@@ -16,10 +16,11 @@ from transformation.export import Export
 from lienvar.coefficientcorrelation import CoefficientCorrelation
 
 
+
 # -------------------------------------------------------------------
 # Jointure entre donnees meteo et electricite
 # Filtre sur une region pour plus de rapidite
-# Etude de lien
+# Etude de lien (correlation et reprensentation graphique)
 # -------------------------------------------------------------------
 
 # ---------------------------------

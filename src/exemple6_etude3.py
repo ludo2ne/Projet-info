@@ -19,7 +19,7 @@ from transformation.moyenneglissante import MoyenneGlissante
 # -------------------------------------------------------------------
 # Jointure entre donnees meteo et electricite
 # Filtre sur une region pour plus de rapidite
-# Etude de lien
+# Etude en fonction du temps (date) + courbe de tendance avec moyenne glissante
 # -------------------------------------------------------------------
 
 # ---------------------------------

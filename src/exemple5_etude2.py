@@ -19,7 +19,7 @@ from lienvar.anova import Anova
 # -------------------------------------------------------------------
 # Jointure entre donnees meteo et electricite
 # Filtre sur une region pour plus de rapidite
-# Etude de lien avec la région
+# Etude de lien avec la région (dont Boxplot)
 # -------------------------------------------------------------------
 
 # ---------------------------------

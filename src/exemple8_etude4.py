@@ -19,11 +19,12 @@ from lienvar.coefficientcorrelation import CoefficientCorrelation
 from lienvar.temporel import Temporel
 from transformation.concatenation import ConcatenationLignes
 from transformation.export import Export
+from estimateur.moyenne import Moyenne
 
 # -------------------------------------------------------------------
 # Jointure entre donnees meteo et electricite
 # Sélections de quelques variables
-# Agregation spatiale
+# Agregation spatiale de régions à l'Ouest / + représentation série temporelle
 # -------------------------------------------------------------------
 
 # ---------------------------------
@@ -71,19 +72,21 @@ mon_2e_pipeline = Pipeline(nom="pipo2",
                                              Filtre(variable="Region", modalites=["Nouvelle-Aquitaine", "Occitanie", "Bretagne"]),
 
                                              SelectionVariables(
-                                                 liste_var=['numer_sta', 'date', 'Nom', 'Region', 'temperature', 'humidite']),
+                                                 liste_var=['numer_sta', 'date', 'Nom', 'Region', 'temperature', 'vitesse_vent']),
                                              JointureInterne(autre_table=donnees_elec, cle=[
                                                              ("Region", "region"), ("date", "date_heure")]),
 
                                              SelectionVariables(liste_var=[
-                                                                'date', 'Region', 'temperature', 'humidite', 'consommation_brute_electricite_rte']),
-
+                                                                'date', 'Region', 'temperature', 'vitesse_vent', 'consommation_brute_electricite_rte']),
+                                             Moyenne(),
 
                                              SupprimeNA(
-                                                 liste_var=['temperature', 'humidite', 'consommation_brute_electricite_rte']),
-                                             AgregationSpatiale('date', 'Region', 'Ouest', liste_var_cum=['consommation_brute_electricite_rte'], liste_var_moy=['temperature', 'humidite']),
+                                                 liste_var=['temperature', 'vitesse_vent', 'consommation_brute_electricite_rte']),
+                                             AgregationSpatiale('date', 'Region', 'Ouest', liste_var_cum=['consommation_brute_electricite_rte'], liste_var_moy=['temperature', 'vitesse_vent']),
 
-                                             Temporel(var1="date", var2="consommation_brute_electricite_rte", var3="temperature", titre="Consommation électrique en fonction du temps (Ouest)")
+                                             Temporel(var1="date", var2="consommation_brute_electricite_rte", var3="temperature", titre="Consommation électrique en fonction du temps (Ouest)"),
+
+                                             CoefficientCorrelation(var1="vitesse_vent", var2="consommation_brute_electricite_rte", var3="temperature", titre="Consommation électrique en fonction de la vitesse du vent (Ouest)")
 
                                              ])
 
