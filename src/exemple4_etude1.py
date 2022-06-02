@@ -80,12 +80,13 @@ table_lien = DonneesCsv(nom="Region",
 # relations entre température et electricite (et impact du vent)
 mon_2e_pipeline = Pipeline(nom="pipo2",
                            liste_operations=[JointureInterne(autre_table=table_lien, cle=[("numer_sta", "ID")]),
+                                             Export(),
                                              Filtre(variable="Region", modalites=[
                                                     "Hauts-de-France"]),
-                                             Export(),
+
                                              JointureInterne(
                                                  autre_table=donnees_elec, cle=[("Region", "region"), ("date", "date_heure")]),
-                                             Export(),
+
                                              SupprimeNA(
                                                  liste_var=["temperature", "conso_elec", "vitesse_vent"]),
                                              CoefficientCorrelation(var1="temperature", var2="conso_elec", var3="vitesse_vent",
